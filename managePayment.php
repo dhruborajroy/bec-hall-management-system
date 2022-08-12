@@ -66,9 +66,9 @@
       </div>
       <form method="POST" actsion="requests/submit.php">
          <div class="single-info-details">
-            <!-- <div class="item-img">
+            <div class="item-img">
                <img src="img/figure/teacher.jpg" alt="teacher" height="150px" width="150px">
-               </div> -->
+               </div>
             <div class="item-content">
                <div class="info-table ">
                   <table class="table text-nowrap">
@@ -98,14 +98,6 @@
                         </tr>
                      </thead>
                      <tbody>
-                        <!-- <tr>
-                           <th scope="row"><input type="checkbox"></th>
-                           <td>January - 22</td>
-                           <td>2230</td>
-                            <td>
-                                <button type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-dark-pastel-green">Paid</button>
-                            </td>
-                        </tr> -->
                         <tr>
                            <th scope="row"><input type="checkbox" value="1"  id="checkbox_1" name="amount" onchange="get_total(this.value)"></th>
                            <td>February - 22</td>
@@ -119,7 +111,8 @@
                             </td>
                         </tr>
                         <tr>
-                           <th scope="row"><input type="checkbox" value="2"  id="checkbox_2" name="amount" onchange="get_total(this.value)"></th>
+                           <th scope="row"> 
+                           <input type="checkbox" value="2"  id="checkbox_2" name="amount" onchange="get_total(this.value)"></th>
                            <td>February - 22</td>
                            <td >
                            <input type="hidden" value="2230" class="amount" id="amount_2"> 

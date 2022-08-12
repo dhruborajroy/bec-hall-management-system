@@ -152,29 +152,54 @@
                         </div>
                     </li>
                     <li class="navbar-item dropdown header-notification">
-                        <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                            aria-expanded="false">
+                        <?php 
+                            // $sql="select notice.*,count(notice.id) as time from notice,users where notice.status='1' and notice.added_on  BETWEEN users.last_notification AND '".time()."'";
+                            // $sql="select count(id) from notice where notice.added_on=";
+                            $sql="select count(id) as number from notice where added_on between ".$_SESSION['LAST_NOTIFICATION']." AND '".time()."'";
+                            $res=mysqli_query($con,$sql);
+                            $counter=mysqli_fetch_assoc($res);
+                            ?>
+
+                        <a class="navbar-nav-link dropdown-toggle" onclick="read_notification('<?php echo time()?>')"
+                            role="button" data-toggle="dropdown" aria-expanded="false">
                             <i class="far fa-bell"></i>
                             <div class="item-title d-md-none text-16 mg-l-10">Notification</div>
-                            <span>8</span>
+                            <?php 
+                                $number=$counter['number'];
+                            if($number!=0){?>
+                            <span id="counter">
+                                <?php echo $number;?>
+                            </span><?php } ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="item-header">
-                                <h6 class="item-title">03 Notifiacations</h6>
+                                <h6 class="item-title"><?php echo $number?> unread Notifiacations</h6>
                             </div>
-
+                            <?php 
+                            $sql="select * from notice where status=1 order by added_on desc limit 5";
+                            $res=mysqli_query($con,$sql);
+                            if(mysqli_num_rows($res)>0){
+                            $i=1;
+                            while($row=mysqli_fetch_assoc($res)){
+                            ?>
                             <div class="item-content">
                                 <div class="media">
                                     <div class="item-icon bg-violet-blue">
                                         <i class="fas fa-cogs"></i>
                                     </div>
                                     <div class="media-body space-sm">
-                                        <div class="post-title">Update Password</div>
-                                        <span>45 Mins ago</span>
+                                        <div class="post-title"><?php echo $row['title']?></div>
+                                        <span><?php echo get_time_ago(intval($row['added_on']));?></span>
                                     </div>
                                 </div>
                             </div>
-
+                            <?php 
+                           $i++;
+                           } } else { ?>
+                            <tr>
+                                <td colspan="5">No data found</td>
+                            </tr>
+                            <?php } ?>
                         </div>
                     </li>
                     <li class="navbar-item dropdown header-language">
