@@ -239,6 +239,22 @@
                                 </li>
                             </ul>
                         </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Expenses</span></a>
+                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
+                                <li class="nav-item">
+                                    <a href="expense.php"
+                                        class="nav-link <?php // echo  $application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>All
+                                        Expenses</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="manageExpense.php"
+                                        class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>Add new Expenses</a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="nav-item">
                             <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i
                                     class="flaticon-dashboard"></i><span>Manage Payment</span></a>

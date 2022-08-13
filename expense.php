@@ -11,12 +11,12 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		if($type=='deactive'){
 			$status=0;
 		}
-		mysqli_query($con,"update depts set status='$status' where id='$id'");
-        redirect('./depts.php');
+		mysqli_query($con,"update expense set status='$status' where id='$id'");
+        redirect('./expense.php');
 	}
 
 }
-$sql="select * from depts order by id desc";
+$sql="select * from expense order by id desc";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
@@ -52,8 +52,9 @@ $res=mysqli_query($con,$sql);
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Depertment Name</th>
-                            <th>Short From</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Purchaser</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -64,8 +65,9 @@ $res=mysqli_query($con,$sql);
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['short_form']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo date('d-M-Y',mktime(strtotime($row['date'])))?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['purchaser']?></td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -75,7 +77,7 @@ $res=mysqli_query($con,$sql);
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-times text-orange-red"></i>Close</a> -->
                                         <a class="dropdown-item"
-                                            href="manageDepts.php?id=<?php echo $row['id']?>"><i
+                                            href="manageExpense.php?id=<?php echo $row['id']?>"><i
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->

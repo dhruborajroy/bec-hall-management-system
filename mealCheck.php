@@ -18,20 +18,21 @@
        if(mysqli_num_rows($meal_res)>0){
            for($i=0;$i<=count($_POST['roll'])-1;$i++){
                for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
-                   $meal_value= $_POST['meal_value'];
-                   $roll= $_POST['roll'];
-                   echo $swl="UPDATE `meal_table` SET `meal_value` = '$meal_value[$i]' WHERE `meal_table`.`roll` = '$roll[$i]' and date_id='$date' and month_id='$month' and year='$year'  ";
-                   mysqli_query($con,$swl);
+                  $meal_value= get_safe_value($_POST['meal_value'][$i]);
+                  $roll= get_safe_value($_POST['roll'][$i]);
+                  $swl="UPDATE `meal_table` SET `meal_value` = '$meal_value' WHERE `meal_table`.`roll` = '$roll' and date_id='$date' and month_id='$month' and year='$year'";
+                  mysqli_query($con,$swl);
                }
            }
        }else{
            for($i=0;$i<=count($_POST['roll'])-1;$i++){
                for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
-                   $meal_value= $_POST['meal_value'];
-                   $roll= $_POST['roll'];
-                   $swl="INSERT INTO `meal_table` ( `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
-                                                   ( '$roll[$i]', '$meal_value[$i]', '$date', '$month','$year','$time','$time', '1')";
-                   mysqli_query($con,$swl);
+                  $meal_value= get_safe_value($_POST['meal_value'][$i]);
+                  $roll= get_safe_value($_POST['roll'][$i]);
+                  $roll= $_POST['roll'];
+                  $swl="INSERT INTO `meal_table` ( `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
+                                                ( '$roll', '$meal_value', '$date', '$month','$year','$time','$time', '1')";
+                  mysqli_query($con,$swl);
                }
            }
        }
