@@ -99,7 +99,9 @@
                      </thead>
                      <tbody>
                         <tr>
-                           <th scope="row"><input type="checkbox" value="1"  id="checkbox_1" name="amount" onchange="get_total(this.value)"></th>
+                            <td>
+                                <input type="checkbox" value="1"  id="checkbox_1" name="amount" onchange="get_total(this.value)">
+                            </td>
                            <td>February - 22</td>
                            <td >
                            <input type="hidden" value="2230" class="amount" id="amount_1"> 
@@ -123,6 +125,29 @@
                                 <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
                             </td>
                         </tr>
+                  <hr>
+                  <table class="table table-hover" style="width: 100%;">
+                     <thead class="thead-dark">
+                        <tr>
+                           <th scope="col">#</th>
+                           <th scope="col">Month</th>
+                           <th scope="col">Due</th>
+                           <th scope="col">Status</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row"><input type="checkbox" value="1"  id="other_checkbox_1" name="amount" onchange="other_fees_total(this.value)"></th>
+                           <td>February - 22</td>
+                           <td >
+                           <input type="hidden" value="2230" class="amount" id="other_amount_1"> 
+                           2230
+                           </td>
+                           
+                            <td>
+                                <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                            </td>
+                        </tr>
                      </tbody>
                   </table>
                   <hr>
@@ -131,7 +156,7 @@
                      </div>
                      <div class="col-xl-4 col-lg-4 col-4 form-group">
                         <label>Total amount</label>
-                        <input id="grant_total" value="0" class="form-control" readonly name="total_amount">
+                        <input id="grant_total" style="background-color: #64ed4b;text-align:center;font-size:20px;" value="0" class="form-control" readonly name="total_amount">
                      </div>
                   </div>
                   <hr>
@@ -170,6 +195,20 @@ function get_total(id) {
 	}
     console.log(total);
     var grant_total=total;
-	document.getElementById("grant_total").value = grant_total;
+    document.getElementById("grant_total").value = grant_total;
+}
+function other_fees_total(id){
+    var monthly_total=parseInt(document.getElementById("grant_total").value);
+    if(document.getElementById("other_checkbox_"+id).checked==true){
+        jQuery('#other_amount_'+id).addClass('active_amount');
+    }else if(document.getElementById("other_checkbox_"+id).checked==false){
+        jQuery('#other_amount_'+id).removeClass('active_amount');
+    }
+    var total = 0;
+    var amount = document.getElementsByClassName("active_amount");
+    for (let i = 0; i < amount.length; i++) {
+        var total = total + parseInt(amount[i].value);
+    }
+    document.getElementById("grant_total").value = parseInt(total)+parseInt(monthly_total);
 }
 </script>

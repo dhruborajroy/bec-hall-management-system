@@ -110,17 +110,20 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                                     <tr>
                                         <td class="text-left"><?php echo $row['name']?></td>
                                         <?php
+                                        $total_meal=0;
                                         for ($i=1; $i <= $last_date; $i++) { 
                                             $meal_sql="select * from `meal_table` where date_id='$i' and month_id='$month' and year='$year' and `meal_table`.roll=".$row['roll'];
                                             $meal_res=mysqli_query($con,$meal_sql);
                                             if(mysqli_num_rows($meal_res)>0){
                                                 $meal_row=mysqli_fetch_assoc($meal_res);?>
-                                                <td class="text-left"><?php echo $meal_row['meal_value'].'</td>';
-                                            }else{?>
-                                                <td class="text-left">-</td>
-                                            <?php
+                                                <td class="text-left"><?php 
+                                                    echo $meal_value=$meal_row['meal_value'].'</td>';
+                                            }else{
+                                                echo '<td class="text-left">-</td>';
                                             }
-                                        }?>  
+                                        }
+                                        // echo '<td class="text-left">'.$total_meal=$total_meal+intval($meal_value).'</td>';
+                                        ?>
                                     </tr>
                                     <?php 
                                         $i++;
