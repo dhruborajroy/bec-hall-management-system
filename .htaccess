@@ -1,0 +1,25 @@
+ErrorDocument 404 /library-management-system-main/errors/404.php
+ErrorDocument 403 /library-management-system-main/errors/403.php
+ErrorDocument 500 /library-management-system-main/errors/500.php
+# enable mod_rewrite
+RewriteEngine On
+
+# RewriteCond = define rule condition
+# HTTP_REFERER = check from where the request originated
+# ! = exclude
+# ^ = start of string
+# [NC] = case insensitive search
+RewriteCond %{HTTP_REFERER} !^http://localhost/library-management-system-main~~ [NC]
+
+#Executing without php
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [NC,L]
+# \ = match any
+# . = any character
+# () = pattern, group
+# $ = end of string
+
+# [F] = forbidden, 403
+# [L] = stop processing further rules
+RewriteRule \.(gif|jpg|jpeg|png|mp4|mov|mkv|flv)$ - [F,L]
