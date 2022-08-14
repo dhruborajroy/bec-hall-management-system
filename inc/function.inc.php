@@ -33,7 +33,7 @@ function send_email($email,$html,$subject){
 	$mail->SMTPSecure="tls";
 	$mail->SMTPAuth=true;
 	$mail->Username="hackerdhrubo99@gmail.com";
-	$mail->Password="Dhrubo123Dhrubo";
+	$mail->Password="ndajzzubicqfbcih";
     $mail->setFrom('hackerdhrubo99@gmail.com', 'Dhrubo');
 	$mail->addAddress($email);
 	$mail->IsHTML(true);
@@ -155,6 +155,19 @@ function getTotalMeal(){
 	  return $row['total_meal'];
 	}
 }
+
+function send_email_using_tamplate($name,$otp){
+	$tamplate= "./email.php";
+	$file_content=file_get_contents($tamplate);
+	$array=array(
+		"{YOUR_NAME}"=>$name,
+		"{OTP_NUMBER}"=>$otp,
+	);
+	$keys = array_keys($array);
+	$values = array_values($array);
+	return str_replace($keys, $values, $file_content);
+}
+
 function getBetweenDates($startDate, $endDate){
 	$rangArray = [];
 	$startDate = strtotime($startDate);
@@ -187,5 +200,17 @@ function get_time_ago($time){
             return 'about ' . $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
         }
     }
+}
+
+function csrf(){
+	$csrf_token=md5(uniqid(rand()));
+	$_SESSION['csrf_token']=$csrf_token;
+	return $_SESSION['csrf_token'];
+}
+function form_csrf(){
+	$csrf_token=csrf();
+	$html='<input type="hidden" name="csrf_token" id="csrf_token"
+	value="'.$csrf_token.'">';
+	return $html;
 }
 ?>

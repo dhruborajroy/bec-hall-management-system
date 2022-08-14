@@ -42,11 +42,12 @@
 <!-- Custom Js -->
 <script src="js/toastr.min.js"></script>
 <!-- sweet alert JS -->
-<script src="../assets/js/sweetalert.min.js"></script>
+<script src="./js/sweetalert.min.js"></script>
+<!-- Ck editor -->
+<script src="./js/ckeditor.js"></script>
 <!-- Custom Js -->
 <script src="js/main.js"></script>
 <script src="js/custom.php"></script>
-
 
 </body>
 

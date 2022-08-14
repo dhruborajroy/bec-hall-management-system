@@ -88,7 +88,7 @@ if(isset($_POST['submit']) && isset($_POST['csrf_token']) ){
                             <div class="col-12-xxxl col-lg-12 col-12 form-group">
                                 <label>Details</label>
                                 <textarea type="text" placeholder="" class="form-control" name="details"
-                                    id="details"><?php echo $details?></textarea>
+                                    id="editor"><?php echo $details?></textarea>
                             </div>
                             <div class="col-12 form-group mg-t-8">
                                 <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark"
