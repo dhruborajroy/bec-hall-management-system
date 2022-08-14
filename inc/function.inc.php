@@ -193,9 +193,13 @@ function getTotalExpense($month_id){
 	  return $row['total_expense'];
 	}
 }
-function getTotalMeal($month_id){
+function getTotalMeal($month_id,$roll=""){
 	global $con;
-	$sql="SELECT SUM(meal_value) as total_meal FROM meal_table WHERE month_id='$month_id'";
+	$additional_sql="";
+	if($roll!=""){
+		$additional_sql=" and roll='$roll'";
+	}
+	$sql="SELECT SUM(meal_value) as total_meal FROM meal_table WHERE month_id='$month_id' $additional_sql";
 	$res=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_assoc($res)){
 	  return $row['total_meal'];

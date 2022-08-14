@@ -40,16 +40,16 @@ $res=mysqli_query($con,$sql);
                     <h3>All Fees Data</h3>
                 </div>
                 <div class="dropdown show">
-                    <a class="dropdown-toggle" href="../pdf/list.php" aria-expanded="true">Generate PDF</a>
+                    <a class="dropdown-toggle" href="generateMonthlyBill.php" aria-expanded="true">Generate Monthly Bill</a>
                 </div>
-                <div class="dropdown">
+                <!-- <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">...</a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                         <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
                     </div>
-                </div>
+                </div> -->
             </div>
             <form class="mg-b-20">
                 <div class="row gutters-8">
