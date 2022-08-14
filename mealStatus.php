@@ -50,9 +50,9 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                                         $res=mysqli_query($con,"SELECT * FROM `month` where status='1'");
                                         while($row=mysqli_fetch_assoc($res)){
                                             if($row['id']==$month){
-                                                echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
+                                                echo "<option selected='selected' value=".$row['value'].">".$row['name']."</option>";
                                             }else{
-                                                echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                                echo "<option value=".$row['value'].">".$row['name']."</option>";
                                             }                                                        
                                         }
                                         ?>
@@ -75,7 +75,6 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
             </div>
         </div>
         <!-- Student Attendence Search Area End Here -->
-
         <!-- Student Attendence Area Start Here -->
         <?php if($month!="" && $year!=""){?>
             <div class="col-12 <?php echo $display_none?>">
@@ -94,9 +93,9 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                                         <?php 
                                         $last_date=cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
                                         for ($i=1; $i <= $last_date; $i++) { ?>
-                                        <th><?php echo $i?></th>
-                                        <?php
-                                        }?>
+                                            <th><?php echo $i?></th>
+                                        <?php }?>
+                                        <th>Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,18 +110,21 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                                         <td class="text-left"><?php echo $row['name']?></td>
                                         <?php
                                         $total_meal=0;
-                                        for ($i=1; $i <= $last_date; $i++) { 
+                                        for ($i=01; $i <= $last_date; $i++) {
                                             $meal_sql="select * from `meal_table` where date_id='$i' and month_id='$month' and year='$year' and `meal_table`.roll=".$row['roll'];
                                             $meal_res=mysqli_query($con,$meal_sql);
                                             if(mysqli_num_rows($meal_res)>0){
                                                 $meal_row=mysqli_fetch_assoc($meal_res);?>
                                                 <td class="text-left"><?php 
                                                     echo $meal_value=$meal_row['meal_value'].'</td>';
+                                                    $total_meal=intval($total_meal)+intval($meal_value);
                                             }else{
                                                 echo '<td class="text-left">-</td>';
                                             }
+                                            if($i==$last_date){
+                                                echo '<td class="text-left">'.$total_meal.'</td>';
+                                            }
                                         }
-                                        // echo '<td class="text-left">'.$total_meal=$total_meal+intval($meal_value).'</td>';
                                         ?>
                                     </tr>
                                     <?php 

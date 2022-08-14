@@ -139,7 +139,22 @@ function gettotalstudent(){
 	  return $row['student'];
 	}
 }
-
+function getTotalExpense(){
+	global $con;
+	$sql="SELECT SUM(amount) as total_expense FROM expense WHERE month='".date("m",time())."'";
+	$res=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_assoc($res)){
+	  return $row['total_expense'];
+	}
+}
+function getTotalMeal(){
+	global $con;
+	$sql="SELECT SUM(meal_value) as total_meal FROM meal_table WHERE month_id='".date("m",time())."'";
+	$res=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_assoc($res)){
+	  return $row['total_meal'];
+	}
+}
 function getBetweenDates($startDate, $endDate){
 	$rangArray = [];
 	$startDate = strtotime($startDate);

@@ -58,7 +58,7 @@
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Expense</div>
-                            <div class="item-number"><span class="counter" data-num="30000">30000</span></div>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $getTotalExpense=getTotalExpense()?>"><?php echo $getTotalExpense?></span></div>
                         </div>
                     </div>
                 </div>
@@ -74,9 +74,9 @@
                     </div>
                     <div class="col-6">
                         <div class="item-content">
-                            <div class="item-title">Earnings</div>
-                            <div class="item-number"><span>$</span><span class="counter"
-                                    data-num="193000">1,93,000</span></div>
+                            <div class="item-title">Total Meal</div>
+                            <div class="item-number"><span class="counter"
+                                    data-num="<?php echo $getTotalMeal=getTotalMeal()?>"><?php echo $getTotalMeal?><span></span></span></div>
                         </div>
                     </div>
                 </div>
@@ -146,39 +146,66 @@
                             </div>
                         </div>
                     </div>
+                    <!-- <div class="notice-box-wrap">
+                        <div class="notice-list">
+                            <div class="post-date bg-skyblue">16 June, 2019</div>
+                            <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
+                                    printing.</a></h6>
+                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                        </div>
+                        <div class="notice-list">
+                            <div class="post-date bg-yellow">16 June, 2019</div>
+                            <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
+                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                        </div>
+                        <div class="notice-list">
+                            <div class="post-date bg-pink">16 June, 2019</div>
+                            <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
+                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                        </div>
+                        <div class="notice-list">
+                            <div class="post-date bg-skyblue">16 June, 2019</div>
+                            <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
+                                    printing.</a></h6>
+                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                        </div>
+                        <div class="notice-list">
+                            <div class="post-date bg-yellow">16 June, 2019</div>
+                            <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
+                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                        </div>
+                        <div class="notice-list">
+                            <div class="post-date bg-pink">16 June, 2019</div>
+                            <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
+                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                        </div>
+                    </div> -->
                     <div class="notice-box-wrap">
+                        <?php 
+                        $sql="select * from notice where status='1'";
+                        $res=mysqli_query($con,$sql);
+                        if(mysqli_num_rows($res)>0){
+                        $i=1;
+                        while($row=mysqli_fetch_assoc($res)){
+                        ?>
                         <div class="notice-list">
-                            <div class="post-date bg-skyblue">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
-                                    printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
+                            <div class="post-date bg-orange text-color-black">
+                                <?php echo date('d-M-Y h:i A',$row['added_on']);
+                                // echo time()?>
+                            </div>
+                            <div class="post-date bg-skyblue text-color-black">
+                                <?php echo get_time_ago(intval($row['added_on']));?>
+                            </div>
+                            <h6 class="notice-title"><a href="#"><?php echo $row['title']?></a></h6>
+                            <div class="entry-meta"><?php echo $row['details']?></div>
                         </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-yellow">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-pink">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-skyblue">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
-                                    printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-yellow">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-pink">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
+                        <?php 
+                           $i++;
+                           } } else { ?>
+                        <tr>
+                            <td colspan="5">No data found</td>
+                        </tr>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

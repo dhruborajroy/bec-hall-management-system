@@ -45,7 +45,7 @@
 <script src="../assets/js/sweetalert.min.js"></script>
 <!-- Custom Js -->
 <script src="js/main.js"></script>
-<script src="js/custom.js"></script>
+<script src="js/custom.php"></script>
 
 
 </body>

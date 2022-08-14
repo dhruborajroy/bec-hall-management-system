@@ -66,8 +66,8 @@ $res=mysqli_query($con,$sql);
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo date('d-M-Y',mktime(strtotime($row['date'])))?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['purchaser']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo date('d-M-Y',$row['date'])?></td>
+                            <td class="sorting_1 dtr-control"><?php //echo $row['purchaser']?></td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

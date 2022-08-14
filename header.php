@@ -155,7 +155,12 @@
                         <?php 
                             // $sql="select notice.*,count(notice.id) as time from notice,users where notice.status='1' and notice.added_on  BETWEEN users.last_notification AND '".time()."'";
                             // $sql="select count(id) from notice where notice.added_on=";
-                            $sql="select count(id) as number from notice where added_on between ".$_SESSION['LAST_NOTIFICATION']." AND '".time()."'";
+                            if(isset($_SESSION['LAST_NOTIFICATION'])){
+                                $session=$_SESSION['LAST_NOTIFICATION'];
+                            }else{
+                                $session=time();
+                            }
+                            $sql="select count(id) as number from notice where added_on between ".$session." AND '".time()."'";
                             $res=mysqli_query($con,$sql);
                             $counter=mysqli_fetch_assoc($res);
                             ?>

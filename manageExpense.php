@@ -3,6 +3,7 @@ $id="";
 $amount="";
 $status=1;
 $purchaser="";
+$time="";
 $date="";
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
@@ -10,31 +11,41 @@ if(isset($_GET['id']) && $_GET['id']>0){
     if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
         $date=$row['date'];
-        $purchaser=$row['purchaser'];
         $amount=$row['amount'];
     }else{
         redirect("index.php");
     }
 }
 if(isset($_POST['submit'])){
-    pr($_POST);
-    $date=mktime(strtotime($_POST['date']));
-	// $purchaser=get_safe_value($_POST['purchaser']);
+    // pr($_POST);
+    $date_time=get_safe_value($_POST['date']);
+    $date_time=date_create_from_format("d/m/Y",$date_time);
+    $date_id=date_format($date_time,"d");
+    $month=date_format($date_time,"m");
+    $year=date_format($date_time,"Y");
 	$amount=get_safe_value($_POST['amount']);
     $time=time();
-    for($i=0;$i<=count($_POST['purchaser'])-1;$i++){
-	    $purchaser=get_safe_value($_POST['purchaser'][$i]);
-        if($id==''){
-            $sql="INSERT INTO `expense` (`date`, `purchaser`, `amount`,`added_on`,`updated_on`,`status`) VALUES ( '$date', '$purchaser','$amount','$time','', 1)";
-            //mysqli_query($con,$sql);
-            $_SESSION['INSERT']=1;
-        }else{
-            $sql="update `expense` set `date`='$date', `amount`='$amount', `purchaser`='$purchaser', `updated_on`='$time' where id='$id'";
-            //mysqli_query($con,$sql);    
-            $_SESSION['UPDATE']=1;
+    if($id==''){
+        $sql="INSERT INTO `expense` (`date`,`date_id`,`month`,`year`, `amount`,`added_on`,`updated_on`,`status`) VALUES ( '$time','$date_id','$month','$year', '$amount','$time','', 1)";
+        mysqli_query($con,$sql);
+        $_SESSION['INSERT']=1;
+        $insert_id=mysqli_insert_id($con);
+        for($i=0;$i<=count($_POST['purchaser'])-1;$i++){
+            $purchaser=get_safe_value($_POST['purchaser'][$i]);
+            $sql="INSERT INTO `purchaser` ( `expense_id`, `user_id`, `status`) VALUES ( '$insert_id', '$purchaser', '1')";
+            mysqli_query($con,$sql);
+        }
+    }else{
+        $sql="update `expense` set `date`='$time', `amount`='$amount',`updated_on`='$time' where id='$id'";
+        mysqli_query($con,$sql);    
+        $_SESSION['UPDATE']=1;
+        for($i=0;$i<=count($_POST['purchaser'])-1;$i++){
+            $purchaser=get_safe_value($_POST['purchaser'][$i]);
+            $sql="update `purchaser` set `user_id`='$purchaser' where expense_id='$id'";
+            mysqli_query($con,$sql);
         }
     }
-    echo $sql;
+    // echo $sql;
     // redirect('./expense.php');
 }
 ?>
@@ -64,13 +75,17 @@ if(isset($_POST['submit'])){
                         <select class="form-control select2"  multiple="multiple" name="purchaser[]">
                             <option>Select Purchaser</option>
                             <?php
-                            $res=mysqli_query($con,"SELECT * FROM `users` where status='1'");
+                            // $except_id="";
+                            // $res=mysqli_query($con,"SELECT users.id as uid, users.name,users.roll, expense.*, purchaser.*  from users, expense,purchaser WHERE expense.id=purchaser.expense_id AND purchaser.user_id=users.id and expense.id='$id'");
+                            // while($row=mysqli_fetch_assoc($res)){
+                            //         $except_id=$row['uid'];
+                            //         echo "<option selected='selected' value=".$row['id'].">".$row['name']." (".$row['roll'].")</option>";                                                       
+                            // }
+                            ?>
+                            <?php
+                            $res=mysqli_query($con,"SELECT users.*  from users"); //where id not in ($except_id)");
                             while($row=mysqli_fetch_assoc($res)){
-                                if($row['id']==$purchaser){
-                                    echo "<option selected='selected' value=".$row['id'].">".$row['name']." (".$row['roll'].")</option>";
-                                }else{
-                                    echo "<option value=".$row['id'].">".$row['name']." (".$row['roll'].")</option>";
-                                }                                                        
+                                echo "<option  value=".$row['id'].">".$row['name']." (".$row['roll'].")</option>";                                                        
                             }
                             ?>
                         </select>
