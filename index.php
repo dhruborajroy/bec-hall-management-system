@@ -34,23 +34,6 @@
             <div class="dashboard-summery-one mg-b-20">
                 <div class="row align-items-center">
                     <div class="col-6">
-                        <div class="item-icon bg-light-blue">
-                            <i class="flaticon-multiple-users-silhouette text-blue"></i>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="item-content">
-                            <div class="item-title">Stuff</div>
-                            <div class="item-number"><span class="counter" data-num="15">15</span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 col-12">
-            <div class="dashboard-summery-one mg-b-20">
-                <div class="row align-items-center">
-                    <div class="col-6">
                         <div class="item-icon bg-light-yellow">
                             <i class="flaticon-couple text-orange"></i>
                         </div>
@@ -77,6 +60,23 @@
                             <div class="item-title">Total Meal</div>
                             <div class="item-number"><span class="counter"
                                     data-num="<?php echo $getTotalMeal=getTotalMeal()?>"><?php echo $getTotalMeal?><span></span></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 col-12">
+            <div class="dashboard-summery-one mg-b-20">
+                <div class="row align-items-center">
+                    <div class="col-6">
+                        <div class="item-icon bg-light-blue">
+                            <i class="flaticon-multiple-users-silhouette text-blue"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="item-content">
+                            <div class="item-title">Meal Rate</div>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $meal_rate=($getTotalExpense/$getTotalMeal);?>"><?php echo $meal_rate?></span></div>
                         </div>
                     </div>
                 </div>
@@ -190,8 +190,7 @@
                         ?>
                         <div class="notice-list">
                             <div class="post-date bg-orange text-color-black">
-                                <?php echo date('d-M-Y h:i A',$row['added_on']);
-                                // echo time()?>
+                                <?php echo date('d-M-Y h:i A',$row['added_on']);?>
                             </div>
                             <div class="post-date bg-skyblue text-color-black">
                                 <?php echo get_time_ago(intval($row['added_on']));?>

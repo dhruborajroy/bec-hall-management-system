@@ -66,7 +66,7 @@ include('../inc/connection.inc.php')
             autoSkip: false,
             fontColor: "#646464",
             fontSize: 14,
-            stepSize: 250,
+            stepSize: 1000,
             padding: 20,
             beginAtZero: true,
             callback: function (value) {

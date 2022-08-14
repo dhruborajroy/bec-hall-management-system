@@ -16,18 +16,13 @@ if(isset($_GET['id']) && $_GET['id']>0){
         redirect("index.php");
     }
 }
-if(isset($_POST['submit']) && isset($_POST['csrf_token']) ){
-    if($_POST['csrf_token']!=$_SESSION['csrf_token']){
-        // die("You don't have permission to access that location");
-    }
-    // pr($_POST);
+if(isset($_POST['submit'])){
 	$title=get_safe_value($_POST['title']);
 	$details=$_POST['details'];
     $user_id=$_SESSION['ADMIN_ID'];
     $added_on=time();
    if($id==''){
         $id=uniqid();
-        
         $sql="INSERT INTO `notice` (`id`, `title`, `details`, `added_on`,`updated_on`, `user_id`, `status`) VALUES 
                                     ('$id', '$title', '$details', '$added_on', '','$user_id', '1')";
         mysqli_query($con,$sql);
@@ -77,17 +72,17 @@ if(isset($_POST['submit']) && isset($_POST['csrf_token']) ){
                             </div>
                         </div>
                     </div>
-                    <form class="new-added-form validate" id="validate" method="post">
-                        <?php echo form_csrf()?>
+                    <form class="new-added-form"  method="post">
+                        <?php //echo form_csrf()?>
                         <div class="row">
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
                                 <label>Title</label>
-                                <input type="text" placeholder="" class="form-control" name="title"
+                                <input type="text" required placeholder="" class="form-control" name="title"
                                     value="<?php echo $title?>">
                             </div>
                             <div class="col-12-xxxl col-lg-12 col-12 form-group">
                                 <label>Details</label>
-                                <textarea type="text" placeholder="" class="form-control" name="details"
+                                <textarea type="text" required placeholder="" class="form-control" name="details"
                                     id="editor"><?php echo $details?></textarea>
                             </div>
                             <div class="col-12 form-group mg-t-8">
