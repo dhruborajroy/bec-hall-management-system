@@ -292,10 +292,10 @@
                             <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
                                     class="flaticon-dashboard"></i><span>Meal On Off Requests</span></a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a href="contigency.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Contegency</span></a>
-                        </li>
                         <li class="nav-item">
+                            <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Monthly Payment</span></a>
+                        </li>
+                        <!-- <li class="nav-item">
                             <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
                         </li> -->
                         <li class="nav-item sidebar-nav-item">
