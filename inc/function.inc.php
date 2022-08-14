@@ -139,23 +139,6 @@ function gettotalstudent(){
 	  return $row['student'];
 	}
 }
-function getTotalExpense(){
-	global $con;
-	$sql="SELECT SUM(amount) as total_expense FROM expense WHERE month='".date("m",time())."'";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['total_expense'];
-	}
-}
-function getTotalMeal(){
-	global $con;
-	$sql="SELECT SUM(meal_value) as total_meal FROM meal_table WHERE month_id='".date("m",time())."'";
-	$res=mysqli_query($con,$sql);
-	while($row=mysqli_fetch_assoc($res)){
-	  return $row['total_meal'];
-	}
-}
-
 function send_email_using_tamplate($name,$otp){
 	$tamplate= "./email.php";
 	$file_content=file_get_contents($tamplate);
@@ -200,6 +183,27 @@ function get_time_ago($time){
             return 'about ' . $t . ' ' . $str . ( $t > 1 ? 's' : '' ) . ' ago';
         }
     }
+}
+
+function getTotalExpense($month_id){
+	global $con;
+	$sql="SELECT SUM(amount) as total_expense FROM expense WHERE month='$month_id'";
+	$res=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_assoc($res)){
+	  return $row['total_expense'];
+	}
+}
+function getTotalMeal($month_id){
+	global $con;
+	$sql="SELECT SUM(meal_value) as total_meal FROM meal_table WHERE month_id='$month_id'";
+	$res=mysqli_query($con,$sql);
+	while($row=mysqli_fetch_assoc($res)){
+	  return $row['total_meal'];
+	}
+}
+
+function getMealRate($month_id){
+	return floatval(getTotalExpense($month_id)/getTotalMeal($month_id));
 }
 
 function csrf(){

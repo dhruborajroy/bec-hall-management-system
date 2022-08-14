@@ -18,7 +18,8 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <div class="item-icon bg-light-green ">
-                            <i class="flaticon-classmates text-green"></i>
+                            <!-- <i class="flaticon-classmates text-green"></i> -->
+                            <img src="https://cdn-icons-png.flaticon.com/512/2784/2784461.png" alt="" srcset="">
                         </div>
                     </div>
                     <div class="col-6">
@@ -35,13 +36,15 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <div class="item-icon bg-light-yellow">
-                            <i class="flaticon-couple text-orange"></i>
+                            <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/6172/6172509.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/6172/6172509.mp4" type="video/mp4">
+    </video>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Expense</div>
-                            <div class="item-number"><span class="counter" data-num="<?php echo $getTotalExpense=getTotalExpense()?>"><?php echo $getTotalExpense?></span></div>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $getTotalExpense=getTotalExpense(date("m",time()));?>"><?php echo $getTotalExpense?></span></div>
                         </div>
                     </div>
                 </div>
@@ -52,14 +55,16 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <div class="item-icon bg-light-red">
-                            <i class="flaticon-money text-red"></i>
+                        <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/6569/6569129.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/6569/6569129.mp4" type="video/mp4">
+    </video>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Total Meal</div>
                             <div class="item-number"><span class="counter"
-                                    data-num="<?php echo $getTotalMeal=getTotalMeal()?>"><?php echo $getTotalMeal?><span></span></span></div>
+                                    data-num="<?php echo $getTotalMeal=getTotalMeal(date("m",time()))?>"><?php echo $getTotalMeal?><span></span></span></div>
                         </div>
                     </div>
                 </div>
@@ -70,13 +75,19 @@
                 <div class="row align-items-center">
                     <div class="col-6">
                         <div class="item-icon bg-light-blue">
-                            <i class="flaticon-multiple-users-silhouette text-blue"></i>
+                            <!-- <img src="https://cdn-icons-png.flaticon.com/512/7532/7532806.png" alt=""> -->
+                            <!-- <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/7994/7994401.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/7994/7994401.mp4" type="video/mp4">
+    </video> -->
+    <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/8112/8112939.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/8112/8112939.mp4" type="video/mp4">
+    </video>
                         </div>
                     </div>
                     <div class="col-6">
                         <div class="item-content">
-                            <div class="item-title">Meal Rate</div>
-                            <div class="item-number"><span class="counter" data-num="<?php echo $meal_rate=($getTotalExpense/$getTotalMeal);?>"><?php echo $meal_rate?></span></div>
+                            <div class="item-title">Current Meal Rate</div>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $meal_rate=getMealRate(date("m",time()));?>"><?php echo $meal_rate?></span></div>
                         </div>
                     </div>
                 </div>
@@ -92,18 +103,6 @@
                     <div class="heading-layout1">
                         <div class="item-title">
                             <h3>Expenses</h3>
-                        </div>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                aria-expanded="false">...</a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
                         </div>
                     </div>
                     <div class="expense-report">
@@ -133,53 +132,7 @@
                         <div class="item-title">
                             <h3>Notice Board</h3>
                         </div>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                aria-expanded="false">...</a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
-                        </div>
                     </div>
-                    <!-- <div class="notice-box-wrap">
-                        <div class="notice-list">
-                            <div class="post-date bg-skyblue">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
-                                    printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-yellow">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-pink">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-skyblue">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag mene esom text of the
-                                    printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-yellow">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag printing.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                        <div class="notice-list">
-                            <div class="post-date bg-pink">16 June, 2019</div>
-                            <h6 class="notice-title"><a href="#">Great School manag meneesom.</a></h6>
-                            <div class="entry-meta"> Jennyfar Lopez / <span>5 min ago</span></div>
-                        </div>
-                    </div> -->
                     <div class="notice-box-wrap">
                         <?php 
                         $sql="select * from notice where status='1'";
