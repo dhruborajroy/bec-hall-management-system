@@ -17,7 +17,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select * from monthly_bill order by id desc";
+$sql="select monthly_bill.*, users.name, users.id as uid from monthly_bill, users where monthly_bill.user_id=users.id order by id desc;";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
@@ -41,8 +41,10 @@ $res=mysqli_query($con,$sql);
                     <h3>All Fees Data</h3>
                 </div>
                 <div class="dropdown show">
+                    <button type="button" class="">Last generated <?php $reos=mysqli_query($con,"select * from general_informations"); if(mysqli_num_rows($reos)>0){ $rowww=mysqli_fetch_assoc($reos); echo date("d-M-Y h:i:s",$rowww['last_bill_generated']);}?></button>
                     <a href="generateMonthlyBill.php">
-                <button type="button" class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Generate Monthly Bill</button></a>
+                        <button type="button" class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Generate Monthly Bill</button>
+                    </a>
                 </div>
                 <!-- <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">...</a>
@@ -70,7 +72,6 @@ $res=mysqli_query($con,$sql);
                             <th>Student</th>
                             <th>Month</th>
                             <th>Paid Status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -80,25 +81,16 @@ $res=mysqli_query($con,$sql);
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['user_id']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['month_id']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['paid_status']?></td>
-                            <td>
-                                <div class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                        <span class="flaticon-more-button-of-three-dots"></span>
+                            <td class="sorting_1 dtr-control"><?php echo $row['amount']?> Taka</td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo date("F - y",strtotime($row['year']."-".$row['month_id']));?></td>
+                            <td class="sorting_1 dtr-control">
+                                <?php if($row['paid_status']==0){?>
+                                    <a href="managePayment.php?id=<?php echo $row['uid']?>">
+                                        <button type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
                                     </a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <!-- <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a> -->
-                                        <a class="dropdown-item"
-                                            href="manageStudentProfile.php?id=<?php echo $row['id']?>"><i
-                                                class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                        <!-- <a class="dropdown-item" href="#"><i
-                                                class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->
-                                    </div>
-                                </div>
+                                <?php }elseif($row['paid_status']==1){?><button type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-dark-pastel-green">Paid</button>
+                                <?php }?>
                             </td>
                         </tr>
                         <?php 

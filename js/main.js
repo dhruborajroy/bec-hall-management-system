@@ -150,7 +150,7 @@ function myFunction() {
 		  dateFormat: 'dd/mm/yyyy',
 		  firstDay: 0,
 		},
-		minDate: new Date(),
+		// minDate: new Date(),
 		// maxDate: new Date().setTime(Date().getDate() + 10),
 	  });
 	}

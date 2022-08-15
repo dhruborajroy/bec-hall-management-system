@@ -22,7 +22,7 @@
        $total_amount=$_POST['total_amount'];
        $monthly_amount=$_POST['monthly_amount'];
        $time=time();
-       pr($_POST);
+      //  pr($_POST);
        $sql="INSERT INTO `payments` ( `user_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES ( '$user_id', '$total_amount', '', '$time', '1', '1')";
        mysqli_query($con,$sql);
        $payment_id=mysqli_insert_id($con);
@@ -92,89 +92,89 @@
                   </div>
                   <hr>
                   <table class="table table-hover" style="width: 100%;">
-                  <thead class="thead-dark">
-                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Month</th>
-                        <th scope="col">Due</th>
-                        <th scope="col">Status</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                  <?php 
-                  $sqll="select * from monthly_bill where user_id='$id' and paid_status='0'";
-                  $ress=mysqli_query($con,$sqll);
-                  if(mysqli_num_rows($ress)>0){
-                     $i=1;
-                     while($roww=mysqli_fetch_assoc($ress)){
-                  ?>
-                  <tr>
-                     <td>
-                        <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
-                     </td>
-                     <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
-                     <td >
-                        <input disabled type="hidden" id="month_<?php echo $i?>" name="month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
-                        <input disabled type="hidden" name="monthly_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
-                        <?php echo  $roww['amount']?>
-                     </td>
-                     <td>
-                        <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
-                     </td>
-                  </tr>
-                     <?php 
+                     <thead class="thead-dark">
+                        <tr>
+                           <th scope="col">#</th>
+                           <th scope="col">Month</th>
+                           <th scope="col">Due</th>
+                           <th scope="col">Status</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <?php 
+                           $sqll="select * from monthly_bill where user_id='$id' and paid_status='0'";
+                           $ress=mysqli_query($con,$sqll);
+                           if(mysqli_num_rows($ress)>0){
+                              $i=1;
+                              while($roww=mysqli_fetch_assoc($ress)){
+                           ?>
+                        <tr>
+                           <td>
+                              <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
+                           </td>
+                           <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
+                           <td >
+                              <input disabled type="hidden" id="month_<?php echo $i?>" name="month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
+                              <input disabled type="hidden" name="monthly_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
+                              <?php echo  $roww['amount']?>
+                           </td>
+                           <td>
+                              <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                           </td>
+                        </tr>
+                        <?php 
                            $i++;
                            } } else { ?>
                         <tr colspan="5">
-                            <td  class="d-flex justify-content-center">No due found</td>
+                           <td  class="d-flex justify-content-center">No due found</td>
                         </tr>
                         <?php } ?>
-                        </tbody>
-                     </table> 
-                     <hr>
-                     <!-- <table class="table table-hover" style="width: 100%;">
-                        <thead class="thead-dark">
-                           <tr>
-                              <th scope="col">#</th>
-                              <th scope="col">Month</th>
-                              <th scope="col">Due</th>
-                              <th scope="col">Status</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <th scope="row"><input type="checkbox" value="1"  id="other_checkbox_1" name="amount" onchange="other_fees_total(this.value)"></th>
-                              <td>February - 22</td>
-                              <td>
-                                 <input type="hidden" value="2230" class="amount" id="other_amount_1"> 
-                                 2230
-                              </td>
-                              <td>
-                                 <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
-                              </td>
-                           </tr>-->
-                     <hr>
+                     </tbody>
+                  </table>
+                  <hr>
+                  <!-- <table class="table table-hover" style="width: 100%;">
+                     <thead class="thead-dark">
+                        <tr>
+                           <th scope="col">#</th>
+                           <th scope="col">Month</th>
+                           <th scope="col">Due</th>
+                           <th scope="col">Status</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <th scope="row"><input type="checkbox" value="1"  id="other_checkbox_1" name="amount" onchange="other_fees_total(this.value)"></th>
+                           <td>February - 22</td>
+                           <td>
+                              <input type="hidden" value="2230" class="amount" id="other_amount_1"> 
+                              2230
+                           </td>
+                           <td>
+                              <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                           </td>
+                        </tr>-->
+                  <hr>
+                  <div class="row">
+                     <div class="col-xl-4 col-lg-8 col-4 form-group">
+                     </div>
+                     <div class="col-xl-4 col-lg-4 col-4 form-group">
+                        <label>Total amount</label>
+                        <input id="grant_total" style="background-color: #64ed4b;text-align:center;font-size:20px;" value="0" class="form-control" readonly name="total_amount">
+                     </div>
+                  </div>
+                  <hr>
+                  <div class="modal-box">
+                     <!-- Button trigger modal -->
                      <div class="row">
-                        <div class="col-xl-4 col-lg-8 col-4 form-group">
-                        </div>
-                        <div class="col-xl-4 col-lg-4 col-4 form-group">
-                           <label>Total amount</label>
-                           <input id="grant_total" style="background-color: #64ed4b;text-align:center;font-size:20px;" value="0" class="form-control" readonly name="total_amount">
-                        </div>
-                     </div>
-                     <hr>
-                     <div class="modal-box">
-                        <!-- Button trigger modal -->
-                        <div class="row">
-                           <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
-                           <div class="col-xl-2 col-lg-2 col-12 form-group">
-                              <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
-                                 data-target="#standard-modal" name="submit">
-                              Payment
-                              </button>
-                           </div>
+                        <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
+                        <div class="col-xl-2 col-lg-2 col-12 form-group">
+                           <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
+                              data-target="#standard-modal" name="submit">
+                           Payment
+                           </button>
                         </div>
                      </div>
+                  </div>
                </div>
             </div>
       </form>

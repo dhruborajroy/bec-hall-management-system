@@ -1,4 +1,53 @@
-<?php include("header.php");
+<?php 
+   session_start();
+   session_regenerate_id();
+   require('../inc/constant.inc.php');
+   require('../inc/connection.inc.php');
+   require('../inc/function.inc.php');
+   require_once("../inc/smtp/class.phpmailer.php");
+//    isAdmin();
+?>
+
+<!doctype html>
+<html class="no-js" lang="">
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>BEC HALL | Developed by Dhrubo</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+    <!-- Normalize CSS -->
+    <link rel="stylesheet" href="../css/normalize.css">
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Fontawesome CSS -->
+    <link rel="stylesheet" href="../css/all.min.css">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" href="../fonts/flaticon.css">
+    <!-- Full Calender CSS -->
+    <link rel="stylesheet" href="../css/fullcalendar.min.css">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="../css/animate.min.css">
+    <!-- Select 2 CSS -->
+    <link rel="stylesheet" href="../css/select2.min.css">
+    <!-- Data Table CSS -->
+    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+    <!-- Date Picker CSS -->
+    <link rel="stylesheet" href="../css/datepicker.min.css">
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="../css/toastr.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <!-- Modernize js -->
+    <script src="../js/modernizr-3.6.0.min.js"></script>
+</head>
+
+<?php 
 $month="";
 $year="";
 if(isset($_GET['month']) && isset($_GET['year'])) {
@@ -7,28 +56,12 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
 	$year=get_safe_value($_GET['year']);
 }
 ?>
-<div class="dashboard-content-one">
-    <!-- Breadcubs Area Start Here -->
-    <div class="breadcrumbs-area">
-        <h3>Student Meal Chart</h3>
-        <ul>
-            <li>
-                <a href="index.php">Home</a>
-            </li>
-            <li>Meal Chart</li>
-        </ul>
-    </div>
-    <!-- Breadcubs Area End Here -->
+<div class="dashboard-content-one ">
     <div class="row">
         <!-- Student Attendence Search Area Start Here -->
-        <div class="col-12">
+        <div class="col-12 d-print-none">
             <div class="card">
                 <div class="card-body">
-                    <div class="heading-layout1">
-                        <div class="item-title">
-                            <!-- <h3>Student Attendence</h3> -->
-                        </div>
-                    </div>
                     <form class="new-added-form">
                         <div class="row">
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
@@ -65,7 +98,7 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
         <!-- Student Attendence Search Area End Here -->
         <!-- Student Attendence Area Start Here -->
         <?php if($month!="" && $year!=""){?>
-            <div class="col-12 <?php echo $display_none?>">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="heading-layout1">

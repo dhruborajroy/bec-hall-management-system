@@ -73,8 +73,7 @@ if(isset($_POST['submit'])){
                             </div>
                         </div>
                     </div>
-                    <form class="new-added-form"  method="post">
-                        <?php //echo form_csrf()?>
+                    <form class="new-added-form" method="post">
                         <div class="row">
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
                                 <label>Title</label>
@@ -83,12 +82,11 @@ if(isset($_POST['submit'])){
                             </div>
                             <div class="col-12-xxxl col-lg-12 col-12 form-group">
                                 <label>Details</label>
-                                <textarea type="text" required placeholder="" class="form-control" name="details"
-                                    id="editor"><?php echo $details?></textarea>
+                                <textarea name="details" id="editor" cols="30" rows="10"><?php echo $details?></textarea>
                             </div>
                             <div class="col-12 form-group mg-t-8">
-                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark"
-                                    name="submit">Save</button>
+                                <input type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark"
+                                    name="submit">
                             </div>
                         </div>
                     </form>

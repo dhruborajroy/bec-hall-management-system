@@ -9,36 +9,6 @@ if(isset($_POST['submit'])){
 }
 
 ?>
-<!-- <div class="col-sm-3">
-    <select id="final_city_arrival" name="final_city_arrival" class="form-control" required="true" onchange="showcityother(this.value);">
-        <option value="">Select</option>
-        <option value="1">Delhi</option>
-        <option value="2">Bengaluru</option>
-        <option value="3">Kolkata</option>
-        <option value="4">Chennai</option>
-        <option value="5">Mumbai</option>
-        <option value="6">Hyderabad</option>
-        <option value="7">Other</option>		    	
-    </select>
-</div>
-<div class="col-sm-3  city_other">
-    <input type="text" name="city_other" id="city_other" placeholder="Other City" class="form-control">
-</div> -->
-<script>
-function showcityother(id){
-    console.log(id);
-    var v = $('#'+ id).val();
-    if(v==7)
-    {
-        $('.city_other').addClass("in");
-    }
-    else
-    {
-        $('.city_other').removeClass("in");
-    }
-}
-    
-</script>
 
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->

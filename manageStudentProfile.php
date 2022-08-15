@@ -22,6 +22,7 @@ $legalGuardianRelation='';
 $image='';
 $email='';
 $merit='';
+$batch='';
 $deptId="";
 if(isset($_GET['id']) && $_GET['id']!=""){
 	$id=get_safe_value($_GET['id']);
@@ -41,7 +42,6 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $gender=$row['gender'];
         $religion=$row['religion'];
         $birthId=$row['birthId'];
-        $height=$row['height'];
         $ffQuata=$row['ffQuata'];
         $bloodGroup=$row['bloodGroup'];
         $merit=$row['merit'];
@@ -51,6 +51,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $email=$row['email'];
         $dept_id=$row['dept_id'];
         $examRoll=$row['examRoll'];
+        $batch=$row['batch'];
         $required='';
     }else{
         $_SESSION['PERMISSION_ERROR']=1;
@@ -79,11 +80,13 @@ if(isset($_POST['submit'])){
 	$email=get_safe_value($_POST['email']);
     $ffQuata=get_safe_value($_POST['ffQuata']);
     $dept_id=get_safe_value($_POST['dept_id']);
+    $batch=get_safe_value($_POST['batch']);
+    $time=time();
    if($id==''){
         $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-        $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`, `status`)
-                                VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id', 1)";
+        echo $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`status`)
+                                VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','12345678','$time',0,1, 0, 1)";
         
         mysqli_query($con,$sql);
         $_SESSION['INSERT']=1;
@@ -91,10 +94,10 @@ if(isset($_POST['submit'])){
         if($_FILES['image']['name']!=''){
             $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
             move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-            $sql="update `users` set  `name`='$name',`roll`='$roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id'  where md5(id)='$id'";
+            $sql="update `users` set  `name`='$name',`roll`='$roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id'  where md5(id)='$id'";
             mysqli_query($con,$sql);
         }else{
-            $sql="update `users` set  `name`='$name', `roll`='$roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' where  md5(id)='$id'";
+            $sql="update `users` set  `name`='$name', `roll`='$roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' where  md5(id)='$id'";
             mysqli_query($con,$sql);
         }
         $_SESSION['UPDATE']=1;
@@ -268,6 +271,22 @@ if(isset($_POST['submit'])){
                             $res=mysqli_query($con,"SELECT * FROM `depts` where status='1'");
                             while($row=mysqli_fetch_assoc($res)){
                                 if($row['id']==$dept_id){
+                                    echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
+                                }else{
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                }                                                        
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Batch *</label>
+                        <select class="form-control select2" name="batch">
+                            <option>Select Batch</option>
+                            <?php
+                            $res=mysqli_query($con,"SELECT * FROM `batch` where status='1'");
+                            while($row=mysqli_fetch_assoc($res)){
+                                if($row['id']==$batch){
                                     echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
                                 }else{
                                     echo "<option value=".$row['id'].">".$row['name']."</option>";

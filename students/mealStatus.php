@@ -65,7 +65,7 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
         <!-- Student Attendence Search Area End Here -->
         <!-- Student Attendence Area Start Here -->
         <?php if($month!="" && $year!=""){?>
-            <div class="col-12 <?php echo $display_none?>">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="heading-layout1">

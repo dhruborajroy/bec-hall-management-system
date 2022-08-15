@@ -2,6 +2,7 @@
 include('../inc/connection.inc.php');
 session_start();
 ?>
+
 (function ($) {
 	/*-------------------------------------
 		  Bar Chart 

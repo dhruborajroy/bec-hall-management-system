@@ -1,6 +1,6 @@
 <?php
 define('SITE_NAME','Admission');
-define('FRONT_SITE_PATH','http://127.0.0.1/bec-hall/');
+define('FRONT_SITE_PATH','http://127.0.0.1/hall/');
 define('STORE_ID',"dhrub5f103f94cd3e4");
 define('STORE_PASSWORD',"dhrub5f103f94cd3e4@ssl");
 define('STUDENT_IMAGE',FRONT_SITE_PATH."/media/users/");

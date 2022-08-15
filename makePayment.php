@@ -41,7 +41,7 @@ $res=mysqli_query($con,$sql);
                     <h3>All Students Data</h3>
                 </div>
                 <div class="dropdown show">
-                    <a class="dropdown-toggle" href="../pdf/list.php" aria-expanded="true">Generate PDF</a>
+                    <!-- <a class="dropdown-toggle" href="../pdf/list.php" aria-expanded="true">Generate PDF</a> -->
                 </div>
             </div>
             <form class="mg-b-20">
@@ -78,7 +78,7 @@ $res=mysqli_query($con,$sql);
                                 <div class="ui-btn-wrap">
                                     <ul>
                                         <li><a href="managePayment.php?id=<?php echo $row['id']?>"><button type="button"
-                                                class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Details</button></a>
+                                                class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Payment</button></a>
                                         </li>
                                     </ul>
                                 </div>

@@ -25,8 +25,16 @@
             for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
                $meal_value= get_safe_value($_POST['meal_value'][$i]);
                $roll= get_safe_value($_POST['roll'][$i]);
-               $swl="UPDATE `meal_table` SET `meal_value` = '$meal_value' WHERE `meal_table`.`roll` = '$roll' and date_id='$date' and month_id='$month' and year='$year'";
-               mysqli_query($con,$swl);
+               $meal_sql="select `status` from `meal_table` where date_id='$date' and month_id='$month' and year='$year' and roll='$roll'";
+               $meal_res=mysqli_query($con,$meal_sql);
+               if(mysqli_num_rows($meal_res)>0){
+                  $swl="UPDATE `meal_table` SET `meal_value` = '$meal_value' WHERE `meal_table`.`roll` = '$roll' and date_id='$date' and month_id='$month' and year='$year'";
+                  mysqli_query($con,$swl);
+               }else{
+                  $swl="INSERT INTO `meal_table` ( `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
+                                                      ( '$roll', '$meal_value', '$date', '$month','$year','$time','$time', '1')";
+                  mysqli_query($con,$swl);
+               }
             }
          }
          $_SESSION['UPDATE']=1;
@@ -35,8 +43,8 @@
             for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
                $meal_value= get_safe_value($_POST['meal_value'][$i]);
                $roll= get_safe_value($_POST['roll'][$i]);
-               $swl="INSERT INTO `meal_table` ( `date`,  `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
-                                             ( '','$roll', '$meal_value', '$date', '$month','$year','$time','$time', '1')";
+               echo $swl="INSERT INTO `meal_table` (   `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
+                                             ( '$roll', '$meal_value', '$date', '$month','$year','$time','$time', '1')";
                mysqli_query($con,$swl);
             }
          }
@@ -70,22 +78,25 @@
       </div>
       <form method="post">
          <div class="row gutters-8">
+            
+         <?php if ($date!=="" && $month!=="") {?>
             <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-               <label>Roll</label>
+               <!-- <label>Roll</label> -->
                <input type="text" onkeyup="myFunction()" placeholder="Search by Roll ..." class="form-control"
                   id="myInput">
             </div>
+            <?php }?>
             <div class="col-xl-3 col-lg-6 col-12 form-group">
-               <label>Date of meal*</label>
+               <!-- <label>Date of meal*</label> -->
                <input autocomplete="off" required type="text" placeholder="dd/mm/yyyy" class="form-control air-datepicker"
                   data-position='bottom right' name="date" value="<?php if($date!=""){echo $date.'/'.$month.'/'.$year;}?>">
             </div>
             <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Search</button>
             </div>
-            <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
+            <!-- <div class="col-1-xxxl col-xl-2 col-lg-3 col-12 form-group">
                <button onclick="reload()" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reload</button>
-            </div>
+            </div> -->
          </div>
          <div class="table-responsive">
             <?php if ($date!=="" && $month!=="") {?>
@@ -118,15 +129,15 @@
                      <td>
                         <?php 
                            if($row['meal_status']=='1'){?>
-                        <button type="button" class="btn-fill-md text-light bg-dark-pastel-green">On</button>                        
+                              <button type="button" class="btn-fill-md text-light bg-dark-pastel-green">On</button>                        
                         <?php }else if($row['meal_status']=='0'){?>
-                        <button type="button" class="btn-fill-md radius-4 text-light bg-orange-red">Off</button>                        
+                              <button type="button" class="btn-fill-md radius-4 text-light bg-orange-red">Off</button>                        
                         <?php }else{
                            echo "Dining off";
-                           }?>
+                        }?>
                      </td>
                      <td>
-                        <button type="button" class="btn-fill-md text-dodger-blue border-dodger-blue">2</button>                        
+                        <button type="button" class="btn-fill-md text-dodger-blue border-dodger-blue">0</button>                        
                      </td>
                      <td>CE</td>
                      <td><input type="number" name="meal_value[]" class="number" value="<?php

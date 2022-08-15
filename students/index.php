@@ -24,7 +24,12 @@
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Meal Amount</div>
-                            <div class="item-number"><span class="counter" data-num="2300">2300</span></div>
+                            <?php 
+                            $getTotalMeal=getTotalMeal(date("m"),'200129');
+                            $getMealRate=round(getMealRate(date("m")),2);
+                            $getTotalFee=round($getTotalMeal*$getMealRate,2);
+                            ?>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $getTotalFee?>"><?php echo $getTotalFee?></span></div>
                         </div>
                     </div>
                 </div>
@@ -41,7 +46,7 @@
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Total Meal On</div>
-                            <div class="item-number"><span class="counter" data-num="23">23</span></div>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $getTotalMeal."\">". $getTotalMeal?></span></div>
                         </div>
                     </div>
                 </div>
@@ -58,8 +63,7 @@
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Meal Rate</div>
-                            <div class="item-number"><span class="counter" data-num="94">94</span><span></span></div>
-                        </div>
+                            <div class="item-number"><span class="counter" data-num="<?php echo $getMealRate."\">". $getMealRate?></span></div>                        </div>
                     </div>
                 </div>
             </div>

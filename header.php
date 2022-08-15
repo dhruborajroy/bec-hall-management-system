@@ -38,6 +38,8 @@
     <link rel="stylesheet" href="css/jquery.dataTables.min.css">
     <!-- Date Picker CSS -->
     <link rel="stylesheet" href="css/datepicker.min.css">
+    <!-- summernote -->
+    <link rel="stylesheet" href="css/summernote.min.css">
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="css/toastr.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -46,10 +48,9 @@
     <!-- Modernize js -->
     <script src="js/modernizr-3.6.0.min.js"></script>
     <!-- editor -->
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/example1/colorbox.css" rel="stylesheet">
     <!-- include summernote css/js -->
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> -->
 </head>
 
 <body>
@@ -268,7 +269,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-dashboard"></i><span>Meal Check</span></a>
+                                    class="flaticon-dashboard"></i><span>Meal Maintanance</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i
@@ -286,7 +287,7 @@
                                 <li class="nav-item">
                                     <a href="manage_notice.php"
                                         class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new Expenses</a>
+                                            class="fas fa-angle-right"></i>Add new notice</a>
                                 </li>
                             </ul>
                         </li>
