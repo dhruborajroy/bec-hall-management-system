@@ -13,6 +13,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $date=$row['date'];
         $amount=$row['amount'];
     }else{
+        $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
 }
@@ -28,13 +29,13 @@ if(isset($_POST['submit'])){
     if($id==''){
         $sql="INSERT INTO `expense` (`date`,`date_id`,`month`,`year`, `amount`,`added_on`,`updated_on`,`status`) VALUES ( '$time','$date_id','$month','$year', '$amount','$time','', 1)";
         mysqli_query($con,$sql);
-        $_SESSION['INSERT']=1;
         $insert_id=mysqli_insert_id($con);
         for($i=0;$i<=count($_POST['purchaser'])-1;$i++){
             $purchaser=get_safe_value($_POST['purchaser'][$i]);
             $sql="INSERT INTO `purchaser` ( `expense_id`, `user_id`, `status`) VALUES ( '$insert_id', '$purchaser', '1')";
             mysqli_query($con,$sql);
         }
+        $_SESSION['INSERT']=1;
     }else{
         $sql="update `expense` set `date`='$time', `amount`='$amount',`updated_on`='$time' where id='$id'";
         mysqli_query($con,$sql);    

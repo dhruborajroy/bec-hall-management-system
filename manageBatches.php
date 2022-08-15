@@ -10,6 +10,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $numaric_value=$row['numaric_value'];
         $name=$row['name'];
     }else{
+        $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
 }

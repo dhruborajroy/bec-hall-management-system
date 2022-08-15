@@ -13,11 +13,12 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 			$status=0;
 		}
 		mysqli_query($con,"update payments set status='$status' where id='$id'");
+        $_SESSION['UPDATE']=1;
         redirect('./payments.php');
 	}
 
 }
-    $sql="select payments.*,users.id,users.name from payments,users where payments.user_id=users.id";
+$sql="select payments.*,users.id,users.name from payments,users where payments.user_id=users.id";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->

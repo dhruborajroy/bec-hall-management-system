@@ -10,6 +10,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $short_form=$row['short_form'];
         $name=$row['name'];
     }else{
+        $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
 }

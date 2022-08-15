@@ -13,6 +13,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $details=$row['details'];
         $added_on=$row['added_on'];
     }else{
+        $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
 }

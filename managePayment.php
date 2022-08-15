@@ -1,4 +1,5 @@
-<?php include("header.php");
+<?php 
+   include("header.php");
    $name="";
    $roll="";
    $batch="";
@@ -11,16 +12,15 @@
            $roll=$row['roll'];
            $batch=$row['batch'];
        }else{
-           redirect('index.php');
+            $_SESSION['PERMISSION_ERROR']=1;
+            redirect('index.php');
        }
    }
-   
    if(isset($_POST['submit']) ){
        $user_id=get_safe_value($_GET['id']);
        $month_id=$_POST['month_id'];
        $total_amount=$_POST['total_amount'];
        $monthly_amount=$_POST['monthly_amount'];
-      //  $fee_amount=$_POST['fees_amount'];
        $time=time();
        pr($_POST);
        $sql="INSERT INTO `payments` ( `user_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES ( '$user_id', '$total_amount', '', '$time', '1', '1')";
@@ -28,11 +28,13 @@
        $payment_id=mysqli_insert_id($con);
        for($i=0;$i<=count($_POST['monthly_amount'])-1;$i++){
            for($i=0;$i<=count($_POST['month_id'])-1;$i++){
-               echo $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
+               $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
                                                                ('$user_id', '$payment_id', '$month_id[$i]', '$monthly_amount[$i]', '1')";
-               //mysqli_query($con,$swl);
+               mysqli_query($con,$swl);
+               mysqli_query($con,"update monthly_bill set paid_status='1' where user_id='$user_id' and month_id='$month_id[$i]' ");
            }
        }
+       $_SESSION['INSERT']=1;
       //  for($i=0;$i<=count($_POST['fees_amount'])-1;$i++){
       //      for($i=0;$i<=count($_POST['fees_id'])-1;$i++){
       //          $swl="INSERT INTO `fee_details` ( `user_id`, `payment_id`, `fee_id`, `fee_amount`,  `status`) VALUES 
@@ -40,7 +42,7 @@
       //          mysqli_query($con,$swl);
       //      }
       //  }
-      //  redirect("./invoice.php?id=".$payment_id);
+      redirect("./invoice.php?id=".$payment_id);
    }
    ?>
 <div class="dashboard-content-one">
@@ -65,27 +67,29 @@
       </div>
       <form method="POST" actsion="requests/submit.php">
          <div class="single-info-details">
-            <div class="item-img">
-               <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="teacher" height="150px" width="150px">
-            </div>
             <div class="item-content">
                <div class="info-table ">
-                  <table class="table text-nowrap">
-                     <tbody>
-                        <tr>
-                           <td>Name:</td>
-                           <td class="font-medium text-dark-medium"><?php echo $name?></td>
-                        </tr>
-                        <tr>
-                           <td>Batch :</td>
-                           <td class="font-medium text-dark-medium"><?php echo $batch?></td>
-                        </tr>
-                        <tr>
-                           <td>Roll:</td>
-                           <td class="font-medium text-dark-medium"><?php echo $roll?></td>
-                        </tr>
-                     </tbody>
-                  </table>
+                  <div class="row">
+                     <table class="table text-nowrap">
+                        <tbody>
+                           <tr>
+                              <td>Name:</td>
+                              <td class="font-medium text-dark-medium"><?php echo $name?></td>
+                           </tr>
+                           <tr>
+                              <td>Batch :</td>
+                              <td class="font-medium text-dark-medium"><?php echo $batch?></td>
+                           </tr>
+                           <tr>
+                              <td>Roll:</td>
+                              <td class="font-medium text-dark-medium"><?php echo $roll?></td>
+                           </tr>
+                        </tbody>
+                     </table>
+                     <div class="d-flex justify-content-end">
+                        <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="teacher" height="150px" width="150px">
+                     </div>
+                  </div>
                   <hr>
                   <table class="table table-hover" style="width: 100%;">
                   <thead class="thead-dark">
@@ -98,7 +102,7 @@
                   </thead>
                   <tbody>
                   <?php 
-                  $sqll="select * from monthly_bill where user_id='$id'";
+                  $sqll="select * from monthly_bill where user_id='$id' and paid_status='0'";
                   $ress=mysqli_query($con,$sqll);
                   if(mysqli_num_rows($ress)>0){
                      $i=1;
@@ -115,14 +119,14 @@
                         <?php echo  $roww['amount']?>
                      </td>
                      <td>
-                        <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                        <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
                      </td>
                   </tr>
                      <?php 
                            $i++;
                            } } else { ?>
-                        <tr>
-                            <td colspan="5">No data found</td>
+                        <tr colspan="5">
+                            <td  class="d-flex justify-content-center">No due found</td>
                         </tr>
                         <?php } ?>
                         </tbody>
@@ -164,7 +168,7 @@
                         <div class="row">
                            <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
                            <div class="col-xl-2 col-lg-2 col-12 form-group">
-                              <button type="submit" class="modal-trigger" data-toggle="modal"
+                              <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
                                  data-target="#standard-modal" name="submit">
                               Payment
                               </button>
@@ -184,6 +188,7 @@
       if(document.getElementById("checkbox_"+id).checked==true){
          jQuery('#amount_'+id).addClass('active_amount');
          jQuery( '#amount_'+id ).prop( "disabled", false );
+         jQuery( '#submit' ).prop( "disabled", false );
          jQuery( '#month_'+id ).prop( "disabled", false );
       }else if(document.getElementById("checkbox_"+id).checked==false){
          jQuery('#amount_'+id).removeClass('active_amount');

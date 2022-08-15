@@ -29,6 +29,7 @@
                mysqli_query($con,$swl);
             }
          }
+         $_SESSION['UPDATE']=1;
       }else{
          for($i=0;$i<=count($_POST['roll'])-1;$i++){
             for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
@@ -39,6 +40,7 @@
                mysqli_query($con,$swl);
             }
          }
+         $_SESSION['INSERT']=1;
       }
       // echo $swl;
       //  redirect('mealStatus.php');

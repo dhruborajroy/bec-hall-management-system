@@ -1,5 +1,6 @@
 <?php 
-include('../inc/connection.inc.php')
+include('../inc/connection.inc.php');
+session_start();
 ?>
 (function ($) {
 	/*-------------------------------------
@@ -123,3 +124,36 @@ ClassicEditor
     .catch( error => {
     console.error( error );
 } );
+
+<?php 
+    if(isset($_SESSION['PERMISSION_ERROR'])){
+        echo 'toastr.error("You don\'t have permission to access that location")';
+    }
+    unset($_SESSION['PERMISSION_ERROR']);
+    if(isset($_SESSION['UPDATE'])){
+        echo 'toastr.success("Data Updated successfully")';
+    }
+    unset($_SESSION['UPDATE']);
+    if(isset($_SESSION['INSERT'])){
+        echo 'toastr.success("Data inserted successfully")';
+    }
+    unset($_SESSION['INSERT']);
+?>
+
+toastr.options = {
+   "closeButton": true,
+   "debug": false,
+   "newestOnTop": false,
+   "progressBar": false,
+   "positionClass": "toast-top-right",
+   "preventDuplicates": false,
+   "onclick": null,
+   "showDuration": "300",
+   "hideDuration": "1000",
+   "timeOut": "5000",
+   "extendedTimeOut": "1000",
+   "showEasing": "swing",
+   "hideEasing": "linear",
+   "showMethod": "fadeIn",
+   "hideMethod": "fadeOut"
+   }

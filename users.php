@@ -13,6 +13,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 			$status=0;
 		}
 		mysqli_query($con,"update users set status='$status' where id='$id'");
+        $_SESSION['UPDATE']=1;
         redirect('./users.php');
 	}
 
@@ -41,7 +42,6 @@ $res=mysqli_query($con,$sql);
                     <h3>All Students Data</h3>
                 </div>
                 <div class="dropdown show">
-                    <a class="dropdown-toggle" href="../pdf/list.php" aria-expanded="true">Generate PDF</a>
                 </div>
             </div>
             <form class="mg-b-20">

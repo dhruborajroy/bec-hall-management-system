@@ -11,6 +11,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		if($type=='deactive'){
 			$status=0;
 		}
+        $_SESSION['UPDATE']=1;
 		mysqli_query($con,"update monthly_bill set status='$status' where id='$id'");
         redirect('./monthlyPayment.php');
 	}
@@ -40,7 +41,8 @@ $res=mysqli_query($con,$sql);
                     <h3>All Fees Data</h3>
                 </div>
                 <div class="dropdown show">
-                    <a class="dropdown-toggle" href="generateMonthlyBill.php" aria-expanded="true">Generate Monthly Bill</a>
+                    <a href="generateMonthlyBill.php">
+                <button type="button" class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Generate Monthly Bill</button></a>
                 </div>
                 <!-- <div class="dropdown">
                     <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">...</a>

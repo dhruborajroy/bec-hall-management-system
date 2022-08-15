@@ -31,7 +31,8 @@
                         </div>
                         <div class="single-info-details">
                             <div class="item-img">
-                                <img src="img/figure/parents.jpg" alt="student">
+                                <!-- <img src="img/figure/parents.jpg" alt="student"> -->
+                                <img src="<?php //echo STUDENT_IMAGE.$row['image']?>" alt="teacher" height="150px" width="150px">
                             </div>
                             <div class="item-content">
                                 <div class="header-inline item-header">

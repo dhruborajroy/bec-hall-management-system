@@ -126,7 +126,7 @@ if (isset($_GET['id']) && $_GET['id']!="") {
 
 <script>
 window.addEventListener('load', function() {
-    // window.print();
+    window.print();
 })
 
 var total = 0;

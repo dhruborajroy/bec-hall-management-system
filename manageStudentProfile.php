@@ -53,6 +53,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $examRoll=$row['examRoll'];
         $required='';
     }else{
+        $_SESSION['PERMISSION_ERROR']=1;
         redirect('index.php');
     }
 }

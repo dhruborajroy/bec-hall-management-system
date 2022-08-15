@@ -225,8 +225,10 @@
                 <div class="sidebar-menu-content">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                            <a href="index.php" class="nav-link <?php // echo  $index_active?>">
+                            <i class="flaticon-dashboard"></i>
+                            <!-- <img src="https://cdn-icons.flaticon.com/png/512/1991/premium/1991103.png?token=exp=1660534293~hmac=aeb4ee5cccf12d77eebb77e03a15741c" alt="dashboard-icon" srcset=""> -->
+                            <span>Dashboard</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Users</span></a>

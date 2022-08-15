@@ -8,6 +8,7 @@ if (isset($_GET['id']) && $_GET['id']!="") {
     //     redirect("index.php");
     // }
 }else{
+    $_SESSION['PERMISSION_ERROR']=1;
     // redirect("index.php");
 }
 ?>
