@@ -17,23 +17,22 @@
    
    if(isset($_POST['submit']) ){
        $user_id=get_safe_value($_GET['id']);
-       $month_id=$_POST['month'];
-       $month_amount=$_POST['monthly_amount'];
-      //  $fee_id=$_POST['fees_id'];
+       $month_id=$_POST['month_id'];
        $total_amount=$_POST['total_amount'];
+       $monthly_amount=$_POST['monthly_amount'];
       //  $fee_amount=$_POST['fees_amount'];
        $time=time();
        pr($_POST);
-      //  $sql="INSERT INTO `payments` ( `user_id`,`total_amount`, `updated_at`, `created_at`, `status`) VALUES ( '$user_id', '$total_amount', '$time', '$time', '1')";
-      //  mysqli_query($con,$sql);
-      //  $payment_id=mysqli_insert_id($con);
-      //  for($i=0;$i<=count($_POST['month_amount'])-1;$i++){
-      //      for($i=0;$i<=count($_POST['month_id'])-1;$i++){
-      //          $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
-      //                                                          ('$user_id', '$payment_id', '$month_id[$i]', '$month_amount[$i]', '1')";
-      //          mysqli_query($con,$swl);
-      //      }
-      //  }
+       $sql="INSERT INTO `payments` ( `user_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES ( '$user_id', '$total_amount', '', '$time', '1', '1')";
+       mysqli_query($con,$sql);
+       $payment_id=mysqli_insert_id($con);
+       for($i=0;$i<=count($_POST['monthly_amount'])-1;$i++){
+           for($i=0;$i<=count($_POST['month_id'])-1;$i++){
+               echo $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
+                                                               ('$user_id', '$payment_id', '$month_id[$i]', '$monthly_amount[$i]', '1')";
+               //mysqli_query($con,$swl);
+           }
+       }
       //  for($i=0;$i<=count($_POST['fees_amount'])-1;$i++){
       //      for($i=0;$i<=count($_POST['fees_id'])-1;$i++){
       //          $swl="INSERT INTO `fee_details` ( `user_id`, `payment_id`, `fee_id`, `fee_amount`,  `status`) VALUES 
@@ -41,7 +40,7 @@
       //          mysqli_query($con,$swl);
       //      }
       //  }
-    //    redirect("./invoice.php?id=".$payment_id);
+      //  redirect("./invoice.php?id=".$payment_id);
    }
    ?>
 <div class="dashboard-content-one">
@@ -67,7 +66,7 @@
       <form method="POST" actsion="requests/submit.php">
          <div class="single-info-details">
             <div class="item-img">
-               <img src="img/figure/teacher.jpg" alt="teacher" height="150px" width="150px">
+               <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="teacher" height="150px" width="150px">
             </div>
             <div class="item-content">
                <div class="info-table ">
@@ -107,32 +106,18 @@
                   ?>
                   <tr>
                      <td>
-                        <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>" name="amount" onchange="get_total(this.value)">
+                        <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
                      </td>
                      <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
                      <td >
-                        <input type="hidden" name="month" value="<?php echo  $roww['month_id']?>" class="amount[]"> 
-                        <input type="hidden" name="monthly_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
+                        <input disabled type="hidden" id="month_<?php echo $i?>" name="month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
+                        <input disabled type="hidden" name="monthly_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
                         <?php echo  $roww['amount']?>
                      </td>
                      <td>
                         <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
                      </td>
                   </tr>
-                     <tr>
-                        <td>
-                           <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>" name="amount" onchange="get_total(this.value)">
-                        </td>
-                        <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
-                        <td >
-                           <input type="hidden" name="month" value="<?php echo  $roww['month_id']?>" class="amount"> 
-                           <input type="hidden" name="monthly_amount" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
-                           <?php echo  $roww['amount']?>
-                        </td>
-                        <td>
-                           <button  type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
-                        </td>
-                     </tr>
                      <?php 
                            $i++;
                            } } else { ?>
@@ -198,8 +183,12 @@
    function get_total(id) {
       if(document.getElementById("checkbox_"+id).checked==true){
          jQuery('#amount_'+id).addClass('active_amount');
+         jQuery( '#amount_'+id ).prop( "disabled", false );
+         jQuery( '#month_'+id ).prop( "disabled", false );
       }else if(document.getElementById("checkbox_"+id).checked==false){
          jQuery('#amount_'+id).removeClass('active_amount');
+         jQuery( '#amount_'+id ).prop( "disabled", true );
+         jQuery( '#month_'+id ).prop( "disabled", true );
       }
    	var total = 0;
    	var amount = document.getElementsByClassName("active_amount");
@@ -214,8 +203,10 @@
       var monthly_total=parseFloat(document.getElementById("grant_total").value);
       if(document.getElementById("other_checkbox_"+id).checked==true){
          jQuery('#other_amount_'+id).addClass('active_amount');
+         jQuery( '#other_amount_'+id ).prop( "disabled", false );
       }else if(document.getElementById("other_checkbox_"+id).checked==false){
          jQuery('#other_amount_'+id).removeClass('active_amount');
+         jQuery( '#other_amount_'+id ).prop( "disabled", true );
       }
       var total = 0;
       var amount = document.getElementsByClassName("active_amount");

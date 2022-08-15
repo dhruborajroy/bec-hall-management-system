@@ -29,7 +29,7 @@ if (isset($_GET['id']) && $_GET['id']!="") {
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="./img/invoiceLogo.png" style="width: 100%; height:150px" />
+                                <img src="./hall/img/invoiceLogo.png" style="width: 100%; height:150px" />
                                 <!-- max-width: 300px -->
                             </td>
                             <td>
