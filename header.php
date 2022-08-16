@@ -298,9 +298,6 @@
                         <li class="nav-item">
                             <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Monthly Payment</span></a>
                         </li>
-                        <!-- <li class="nav-item">
-                            <a href="electricityBill.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Electricity Bill</span></a>
-                        </li> -->
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Fees</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
@@ -314,6 +311,22 @@
                                     <a href="manageFees.php"
                                         class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
                                             class="fas fa-angle-right"></i>Add new Fees</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item sidebar-nav-item">
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Expense Category</span></a>
+                            <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
+                                <li class="nav-item">
+                                    <a href="expenseCategory.php"
+                                        class="nav-link <?php // echo  $application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>All
+                                        Expense Categories</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="manageExpenseCategory.php"
+                                        class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>Add new Expense Category</a>
                                 </li>
                             </ul>
                         </li>

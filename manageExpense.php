@@ -5,6 +5,7 @@ $status=1;
 $purchaser="";
 $time="";
 $date="";
+$expense_category_id="";
 $disabled="disabled";
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
@@ -13,15 +14,18 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $row=mysqli_fetch_assoc($res);
         $date=$row['date'];
         $amount=$row['amount'];
+        $expense_category_id=$row['expense_category_id'];
     }else{
         $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
+        die;
     }
 }
 if(isset($_POST['submit'])){
     pr($_POST);
     // break;
     $date_time=get_safe_value($_POST['date']);
+    $expense_category_id=get_safe_value($_POST['expense_category_id']);
     $date_time=date_create_from_format("d/m/Y",$date_time);
     $date_id=date_format($date_time,"d");
     $month=date_format($date_time,"m");
@@ -29,23 +33,25 @@ if(isset($_POST['submit'])){
 	$amount=get_safe_value($_POST['amount']);
     $time=time();
     if($id==''){
-        $sql="INSERT INTO `expense` (`date`,`date_id`,`month`,`year`, `amount`,`added_on`,`updated_on`,`status`) VALUES ( '$time','$date_id','$month','$year', '$amount','$time','', 1)";
+        $sql="INSERT INTO `expense` (`date`,`date_id`,`month`,`year`, `amount`,`expense_category_id`,`added_on`,`updated_on`,`status`) VALUES ( '$time','$date_id','$month','$year', '$amount','$expense_category_id','$time','', 1)";
         mysqli_query($con,$sql);
         $insert_id=mysqli_insert_id($con);
         for($i=0;$i<=count($_POST['purchaser_roll'])-1;$i++){
             $purchaser=get_safe_value($_POST['purchaser_roll'][$i]);
-            echo $sql="INSERT INTO `purchaser` ( `expense_id`, `user_id`, `status`) VALUES ( '$insert_id', '$purchaser', '1')";
+            $sql="INSERT INTO `purchaser` ( `expense_id`, `user_id`, `status`) VALUES ( '$insert_id', '$purchaser', '1')";
             mysqli_query($con,$sql);
         }
         $_SESSION['INSERT']=1;
     }else{
-        $sql="update `expense` set `date`='$time', `amount`='$amount',`updated_on`='$time' where id='$id'";
+        // 
+        $sql="update `expense` set `date`='$time', `expense_category_id`='$expense_category_id', `amount`='$amount',`updated_on`='$time' where id='$id'";
         mysqli_query($con,$sql);    
         $_SESSION['UPDATE']=1;
         for($i=0;$i<=count($_POST['purchaser_roll'])-1;$i++){
             $purchaser=get_safe_value($_POST['purchaser_roll'][$i]);
             $sql="update `purchaser` set `user_id`='$purchaser' where expense_id='$id'";
             mysqli_query($con,$sql);
+            // $_SESSION['UPDATE']=1;
         }
     }
     // echo $sql;
@@ -73,32 +79,22 @@ if(isset($_POST['submit'])){
                         <input required type="number" placeholder="Enter amount" value="<?php echo $amount?>"
                             name="amount" class="form-control">
                     </div>
-                    <!-- <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Purchaser *</label>
-                        <select class="form-control select2"  multiple="multiple" name="purchaser[]">
-                            <option>Select Purchaser</option>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Expense Category *</label>
+                        <select class="form-control select2" name="dept_id">
+                            <option readonly="readonly">Select Expense Category</option>
                             <?php
-                            // $except_id="";
-                            // $res=mysqli_query($con,"SELECT users.id as uid, users.name,users.roll, expense.*, purchaser.*  from users, expense,purchaser WHERE expense.id=purchaser.expense_id AND purchaser.user_id=users.id and expense.id='$id'");
-                            // while($row=mysqli_fetch_assoc($res)){
-                            //         $except_id=$row['uid'];
-                            //         echo "<option selected='selected' value=".$row['id'].">".$row['name']." (".$row['roll'].")</option>";                                                       
-                            // }
-                            ?>
-                            <?php
-                            // $additional_sql="";
-                            // if($id!=""){
-                            //     $additional_sql=" and purchaser.expense_id='$id'";
-                            // }
-                            // $sqll="SELECT users.name,users.roll,purchaser.*,expense.* from users, purchaser,expense WHERE purchaser.user_id=users.id $additional_sql";
-                            // $ress=mysqli_query($con,$sqll);
-                            // while($roww=mysqli_fetch_assoc($ress)){
-                            //     echo "<option  value=".$roww['id'].">".$roww['name']." (".$roww['roll'].")</option>";                                                        
-                            // }
-                            // echo $sqll;
+                            $res=mysqli_query($con,"SELECT * FROM `expense_category` where status='1'");
+                            while($row=mysqli_fetch_assoc($res)){
+                                if($row['id']==$expense_category_id){
+                                    echo "<option selected='selected' value=".$row['id'].">".$row['name']."</option>";
+                                }else{
+                                    echo "<option value=".$row['id'].">".$row['name']."</option>";
+                                }                                                        
+                            }
                             ?>
                         </select>
-                    </div> -->
+                    </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Date of expense *</label>
                         <input required type="text" name="date" autocomplete="off" placeholder="dd/mm/yyyy" value="<?php if($date!=""){echo date('d/m/Y',$date);}?>" class="form-control air-datepicker">
