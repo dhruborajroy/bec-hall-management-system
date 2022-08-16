@@ -45,9 +45,9 @@ function send_email($email,$html,$subject){
 		'allow_self_signed'=>false
 	));
 	if($mail->send()){
-		//echo "done";
+		return "done";
 	}else{
-		//echo "Error occur";
+		return "error";
 	}
 }
 function sendLoginEmail($email){

@@ -49,6 +49,7 @@ include("header.php");
                mysqli_query($con,$swl);
            }
        }
+       send_email_using_tamplate("Dhrubo",'11221122');
       redirect("./invoice.php?id=".$payment_id);
    }
    ?>
