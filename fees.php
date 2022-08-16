@@ -79,7 +79,7 @@ $res=mysqli_query($con,$sql);
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-times text-orange-red"></i>Close</a> -->
                                         <a class="dropdown-item"
-                                            href="manageStudentProfile.php?id=<?php echo $row['id']?>"><i
+                                            href="manageFees.php?id=<?php echo $row['id']?>"><i
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->

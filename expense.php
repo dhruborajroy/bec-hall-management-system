@@ -16,8 +16,6 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select * from expense order by id desc";
-$res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
 <div class="dashboard-content-one">
@@ -54,12 +52,15 @@ $res=mysqli_query($con,$sql);
                             <th>ID</th>
                             <th>Amount</th>
                             <th>Date</th>
-                            <th>Purchaser</th>
+                            <th>Expense Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        <?php if(mysqli_num_rows($res)>0){
+                        <?php
+                        $sql="select expense.*,expense_category.name from expense,expense_category WHERE expense.expense_category_id=expense_category.id order by expense.id DESC";
+                        $res=mysqli_query($con,$sql);
+                        if(mysqli_num_rows($res)>0){
                         $i=1;
                         while($row=mysqli_fetch_assoc($res)){
                         ?>
@@ -67,7 +68,7 @@ $res=mysqli_query($con,$sql);
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['date_id']."-".$row['month']."-".$row['year']?></td>
-                            <td class="sorting_1 dtr-control"><?php //echo $row['purchaser']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

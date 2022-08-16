@@ -3,6 +3,31 @@ include('../inc/connection.inc.php');
 session_start();
 ?>
 
+google.charts.load('current', {'packages':['corechart']});
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Exp Name', 'Amount'],
+        <?php 
+        $res=mysqli_query($con,"SELECT SUM(amount) as amount, expense_category.name from expense, expense_category WHERE expense.expense_category_id=expense_category.id AND expense.month='".date('m')."' group by expense_category.id");
+        if(mysqli_num_rows($res)>0){
+            while($row=mysqli_fetch_assoc($res)){
+                echo "['".$row['name']."', ".$row['amount']."],";
+            }
+        }
+        ?>
+        ]);
+
+    var options = {
+        title: 'Expense ',
+        <!-- is3D: true, -->
+
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+    chart.draw(data, options);
+}
 (function ($) {
 	/*-------------------------------------
 		  Bar Chart 
@@ -24,7 +49,11 @@ session_start();
         data: [
             <?php
             for ($i=1; $i <= $last_date; $i++) {
-                $sql="SELECT sum(amount) as amount FROM `expense` WHERE month='".date('m')."' AND date_id='$i' and year='".date('Y')."' order by date_id desc";
+                $a="";
+                if($i<10){
+                    $a="0";
+                }
+                $sql="SELECT sum(amount) as amount FROM `expense` WHERE month='".date('m')."' AND date_id='$a$i' and year='".date('Y')."' order by date_id desc";
                 $res=mysqli_query($con,$sql);
                 while($row=mysqli_fetch_assoc($res)){
                     if($row['amount']>=0){
@@ -120,11 +149,6 @@ session_start();
 
 })(jQuery);
 
-ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .catch( error => {
-    console.error( error );
-} );
 
 <?php 
     if(isset($_SESSION['PERMISSION_ERROR'])){

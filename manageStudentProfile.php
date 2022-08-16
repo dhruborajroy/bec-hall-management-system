@@ -85,7 +85,7 @@ if(isset($_POST['submit'])){
    if($id==''){
         $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-        echo $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`status`)
+        $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`status`)
                                 VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','12345678','$time',0,1, 0, 1)";
         
         mysqli_query($con,$sql);
@@ -102,8 +102,8 @@ if(isset($_POST['submit'])){
         }
         $_SESSION['UPDATE']=1;
     }
-    echo $sql;
-    // redirect('./users.php');
+    // echo $sql;
+    redirect('./users.php');
 }
 ?>
 <div class="dashboard-content-one">

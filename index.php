@@ -125,7 +125,7 @@
          </div>
       </div>
    </div>
-   <div class="col-lg-12 col-xl-12 col-12-xxxl">
+   <div class="col-lg-6 col-xl-6 col-12-xxxl">
       <div class="card dashboard-card-six pd-b-20">
          <div class="card-body">
             <div class="heading-layout1 mg-b-17">
@@ -135,7 +135,7 @@
             </div>
             <div class="notice-box-wrap">
                <?php 
-                  $sql="select * from notice where status='1'";
+                  $sql="select * from notice where status='1' order by added_on desc";
                   $res=mysqli_query($con,$sql);
                   if(mysqli_num_rows($res)>0){
                   $i=1;
@@ -158,6 +158,50 @@
                   <td colspan="5">No data found</td>
                </tr>
                <?php } ?>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-lg-6 col-xl-6 col-12-xxxl">
+      <div class="card dashboard-card-six">
+         <div class="card-body">
+            <div class="heading-layout1 mg-b-17">
+               <div class="item-title">
+                  <h3>Expense Category wise Pie chart</h3>
+               </div>
+            </div>
+            <div class="col-lg-12 col-xl-12 col-12-xxxl">
+               <div id="piechart"></div>
+               <div>
+                     <table>
+                        <th>
+                           <td>
+                              Name
+                           </td>
+                           <td>
+                              Amount
+                           </td>
+                        </th>
+                        <?php 
+                        $res=mysqli_query($con,"SELECT SUM(amount) as amount, expense_category.name from expense, expense_category WHERE expense.expense_category_id=expense_category.id group by expense_category.id");
+                        if(mysqli_num_rows($res)>0){
+                              while($row=mysqli_fetch_assoc($res)){?>
+                                 <tr style="margin: 10px;padding:10px">
+                                    <td>
+                                       <?php echo $row['name']?>: 
+                                    </td>
+                                    <td style="padding-left: 10px;">
+                                       <?php echo $row['amount']?> Taka
+                                    </td>
+                                 </tr>
+                              <?php }
+                        }else{
+                           
+                        }
+                        ?>
+
+                     </table>
+               </div>
             </div>
          </div>
       </div>

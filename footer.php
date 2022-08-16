@@ -43,13 +43,10 @@
 <script src="js/toastr.min.js"></script>
 <!-- sweet alert JS -->
 <script src="./js/sweetalert.min.js"></script>
-<!-- Ck editor -->
-<script src="./js/ckeditor.js"></script>
 <!-- summernote editor -->
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <!--  -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- Custom Js -->
 <script src="js/main.js"></script>
 <script src="js/custom.php"></script>

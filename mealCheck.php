@@ -51,7 +51,7 @@
          $_SESSION['INSERT']=1;
       }
       // echo $swl;
-       redirect('mealStatus.php');
+       redirect('mealCheck.php');
    }
    
    

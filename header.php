@@ -122,7 +122,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="navbar-item dropdown header-message">
+                    <!-- <li class="navbar-item dropdown header-message">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <i class="far fa-envelope"></i>
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                         </div>
-                    </li>
+                    </li> -->
                     <li class="navbar-item dropdown header-notification">
                         <?php 
                             // $sql="select notice.*,count(notice.id) as time from notice,users where notice.status='1' and notice.added_on  BETWEEN users.last_notification AND '".time()."'";
@@ -248,7 +248,7 @@
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Expenses</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-money text-red"></i><span>Expenses</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
                                     <a href="expense.php"
@@ -265,18 +265,18 @@
                         </li>
                         <li class="nav-item">
                             <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-dashboard"></i><span>Manage Payment</span></a>
+                                    class="flaticon-checklist"></i><span>Manage Payment</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-dashboard"></i><span>Meal Maintanance</span></a>
+                                    class="flaticon-shopping-list"></i><span>Meal Maintanance</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-dashboard"></i><span>Meal Status</span></a>
+                                    class="flaticon-chat"></i><span>Meal Status</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Notices</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-script"></i><span>Notices</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
                                     <a href="notices.php"
@@ -293,13 +293,13 @@
                         </li>
                         <li class="nav-item">
                             <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-dashboard"></i><span>Meal On Off Requests</span></a>
+                                    class="flaticon-menu-1"></i><span>Meal On Off Requests</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Monthly Payment</span></a>
+                            <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Monthly Payment</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Fees</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Fees</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
                                     <a href="fees.php"
@@ -315,7 +315,7 @@
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Expense Category</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Expense Category</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
                                     <a href="expenseCategory.php"
@@ -331,7 +331,7 @@
                             </ul>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Departments and
+                            <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Departments and
                                     Batches</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">

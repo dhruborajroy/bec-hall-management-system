@@ -48,7 +48,7 @@
                     </form>
                     <div class="notice-board-wrap">
                         <?php 
-                        $sql="select * from notice where status='1'";
+                        $sql="select * from notice where status='1' order by added_on desc";
                         $res=mysqli_query($con,$sql);
                         if(mysqli_num_rows($res)>0){
                         $i=1;
