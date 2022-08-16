@@ -99,7 +99,11 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                                         <?php
                                         $total_meal=0;
                                         for ($i=01; $i <= $last_date; $i++) {
-                                            $meal_sql="select * from `meal_table` where date_id='$i' and month_id='$month' and year='$year' and `meal_table`.roll=".$row['roll'];
+                                            $a="";
+                                            if($i<10){
+                                                $a='0';
+                                            }
+                                            $meal_sql="select * from `meal_table` where date_id='$a$i' and month_id='$month' and year='$year' and `meal_table`.roll=".$row['roll'];
                                             $meal_res=mysqli_query($con,$meal_sql);
                                             if(mysqli_num_rows($meal_res)>0){
                                                 $meal_row=mysqli_fetch_assoc($meal_res);?>

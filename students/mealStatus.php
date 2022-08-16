@@ -72,6 +72,9 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                             <div class="item-title">
                                 <h3>Meal Chart- <?php echo $monthName = date('F', mktime(0, 0, 0, $month, 10));?> 2022</h3>
                             </div>
+                            <div class="dropdown">
+                                <a  href="mealStatusPrint.php" role="button">Go to print page</a>
+                            </div>
                         </div>
                         <div class="table-responsive">
                             <table class="table bs-table table-striped table-bordered text-nowrap">

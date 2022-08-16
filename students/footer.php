@@ -44,64 +44,9 @@
 <script src="../assets/js/sweetalert.min.js"></script>
 <!-- Custom Js -->
 <script src="../js/main.js"></script>
+<script src="../js/custom.php"></script>
 
 <script>
-toastr.options = {
-    "closeButton": true,
-    "debug": true,
-    "newestOnTop": true,
-    "progressBar": false,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": true,
-    "onclick": null,
-    "showDuration": "300",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-}
-
-function toastrSuccess(data) {
-    toastr.success(data);
-}
-
-function toastrInfo(data) {
-    toastr.info(data);
-}
-
-function toastrWarning(data) {
-    toastr.warning(data);
-}
-
-function toastrError(data) {
-    toastr.error(data);
-}
-</script>
-<!-- Dynamic Custom Js -->
-<script src="js/custom.php"></script>
-
-<script>
-function vailidatePayment(val_id) {
-    var val_id = val_id;
-    // alert(val_id);
-    jQuery.ajax({
-        url: 'vailidatePayment.php',
-        type: 'post',
-        data: 'val_id=' + val_id,
-        success: function(result) {
-            if (result == 'VALID' || result == 'VALIDATED') {
-                swal("Success!", "Your payment is valid!", "success");
-            } else if (result == 'INVALID_TRANSACTION') {
-                swal("Failure!", "Your payment is Invalid!", "warning");
-            } else {
-                alert(result);
-            }
-        }
-    });
-}
 $().ready(function() {
     // validate signup form on keyup and submit
     $("#studentForm").validate({

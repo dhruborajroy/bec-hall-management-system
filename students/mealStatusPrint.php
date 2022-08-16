@@ -6,6 +6,7 @@
    require('../inc/function.inc.php');
    require_once("../inc/smtp/class.phpmailer.php");
 //    isAdmin();
+    // require('../vendor/autoload.php');
 ?>
 
 <!doctype html>
@@ -43,17 +44,36 @@
     <!-- Toastr CSS -->
     <link rel="stylesheet" href="../css/toastr.min.css">
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Modernize js -->
-    <script src="../js/modernizr-3.6.0.min.js"></script>
+
+    <style type="text/css" media="print">
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #attendance_table, #attendance_table * {
+                visibility: visible;
+            }
+            #attendance_table {
+                position: absolute;
+                left: 0;
+                top: 2;
+                bottom: 1;
+            }
+        }
+    </style>
 </head>
 
 <?php 
 $month="";
 $year="";
-if(isset($_GET['month']) && isset($_GET['year'])) {
+if(isset($_GET['month']) && isset($_GET['year']) && ($_GET['month']>01) && ($_GET['month']<13)) {
     $display_none="";
 	$month=get_safe_value($_GET['month']);
 	$year=get_safe_value($_GET['year']);
+}else{
+    // $_SESSION['PERMISSION_ERROR']='1';
+    // redirect("index.php");
+    // die;
 }
 ?>
 <div class="dashboard-content-one ">
@@ -88,7 +108,7 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                             <div class="col-12 form-group mg-t-8">
                                 <button type="submit"
                                     class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Search</button>
-                                <!-- <button type="reset" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Reset</button> -->
+                                    <a href="index.php" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Go to home</a>
                             </div>
                         </div>
                     </form>
@@ -98,70 +118,69 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
         <!-- Student Attendence Search Area End Here -->
         <!-- Student Attendence Area Start Here -->
         <?php if($month!="" && $year!=""){?>
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="heading-layout1">
-                            <div class="item-title">
-                                <h3>Meal Chart- <?php echo $monthName = date('F', mktime(0, 0, 0, $month, 10));?> 2022</h3>
-                            </div>
-                        </div>
-                        <div class="table-responsive">
-                            <table class="table bs-table table-striped table-bordered text-nowrap">
-                                <thead>
-                                    <tr>
-                                        <th class="text-left">Students</th>
-                                        <?php 
-                                        $last_date=cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
-                                        for ($i=1; $i <= $last_date; $i++) { ?>
-                                            <th><?php echo $i?></th>
-                                        <?php }?>
-                                        <th>Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <?php
-                                    $sql="select * from users order by id desc";
-                                    $res=mysqli_query($con,$sql);
-                                    if(mysqli_num_rows($res)>0){
-                                    $i=1;
-                                    while($row=mysqli_fetch_assoc($res)){
-                                    ?>
-                                    <tr>
-                                        <td class="text-left"><?php echo $row['name']?></td>
-                                        <?php
-                                        $total_meal=0;
-                                        for ($i=01; $i <= $last_date; $i++) {
-                                            $meal_sql="select * from `meal_table` where date_id='$i' and month_id='$month' and year='$year' and `meal_table`.roll=".$row['roll'];
-                                            $meal_res=mysqli_query($con,$meal_sql);
-                                            if(mysqli_num_rows($meal_res)>0){
-                                                $meal_row=mysqli_fetch_assoc($meal_res);?>
-                                                <td class="text-left"><?php 
-                                                    echo $meal_value=$meal_row['meal_value'].'</td>';
-                                                    $total_meal=intval($total_meal)+intval($meal_value);
-                                            }else{
-                                                echo '<td class="text-left">-</td>';
-                                            }
-                                            if($i==$last_date){
-                                                echo '<td class="text-left">'.$total_meal.'</td>';
-                                            }
-                                        }
-                                        ?>
-                                    </tr>
-                                    <?php 
-                                        $i++;
-                                        } } else { ?>
-                                    <tr>
-                                        <td colspan="5">No data found</td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
+                <div class="card-body"  id="attendance_table">
+                    <div class="heading-layout1 d-flex justify-content-center">
+                        <div class="item-title">
+                            <h3>Meal Chart- <?php echo $monthName = date('F', mktime(0, 0, 0, $month, 10));?> 2022</h3>
                         </div>
                     </div>
+                        <table class="table table-bordered  bg-warning-o-10"  >
+                            <thead>
+                                <tr>
+                                    <th class="text-left">Students</th>
+                                    <?php 
+                                    $last_date=cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
+                                    for ($i=1; $i <= $last_date; $i++) { ?>
+                                        <th><?php echo $i?></th>
+                                    <?php }?>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <?php
+                                $sql="select * from users order by id desc";
+                                $res=mysqli_query($con,$sql);
+                                if(mysqli_num_rows($res)>0){
+                                $i=1;
+                                while($row=mysqli_fetch_assoc($res)){
+                                ?>
+                                <tr>
+                                    <td class="text-left"><?php echo $row['name']?></td>
+                                    <?php
+                                    $total_meal=0;
+                                    for ($i=01; $i <= $last_date; $i++) {
+                                        $a="";
+                                        if($i<10){
+                                            $a='0';
+                                        }
+                                        $meal_sql="select * from `meal_table` where date_id='$a$i' and month_id='$month' and year='$year' and `meal_table`.roll=".$row['roll'];
+                                        $meal_res=mysqli_query($con,$meal_sql);
+                                        if(mysqli_num_rows($meal_res)>0){
+                                            $meal_row=mysqli_fetch_assoc($meal_res);?>
+                                            <td class="text-left"><?php 
+                                                echo $meal_value=$meal_row['meal_value'].'</td>';
+                                                $total_meal=intval($total_meal)+intval($meal_value);
+                                        }else{
+                                            echo '<td class="text-left">-</td>';
+                                        }
+                                        if($i==$last_date){
+                                            echo '<td class="text-left">'.$total_meal.'</td>';
+                                        }
+                                    }
+                                    ?>
+                                </tr>
+                                <?php 
+                                    $i++;
+                                    } } else { ?>
+                                <tr>
+                                    <td colspan="5">No data found</td>
+                                </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
                 </div>
-            </div>
         <?php }?>
     </div>
-    <!-- Student Attendence Area End Here -->
     <?php include("footer.php")?>
+    <script>
+    </script>

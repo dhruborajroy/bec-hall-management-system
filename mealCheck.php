@@ -43,7 +43,7 @@
             for($i=0;$i<=count($_POST['meal_value'])-1;$i++){
                $meal_value= get_safe_value($_POST['meal_value'][$i]);
                $roll= get_safe_value($_POST['roll'][$i]);
-               echo $swl="INSERT INTO `meal_table` (   `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
+               $swl="INSERT INTO `meal_table` (   `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
                                              ( '$roll', '$meal_value', '$date', '$month','$year','$time','$time', '1')";
                mysqli_query($con,$swl);
             }
@@ -51,7 +51,7 @@
          $_SESSION['INSERT']=1;
       }
       // echo $swl;
-      //  redirect('mealStatus.php');
+       redirect('mealStatus.php');
    }
    
    

@@ -4,8 +4,20 @@
 // echo $time=strtotime("15-08-2022")."<br>";
 // echo date('d-M-Y',mktime($time))."<br>";
 
-$date=date_create_from_format("d/m/Y","15/08/2022");
-echo date_format($date,"d");
-echo date_format($date,"m");
-echo date_format($date,"Y");
+// $date=date_create_from_format("d/m/Y","15/08/2022");
+// echo date_format($date,"d");
+// echo date_format($date,"m");
+// echo date_format($date,"Y");
+$meal_status=1;
+$data=[
+    'name'=>[
+        0=>'Off',
+        1=>'On',
+    ]
+];
+foreach ($data['name'] as $key => $value) {
+    if(intval($key)==intval($meal_status)){
+        echo $value;
+    }
+}
 ?>
