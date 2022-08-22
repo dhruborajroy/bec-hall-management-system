@@ -1,0 +1,87 @@
+
+<?php 
+include("header.php");
+$meal_status="";
+$meal_request_status="";
+if(isset($_POST['meal_request_status'])){
+    $meal_request_status=get_safe_value($_POST['meal_request_status']);
+    mysqli_query($con,"update users set `meal_request_status`='$meal_request_status', `meal_request_pending`='1' where users.id='1'");
+    $_SESSION['UPDATE']=true;
+}
+?>
+
+<div class="dashboard-content-one">
+    <!-- Breadcubs Area Start Here -->
+    <div class="breadcrumbs-area">
+        <h3>Meal On/off request</h3>
+        <ul>
+            <li>
+                <a href="index.php">Home</a>
+            </li>
+            <li>
+                Meal On off Request
+            </li>
+        </ul>
+    </div>
+    <!-- Breadcubs Area End Here -->
+    <!-- Button Area Start Here -->
+    <div class="card height-auto">
+        <div class="card-body">
+            <div class="heading-layout1 mg-b-25">
+                <div class="item-title">
+                    <h3>Meal On off Request</h3>
+                </div>
+            </div>
+            <form  method="post">
+                <div class="ui-alart-box row col-lg-12">
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Current Meal status </label>
+                            <?php
+                            $res=mysqli_query($con,"Select meal_status from users where id='1'");
+                            $row=mysqli_fetch_assoc($res);
+                            if($row['meal_status']==1){
+                                echo "On";
+                            }elseif($row['meal_status']==0){
+                                echo "Off";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label></label>
+                            <?php
+                            $res=mysqli_query($con,"Select meal_request_status,meal_request_pending,meal_status from users where id='1'");
+                            $row=mysqli_fetch_assoc($res);
+                            if($row['meal_request_pending']==0){
+                                if($row['meal_request_status']==1){
+                                    echo '<input type="hidden" value="0" name="meal_request_status">';
+                                    if($row['meal_status']==1){
+                                        echo '<button type="submit" class="btn-fill-md text-light bg-orange-red">Request to Meal off</button></li>';
+                                    }else{
+                                        echo '<button type="submit" class="btn-fill-md text-light bg-dark-pastel-green">Request to Meal on</button></li>';
+                                    }
+                                }elseif($row['meal_request_status']==0){
+                                    echo '<input type="hidden" value="1" name="meal_request_status">';
+                                    if($row['meal_status']==0){
+                                        echo '<button type="submit" class="btn-fill-md text-light bg-dark-pastel-green">Request to Meal on</button></li>';
+                                    }else{
+                                        echo '<button type="submit" class="btn-fill-md text-light bg-orange-red">Request to Meal off</button></li>';
+                                    }
+                                }
+                            }else{
+                                echo '<button class="btn-fill-md text-light bg-orange-red">Your meal request is in review. Pending admin approval</button></li>';
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="ui-btn-wrap col-lg-6">
+                        <ul>
+                            <!-- <li><button type="button" class="btn-fill-md text-light bg-dark-pastel-green">Meal On/Request Meal Off</button></li> -->
+                            <!-- <li><button type="submit" name="submit" class="btn-fill-md radius-4 text-light bg-orange-red">Submit</button></li> -->
+                        </ul>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <?php include("footer.php")?>
