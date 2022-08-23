@@ -275,14 +275,15 @@ $mpdf=new \Mpdf\Mpdf([
 	'margin_top' => 2,
 	'margin_bottom' => 10,
 ]);
-// $mpdf->SetCreator('Dhrubo');
-// $mpdf->SetAuthor('Dhrubo');
-// $mpdf->SetTitle('Invoice of Barisal Engineering College Hall Payment');
-// $mpdf->SetFooter('Developed By The Web divers');
-// $mpdf->watermarkImageAlpha = 0.1;
-// $mpdf->WriteHTML($html);
-// $file=time().'.pdf';
-// // $mpdf->output($file,'I');
-// $mpdf->output('media/'.$file,'F');
-// send_email("dhruborajroy3@gmail.com","Invoice","Invoice of Payment ".$file,'media/'.$file);
-// // unlink($file);
+$mpdf->SetCreator('Dhrubo');
+$mpdf->SetAuthor('Dhrubo');
+$mpdf->SetTitle('Invoice of Barisal Engineering College Hall Payment');
+$mpdf->SetFooter('Developed By The Web divers');
+$mpdf->watermarkImageAlpha = 0.1;
+$mpdf->WriteHTML($html);
+$file=time().'.pdf';
+$mpdf->output($file,'I');
+$mpdf->output($file,'D');
+$mpdf->output('media/'.$file,'F');
+send_email("dhruborajroy3@gmail.com","Invoice","Invoice of Payment ".$file,'media/'.$file);
+// unlink($file);

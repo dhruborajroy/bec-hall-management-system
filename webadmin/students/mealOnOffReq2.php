@@ -52,7 +52,7 @@ if(isset($_POST['meal_request_status'])){
                             <?php
                             $res=mysqli_query($con,"Select meal_request_status,meal_request_pending,meal_status from users where id='1'");
                             $row=mysqli_fetch_assoc($res);
-                            if($row['meal_request_pending']==0){
+                            if($row['meal_request_pending']!=1){
                                 if($row['meal_request_status']==1){
                                     echo '<input type="hidden" value="0" name="meal_request_status">';
                                     if($row['meal_status']==1){
@@ -73,12 +73,6 @@ if(isset($_POST['meal_request_status'])){
                             }
                             ?>
                         </select>
-                    </div>
-                    <div class="ui-btn-wrap col-lg-6">
-                        <ul>
-                            <!-- <li><button type="button" class="btn-fill-md text-light bg-dark-pastel-green">Meal On/Request Meal Off</button></li> -->
-                            <!-- <li><button type="submit" name="submit" class="btn-fill-md radius-4 text-light bg-orange-red">Submit</button></li> -->
-                        </ul>
                     </div>
                 </div>
             </form>

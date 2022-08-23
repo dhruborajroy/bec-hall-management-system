@@ -3,6 +3,7 @@ include("header.php");
    $name="";
    $roll="";
    $batch="";
+   $_GET['id']=1;
    if(isset($_GET['id']) && $_GET['id']!=""){
        $id=get_safe_value($_GET['id']);
        $res=mysqli_query($con,"select * from users where id='$id'");
@@ -21,10 +22,11 @@ include("header.php");
       $month_id=$_POST['month_id'];
       $total_amount=$_POST['total_amount'];
       $time=time();
-      $payment_type='cash';
+      $payment_type='sslcommerz';
       $tran_id="becHall_".uniqid();
+
        $sql="INSERT INTO `payments` ( `user_id`,`payment_type`,`tran_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES 
-                                    ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '1', '1')";
+                                    ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '0', '1')";
        mysqli_query($con,$sql);
        $payment_id=mysqli_insert_id($con);
        if(isset($_POST['monthly_amount'])){
@@ -52,8 +54,50 @@ include("header.php");
                   mysqli_query($con,$swl);
             }
          }
+      }
+      
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php');
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, "store_id=thedh60a231886b190
+                                             &store_passwd=thedh60a231886b190@ssl
+                                             &total_amount=".urlencode(round($total_amount,2))."&currency=BDT
+                                             &tran_id=".$tran_id."
+                                             &success_url=".FRONT_SITE_PATH."webadmin/students/success.php"."
+                                             &fail_url=".FRONT_SITE_PATH."webadmin/students/failure.php"."
+                                             &cancel_url=".FRONT_SITE_PATH."webadmin/students/cancel.php"."
+                                             &cus_name=Customer Name
+                                             &cus_email=cust@yahoo.com
+                                             &cus_add1=Dhaka
+                                             &cus_city=Dhaka
+                                             &cus_country=Bangladesh
+                                             &ship_country=Bangladesh
+                                             &shipping_method=air
+                                             &ship_add1=lal
+                                             &product_name=dj
+                                             &product_category=d
+                                             &cus_phone=01711111111
+                                             &ship_name=Customer Name
+                                             &ship_add1 =Dhaka
+                                             &ship_city=Dhaka
+                                             &ship_state=Dhaka
+                                             &ship_postcode=1000
+                                             &product_profile=c"
+                                    );
+      $headers = array();
+      $headers[] = 'Content-Type: application/x-www-form-urlencoded';
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      $result = curl_exec($ch);
+      if (curl_errno($ch)) {
+         echo 'Error:' . curl_error($ch);
+      }
+      curl_close($ch);
+      $result=json_decode($result,TRUE);
+      if(isset($result['status']) && $result['status']=="SUCCESS"){
+         redirect($result['GatewayPageURL']);
       } 
-      redirect("./invoice.php?id=".$payment_id);
+      // redirect("./invoice.php?id=".$payment_id);
       die;
    }
    ?>
@@ -204,7 +248,7 @@ include("header.php");
                         <div class="col-xl-2 col-lg-2 col-12 form-group">
                            <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
                               data-target="#standard-modal" name="submit">
-                           Payment
+                           Payment online
                            </button>
                         </div>
                      </div>

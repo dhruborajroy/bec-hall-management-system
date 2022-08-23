@@ -2,26 +2,26 @@
 if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id']>0){
 	$type=get_safe_value($_GET['type']);
 	$id=get_safe_value($_GET['id']);
-	$current_meal_status=get_safe_value($_GET['current_meal_status']);
+	$current_guest_meal_status=get_safe_value($_GET['current_guest_meal_status']);
 	if($type=='approve' || $type=='decline'){
 		if($type=='approve'){
-            if($current_meal_status==0){
-                $meal_request_status=1;
-            }elseif($current_meal_status==1){
-                $meal_request_status=0;
+            if($current_guest_meal_status==0){
+                $current_guest_meal_status=1;
+            }elseif($current_guest_meal_status==1){
+                $current_guest_meal_status=0;
             }
-            $sql="update users set meal_status='$meal_request_status', meal_request_pending='0', meal_request_status='$current_meal_status'  where id='$id'";
+            $sql="update users set guest_meal='$current_guest_meal_status', guest_meal_request_pending='0' where id='$id'";
             mysqli_query($con,$sql);
-            redirect("mealOnOffRequests.php");
+            redirect("guestMealOnOffRequests.php");
 		}elseif($type=='decline'){
-            if($current_meal_status==0){
-                $meal_request_status=1;
-            }elseif($current_meal_status==1){
-                $meal_request_status=0;
+            if($current_guest_meal_status==0){
+                $current_guest_meal_status=1;
+            }elseif($current_guest_meal_status==1){
+                $current_guest_meal_status=0;
             }
-            $sql="update users set meal_status='$current_meal_status', meal_request_pending='0', meal_request_status='$meal_request_status'  where id='$id'";
+            $sql="update users set guest_meal='$current_guest_meal_status', guest_meal_request_pending='0' where id='$id'";
             mysqli_query($con,$sql);
-            redirect("mealOnOffRequests.php");
+            redirect("guestMealOnOffRequests.php");
 		}
 	}
 }
@@ -86,7 +86,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                     </thead>
                     <tbody id="myTable">
                         <?php 
-                        $sql="SELECT * from users where meal_request_pending='1'";
+                        $sql="SELECT * from users where guest_meal_request_pending='1'";
                         $res=mysqli_query($con,$sql);
                         if(mysqli_num_rows($res)>0){
                         $i=1;
@@ -96,20 +96,20 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                             <td><?php echo $row['roll']?></td>
                             <td><?php echo $row['name']?></td>
                             <td><?php echo $row['batch']?></td>
-                            <td><?php if($row['meal_status']==1){echo "On";}elseif($row['meal_status']==0){echo "Off";}?></td>
-                            <td><?php if($row['meal_request_status']==1){echo "On";}elseif($row['meal_request_status']==0){echo "Off";}?></td>
+                            <td><?php if($row['guest_meal']==1){echo "On";}elseif($row['guest_meal']==0){echo "Off";}?></td>
+                            <td><?php if($row['guest_meal_request_status']==1){echo "On";}elseif($row['guest_meal_request_status']==0){echo "Off";}?></td>
                             <td><?php echo $row['dept_id']?></td>
                             <td>
                                 <div class="ui-btn-wrap">
                                     <ul>
                                         <li>
-                                            <a href="?id=<?php echo $row['id']?>&type=approve&current_meal_status=<?php echo $row['meal_status']?>">
+                                            <a href="?id=<?php echo $row['id']?>&type=approve&current_guest_meal_status=<?php echo $row['guest_meal']?>">
                                                 <button type="button"
                                                     class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Approve</button>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="?id=<?php echo $row['id']?>&type=decline&current_meal_status=<?php echo $row['meal_status']?>">
+                                            <a href="?id=<?php echo $row['id']?>&type=decline&current_guest_meal_status=<?php echo $row['guest_meal']?>">
                                                 <button type="button"
                                                     class="btn-fill-xl  text-light shadow-orange-red bg-orange-red">Decline</button>
                                             </a>

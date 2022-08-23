@@ -292,6 +292,10 @@
                                     class="flaticon-menu-1"></i><span>Meal On Off Requests</span></a>
                         </li>
                         <li class="nav-item">
+                            <a href="guestMealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
+                                    class="flaticon-menu-1"></i><span>Guest Meal On Off Requests</span></a>
+                        </li>
+                        <li class="nav-item">
                             <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Monthly Payment</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">

@@ -1,6 +1,6 @@
 <?php
 define('SITE_NAME','Admission');
-define('FRONT_SITE_PATH','http://192.168.31.80/hall/');
+define('FRONT_SITE_PATH','http://localhost/hall/');
 define('STORE_ID',"dhrub5f103f94cd3e4");
 define('STORE_PASSWORD',"dhrub5f103f94cd3e4@ssl");
 define('STUDENT_IMAGE',FRONT_SITE_PATH."/media/users/");

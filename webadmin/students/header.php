@@ -5,7 +5,6 @@
    require('../inc/connection.inc.php');
    require('../inc/function.inc.php');
    require_once("../inc/smtp/class.phpmailer.php");
-   isAdmin();
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -190,10 +189,10 @@
                             <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
+                            <a href="mealOnOffReq2.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="mealOnOffReq2.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
+                            <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
