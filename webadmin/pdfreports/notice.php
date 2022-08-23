@@ -8,9 +8,9 @@ if (isset($_GET['notice_id']) && $_GET['notice_id']!="") {
     $notice_id=get_safe_value($_GET['notice_id']);
 }else{
     $_SESSION['PERMISSION_ERROR']=1;
-    // redirect("index.php");
+    redirect("index.php");
 }
-echo $sql="select * from `notice` where id='$notice_id'";
+$sql="select * from `notice` where id='$notice_id'";
 $res=mysqli_query($con,$sql);
 $html="";
 if(mysqli_num_rows($res)>0){

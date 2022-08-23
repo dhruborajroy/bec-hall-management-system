@@ -14,7 +14,6 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		mysqli_query($con,"update fees set status='$status' where id='$id'");
         redirect('./fees.php');
 	}
-
 }
 $sql="select * from fees order by id desc";
 $res=mysqli_query($con,$sql);

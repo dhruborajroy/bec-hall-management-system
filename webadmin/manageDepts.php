@@ -2,7 +2,7 @@
 $id="";
 $short_form='';
 $name='';
-if(isset($_GET['id']) && $_GET['id']>0){
+if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id']!=""){
 	$id=get_safe_value($_GET['id']);
     $res=mysqli_query($con,"select * from depts where id='$id'");
     if(mysqli_num_rows($res)>0){
@@ -13,6 +13,9 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
+}if($_GET['id']==0){
+    $_SESSION['PERMISSION_ERROR']=1;
+    redirect("index.php");
 }
 if(isset($_POST['submit'])){  
     // pr($_POST);

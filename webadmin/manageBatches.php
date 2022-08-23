@@ -3,6 +3,10 @@ $id="";
 $numaric_value='';
 $name='';
 if(isset($_GET['id']) && $_GET['id']>0){
+    if($_GET['id']==0){
+        $_SESSION['PERMISSION_ERROR']=1;
+        redirect("index.php");
+    }
 	$id=get_safe_value($_GET['id']);
     $res=mysqli_query($con,"select * from batch where id='$id'");
     if(mysqli_num_rows($res)>0){

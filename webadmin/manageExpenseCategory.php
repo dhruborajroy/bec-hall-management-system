@@ -6,7 +6,13 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
 	$row=mysqli_fetch_assoc(mysqli_query($con,"select * from expense_category where id='$id'"));
 	$name=$row['name'];
-}
+}if($_GET['id']==0){
+    $_SESSION['PERMISSION_ERROR']=1;
+    redirect("index.php");
+}else{
+    $_SESSION['PERMISSION_ERROR']=1;
+    redirect('index.php');
+ }
 if(isset($_POST['submit'])){
 	$name=get_safe_value($_POST['name']);
    if($id==''){

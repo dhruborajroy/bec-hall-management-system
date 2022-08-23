@@ -14,7 +14,6 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		mysqli_query($con,"update batch set status='$status' where id='$id'");
         redirect('./batches.php');
 	}
-
 }
 $sql="select * from batch order by id desc";
 $res=mysqli_query($con,$sql);

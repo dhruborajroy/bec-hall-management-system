@@ -4,9 +4,18 @@ $name='';
 $amount='';
 if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
-	$row=mysqli_fetch_assoc(mysqli_query($con,"select * from fees where id='$id'"));
-	$amount=$row['amount'];
-	$name=$row['name'];
+    $res=mysqli_query($con,"select * from fees where id='$id'");
+    if(mysqli_num_rows($res)){
+        $row=mysqli_fetch_assoc($res);
+        $amount=$row['amount'];
+        $name=$row['name'];
+    }else{
+        $_SESSION['PERMISSION_ERROR']=1;
+        redirect('index.php');
+    }
+}if($_GET['id']==0){
+    $_SESSION['PERMISSION_ERROR']=1;
+    redirect("index.php");
 }
 if(isset($_POST['submit'])){  
     // pr($_POST);
@@ -48,6 +57,16 @@ if(isset($_POST['submit'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Amount </label>
                         <input type="number" placeholder="Enter amount" value="<?php echo $amount?>" name="amount"
+                            class="form-control">
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Add fee to every month </label>
+                        <input type="checkbox" 
+                            class="form-control">
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Add to payment page </label>
+                        <input type="checkbox" 
                             class="form-control">
                     </div>
                     <div class="col-md-6 form-group"></div>

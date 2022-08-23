@@ -5,12 +5,12 @@ include("../inc/connection.inc.php");
 include("../inc/function.inc.php");
 require_once("../inc/smtp/class.phpmailer.php");
 require('../vendor/autoload.php');
-// if (isset($_GET['batch_id']) && $_GET['batch_id']!="") {
-//     $batch_id=get_safe_value($_GET['batch_id']);
-// }else{
-//     $_SESSION['PERMISSION_ERROR']=1;
-//     // redirect("index.php");
-// }
+if (isset($_GET['batch_id']) && $_GET['batch_id']!="") {
+    $batch_id=get_safe_value($_GET['batch_id']);
+}else{
+    // $_SESSION['PERMISSION_ERROR']=1;
+    // redirect("index.php");
+}
 $html='<table class="table" width="100%">';
 $html.='
     <tr>

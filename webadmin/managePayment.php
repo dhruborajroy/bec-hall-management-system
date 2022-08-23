@@ -3,7 +3,7 @@ include("header.php");
    $name="";
    $roll="";
    $batch="";
-   if(isset($_GET['id']) && $_GET['id']!=""){
+   if(isset($_GET['id']) && $_GET['id']!="" && $_GET['id']>0){
        $id=get_safe_value($_GET['id']);
        $res=mysqli_query($con,"select * from users where id='$id'");
        if(mysqli_num_rows($res)>0){
@@ -15,6 +15,9 @@ include("header.php");
             $_SESSION['PERMISSION_ERROR']=1;
             redirect('index.php');
        }
+   }else{
+      $_SESSION['PERMISSION_ERROR']=1;
+      redirect('index.php');
    }
    if(isset($_POST['submit']) ){
       $user_id=get_safe_value($_GET['id']);

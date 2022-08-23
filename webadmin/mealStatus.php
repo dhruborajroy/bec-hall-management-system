@@ -80,8 +80,12 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                                         <th class="text-left">Students</th>
                                         <?php 
                                         $last_date=cal_days_in_month(CAL_GREGORIAN, $month, date('Y'));
-                                        for ($i=1; $i <= $last_date; $i++) { ?>
-                                            <th><?php echo $i?></th>
+                                        for ($i=1; $i <= $last_date; $i++) {
+                                            $a="";
+                                            if($i<10){
+                                                $a='0';
+                                            } ?>
+                                            <th><?php echo $a.$i?></th>
                                         <?php }?>
                                         <th>Total</th>
                                     </tr>

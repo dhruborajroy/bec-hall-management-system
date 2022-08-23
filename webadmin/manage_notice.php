@@ -18,7 +18,13 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
-}
+}if($_GET['id']==0){
+    $_SESSION['PERMISSION_ERROR']=1;
+    redirect("index.php");
+}else{
+    $_SESSION['PERMISSION_ERROR']=1;
+    redirect('index.php');
+ }
 if(isset($_POST['submit'])){
 	$title=get_safe_value($_POST['title']);
 	$reference=get_safe_value($_POST['reference']);

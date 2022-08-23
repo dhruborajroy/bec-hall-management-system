@@ -12,7 +12,8 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		if($type=='deactive'){
 			$status=0;
 		}
-		mysqli_query($con,"update users set status='$status' where id='$id'");
+        $sql="update users set status='$status' where id='$id'";
+		mysqli_query($con,$sql);
         $_SESSION['UPDATE']=1;
         redirect('./users.php');
 	}
@@ -104,11 +105,23 @@ $res=mysqli_query($con,$sql);
                                         <span class="flaticon-more-button-of-three-dots"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <!-- <a class="dropdown-item" href="#"><i
-                                                class="fas fa-times text-orange-red"></i>Close</a> -->
+                                        <?php if($row['status']=='1'){?>
+                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=deactive"><i
+                                                    class="fas fa-times text-orange-red"></i>Deactive</a>
+                                        <?php }else{?>
+                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=active"><i
+                                                    class="fas fa-times text-orange-red"></i>Active</a>
+                                        <?php }?>
                                         <a class="dropdown-item"
                                             href="manageStudentProfile.php?id=<?php echo md5($row['id'])?>"><i
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                        <?php if($row['status']=='1'){?>
+                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=deactive"><i
+                                                    class="fas fa-times text-orange-red"></i>Delete meal manager</a>
+                                        <?php }else{?>
+                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=active"><i
+                                                    class="fas fa-times text-orange-red"></i>Add as meal manager</a>
+                                        <?php }?>
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->
                                     </div>

@@ -81,12 +81,5 @@ $mpdf=new \Mpdf\Mpdf([
 $mpdf->WriteHTML($html);
 $mpdf->SetTitle('Monthly Bill chart for '.date('F - Y'));
 $mpdf->SetFooter('Monthly Bill chart for '.date('F-y').'| Developed By The Web divers | {PAGENO}');
-// $mpdf->SetHeader('Document Title | Center Text | {PAGENO}');
 $file=time().'.pdf';
 $mpdf->output($file,'I');
-// $mpdf->output($file,'F');
-// send_email("orinkarmaker03@gmail.com","Invoice","Skm",$file);
-// send_email("azadahammed52@gmail.com","Invoice","Skm",$file);
-// send_email("dhruborajroy3@gmail.com","Invoice","Skm",$file);
-// unlink($file);
-//D
