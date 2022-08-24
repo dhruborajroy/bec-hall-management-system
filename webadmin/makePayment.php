@@ -15,9 +15,6 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		// mysqli_query($con,"update users set status='$status' where id='$id'");
         redirect('./makePayments.php');
 	}
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
 }
 $sql="select * from users order by id desc";
 $res=mysqli_query($con,$sql);

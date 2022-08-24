@@ -13,9 +13,6 @@ if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id']!=""){
         $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
 }
 if(isset($_POST['submit'])){  
     // pr($_POST);

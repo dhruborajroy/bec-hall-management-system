@@ -6,13 +6,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
 	$id=get_safe_value($_GET['id']);
 	$row=mysqli_fetch_assoc(mysqli_query($con,"select * from expense_category where id='$id'"));
 	$name=$row['name'];
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
-}else{
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect('index.php');
- }
+}
 if(isset($_POST['submit'])){
 	$name=get_safe_value($_POST['name']);
    if($id==''){
@@ -42,11 +36,11 @@ if(isset($_POST['submit'])){
                     <h3>Add New Fees</h3>
                 </div>
             </div>
-            <form class="new-added-form" method="post">
+            <form id="validate" class="new-added-form" method="post">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Expense category name *</label>
-                        <input type="text" placeholder="Enter expense category name" value="<?php echo $name?>" name="name"
+                        <input type="text" placeholder="Enter expense category name" value="<?php echo $name?>" name="name" id="name"
                             class="form-control">
                     </div>
                     <div class="col-md-6 form-group"></div>

@@ -66,16 +66,16 @@ if(isset($_POST['submit'])){
                             </div>
                         </div>
                     </div>
-                    <form class="new-added-form" method="post">
+                    <form id="validate" class="new-added-form" method="post">
                         <div class="row">
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
                                 <label>Role Name</label>
-                                <input type="text" required placeholder="" class="form-control" name="role_name"
+                                <input type="text" required class="form-control" name="role_name" id="role_name"
                                     value="<?php echo $role_name?>">
                             </div>
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
                                 <label>Role Value</label>
-                                <input type="text" required placeholder="" class="form-control" name="value"
+                                <input type="text" required class="form-control" name="value" id="value"
                                     value="<?php echo $value?>">
                             </div>
                             <div class="col-12 form-group mg-t-8">

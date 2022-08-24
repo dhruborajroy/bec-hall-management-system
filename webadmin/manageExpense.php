@@ -20,12 +20,6 @@ if(isset($_GET['id']) && $_GET['id']>0){
         redirect("index.php");
         die;
     }
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
-}else{
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect('index.php');
 }
 if(isset($_POST['submit'])){
     pr($_POST);
@@ -78,16 +72,16 @@ if(isset($_POST['submit'])){
                     <h3>Add New expense</h3>
                 </div>
             </div>
-            <form class="new-added-form" method="post">
+            <form id="validate" class="new-added-form" method="post">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Amount *</label>
                         <input required type="number" placeholder="Enter amount" value="<?php echo $amount?>"
-                            name="amount" class="form-control">
+                        name="amount"  id="amount" class="form-control">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Expense Category *</label>
-                        <select class="form-control select2" name="expense_category_id" required>
+                        <select class="form-control select2" name="expense_category_id" id="expense_category_id" required>
                             <!-- <option value="-1">Select Expense Category</option> -->
                             <?php
                             $res=mysqli_query($con,"SELECT * FROM `expense_category` where status='1'");

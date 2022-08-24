@@ -18,13 +18,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $_SESSION['PERMISSION_ERROR']=1;
         redirect("index.php");
     }
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
-}else{
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect('index.php');
- }
+}
 if(isset($_POST['submit'])){
 	$title=get_safe_value($_POST['title']);
 	$reference=get_safe_value($_POST['reference']);
@@ -82,21 +76,21 @@ if(isset($_POST['submit'])){
                             </div>
                         </div>
                     </div>
-                    <form class="new-added-form" method="post">
+                    <form id="validate" class="new-added-form" method="post">
                         <div class="row">
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
                                 <label>Reference No</label>
-                                <input type="text" required placeholder="" class="form-control" name="reference"
+                                <input type="text" required placeholder="" class="form-control" name="reference" id="reference"
                                     value="<?php echo $reference?>">
                             </div>
                             <div class="col-12-xxxl col-lg-6 col-12 form-group">
                                 <label>Title</label>
-                                <input type="text" required placeholder="" class="form-control" name="title"
+                                <input type="text" required placeholder="" class="form-control" name="title" id="title"
                                     value="<?php echo $title?>">
                             </div>
                             <div class="col-12-xxxl col-lg-12 col-12 form-group">
                                 <label>Details</label>
-                                <textarea name="details" id="editor" cols="30" rows="10"><?php echo $details?></textarea>
+                                <textarea name="details" id="editor details" cols="30" rows="10"><?php echo $details?></textarea>
                             </div>
                             <div class="col-12 form-group mg-t-8">
                                 <input type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark"

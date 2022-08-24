@@ -38,7 +38,7 @@
 <!-- Data Table Js -->
 <script src="js/jquery.dataTables.min.js"></script>
 <!-- validate JS -->
-<script src="./js/validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 <!-- Custom Js -->
 <script src="js/toastr.min.js"></script>
 <!-- sweet alert JS -->
@@ -50,6 +50,8 @@
 <!-- Custom Js -->
 <script src="js/main.js"></script>
 <script src="js/custom.php"></script>
+<script src="js/validation.php"></script>
+
 </body>
 
 </html>

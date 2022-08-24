@@ -15,9 +15,6 @@ include("header.php");
             $_SESSION['PERMISSION_ERROR']=1;
             redirect('index.php');
        }
-   }else{
-      $_SESSION['PERMISSION_ERROR']=1;
-      redirect('index.php');
    }
    if(isset($_POST['submit']) ){
       $user_id=get_safe_value($_GET['id']);

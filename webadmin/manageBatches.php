@@ -47,17 +47,17 @@ if(isset($_POST['submit'])){
                     <h3>Add New Depertment</h3>
                 </div>
             </div>
-            <form class="new-added-form" method="post">
+            <form id="validate" class="new-added-form" method="post">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Batch Name *</label>
-                        <input type="text" placeholder="Enter Batch name" value="<?php echo $name?>" name="name"
+                        <input type="text" placeholder="Enter Batch name" value="<?php echo $name?>" name="name" id="name"
                             class="form-control">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Numaric value of batch</label>
                         <input type="text" placeholder="Numaric value of batch" value="<?php echo $numaric_value?>"
-                            name="numaric_value" class="form-control">
+                            name="numaric_value"  id="numaric_value" class="form-control">
                     </div>
                     <div class="col-md-6 form-group"></div>
                     <div class="col-12 form-group mg-t-8">

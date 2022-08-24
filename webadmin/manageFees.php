@@ -13,9 +13,6 @@ if(isset($_GET['id']) && $_GET['id']>0){
         $_SESSION['PERMISSION_ERROR']=1;
         redirect('index.php');
     }
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
 }
 if(isset($_POST['submit'])){  
     // pr($_POST);
@@ -47,16 +44,16 @@ if(isset($_POST['submit'])){
                     <h3>Add New Fees</h3>
                 </div>
             </div>
-            <form class="new-added-form" method="post">
+            <form id="validate" class="new-added-form" method="post">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Fee's Name *</label>
-                        <input type="text" placeholder="Enter fee's name" value="<?php echo $name?>" name="name"
+                        <input type="text" placeholder="Enter fee's name" value="<?php echo $name?>" name="name" id="name"
                             class="form-control">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Amount </label>
-                        <input type="number" placeholder="Enter amount" value="<?php echo $amount?>" name="amount"
+                        <input type="number" placeholder="Enter amount" value="<?php echo $amount?>" name="amount" id="amount"
                             class="form-control">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">

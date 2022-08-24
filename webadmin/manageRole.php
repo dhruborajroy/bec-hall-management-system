@@ -42,11 +42,11 @@ if(isset($_POST['submit'])){
                     <h3>Add New Depertment</h3>
                 </div>
             </div>
-            <form class="new-added-form" method="post">
+            <form id="validate" class="new-added-form" method="post">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Student *</label>
-                        <select class="form-control select2" name="student_id">
+                        <select class="form-control select2" name="student_id" id="student_id">
                             <option>Select student</option>
                             <?php
                             $res=mysqli_query($con,"SELECT * FROM `users` where status='1'");
@@ -62,7 +62,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Role *</label>
-                        <select class="form-control select2" name="role">
+                        <select class="form-control select2" name="role" id="role">
                             <option>Select role</option>
                             <?php
                             $res=mysqli_query($con,"SELECT * FROM `roles` where status='1'");

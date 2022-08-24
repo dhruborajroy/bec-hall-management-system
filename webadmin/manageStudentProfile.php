@@ -57,12 +57,6 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $_SESSION['PERMISSION_ERROR']=1;
         redirect('index.php');
     }
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
-}else{
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect('index.php');
 }
 if(isset($_POST['submit'])){
 	$name=get_safe_value($_POST['name']);
@@ -182,7 +176,7 @@ if(isset($_POST['submit'])){
                     <h3>Manage Details</h3>
                 </div>
             </div>
-            <form class="new-added-form"  id="validate" method="post" enctype="multipart/form-data">
+            <form class="new-added-form" id="validate" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Student's Name *</label>
@@ -197,12 +191,12 @@ if(isset($_POST['submit'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Father's Name *</label>
                         <input class="form-control" placeholder="Father's Name" autocomplete="off" name="fName"
-                            value="<?php echo $fname?>" type="text" required>
+                            value="<?php echo $fname?>" id="fName" type="text" required>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Father's Occupation *</label>
                         <input class="form-control" placeholder="Father's Occupation" autocomplete="off"
-                            name="fOccupation" value="<?php echo $fOccupation?>" type="text" required>
+                            name="fOccupation" value="<?php echo $fOccupation?>" type="text" required id="fOccupation">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Mother's Name *</label>
