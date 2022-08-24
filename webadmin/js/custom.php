@@ -191,3 +191,189 @@ toastr.options = {
     "showMethod": "fadeIn",
     "hideMethod": "fadeOut"
 }
+
+$(document).ready(function () {
+  // required part
+  $("#validate").validate({
+    rules: {
+      // Book validation
+      title: {
+        required: true,
+      },
+      sub_title: {
+        number: true,
+        required: true,
+      },
+      isbn_ten: {
+        required: true,
+        number: true,
+      },
+      isbn_thirteen: {
+        number: true,
+        required: true,
+      },
+      department: {
+        required: true,
+      },
+      category_id: {
+        required: true,
+      },
+      publisher: {
+        required: true,
+      },
+      authors: {
+        required: true,
+      },
+      tags: {
+        required: true,
+      },
+      edition: {
+        required: true,
+      },
+      copies_owned: {
+        required: true,
+        number: true,
+      },
+      publish_year: {
+        required: true,
+        number: true,
+      },
+      pages: {
+        required: true,
+        number: true,
+      },
+      language: {
+        required: true,
+      },
+      note: {
+        required: true,
+      },
+      description: {
+        required: true,
+      },
+      //Manage User validation
+
+      name: {
+        required: true,
+      },
+      roll: {
+        required: true,
+        number: true,
+      },
+      fName: {
+        required: true,
+      },
+      fOccupation: {
+        required: true,
+      },
+      mName: {
+        required: true,
+      },
+      mOccupation: {
+        required: true,
+      },
+      phoneNumber: {
+        required: true,
+        nunmber: true,
+        minlength: 11,
+      },
+      email: {
+        required: true,
+        email: true,
+      },
+      presentAddress: {
+        required: true,
+      },
+      permanentAddress: {
+        required: true,
+      },
+      dob: {
+        required: true,
+      },
+      birthId: {
+        required: true,
+        minlength: 13,
+        number: true,
+      },
+      gender: {
+        required: true,
+      },
+      bloodGroup: {
+        required: true,
+      },
+      religion: {
+        required: true,
+      },
+      dept_id: {
+        required: true,
+        number: true,
+      },
+      ffQuata: {
+        required: true,
+      },
+      examRoll: {
+        required: true,
+        number: true,
+      },
+      merit: {
+        required: true,
+      },
+      legalGuardianName: {
+        required: true,
+      },
+      legalGuardianRelation: {
+        required: true,
+      },
+      // Notice
+      details: {
+        required: true,
+      },
+
+      //   Department
+      name: {
+        required: true,
+      },
+      short_form: {
+        required: true,
+      },
+      //   Batch
+      numaric_value: {
+        required: true,
+      },
+      //issue
+      book_id: {
+        required: true,
+      },
+      user_id: {
+        required: true,
+      },
+      issue_date: {
+        required: true,
+        number: true,
+      },
+      expire_date: {
+        required: true,
+        number: true,
+      },
+      return_date: {
+        required: true,
+        number: true,
+      },
+    },
+    messages: {},
+  });
+
+  if ($.fn.vectorMap !== undefined) {
+    ClassicEditor.create(document.querySelector("#description")).catch(
+      (error) => {
+        console.error(error);
+      }
+    );
+    ClassicEditor.create(document.querySelector("#note")).catch((error) => {
+      console.error(error);
+    });
+
+    ClassicEditor.create(document.querySelector("#details")).catch((error) => {
+      console.error(error);
+    });
+  }

@@ -12,11 +12,11 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
         $sql="update users set role='$status' where id='$id'";
 		mysqli_query($con,$sql);
         $_SESSION['UPDATE']=1;
-        redirect('./role.php');
+        redirect('./userRole.php');
 	}
 
 }
-$sql="select * from roles";
+$sql="select users.*,roles.role_name,roles.value from users,roles where users.role=roles.value and users.role in (2,3,4,5,6,7,8)";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
@@ -39,6 +39,26 @@ $res=mysqli_query($con,$sql);
                 <div class="item-title">
                     <h3>All Students Data</h3>
                 </div>
+                <div class="item-title">
+                    <form action="./pdfreports/users.php">
+                    <div class="row">
+                        <select name="month_id" class="select2">
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <input type="submit" value="Generate report">
+                    </div>
+                    </form>
+                </div>
             </div>
             <form class="mg-b-20">
                 <div class="row gutters-8">
@@ -53,8 +73,12 @@ $res=mysqli_query($con,$sql);
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Role Name</th>
-                            <th>Value</th>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Student ID</th>
+                            <th>Role</th>
+                            <th>Number</th>
+                            <th>Email</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -65,8 +89,13 @@ $res=mysqli_query($con,$sql);
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
+                            <td class="sorting_1 dtr-control"><img class="rounded-circle w-25" src="<?php echo STUDENT_IMAGE.$row['image']?>"
+                                    alt="student"></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['roll']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['role_name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['value']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['email']?></td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -76,6 +105,13 @@ $res=mysqli_query($con,$sql);
                                         <a class="dropdown-item"
                                             href="manageRole.php?id=<?php echo $row['id']?>"><i
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
+                                        <?php if($row['status']=='1'){?>
+                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=deactive"><i
+                                                    class="fas fa-times text-orange-red"></i>Delete meal manager</a>
+                                        <?php }else{?>
+                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=active"><i
+                                                    class="fas fa-times text-orange-red"></i>Add as meal manager</a>
+                                        <?php }?>
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->
                                     </div>

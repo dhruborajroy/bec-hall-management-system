@@ -41,7 +41,9 @@
 <!-- Custom Js -->
 <script src="../js/toastr.min.js"></script>
 <!-- sweet alert JS -->
-<script src="../assets/js/sweetalert.min.js"></script>
+<script src="../js/sweetalert.min.js"></script>
+<!-- validate JS -->
+<script src="../js/validate.min.js"></script>
 <!-- Custom Js -->
 <script src="../js/main.js"></script>
 <script src="../js/custom.php"></script>

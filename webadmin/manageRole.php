@@ -1,7 +1,7 @@
 <?php include('header.php');
 $id="";
-$short_form='';
-$name='';
+$role='';
+$student_id='';
 if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id']!=""){
 	$id=get_safe_value($_GET['id']);
     $res=mysqli_query($con,"select * from users where id='$id'");
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
     // $sql;
     mysqli_query($con,$sql);
     $_SESSION['UPDATE']=1;
-    redirect('./role.php');
+    redirect('./userRole.php');
 }
 ?>
 <div class="dashboard-content-one">
@@ -61,14 +61,19 @@ if(isset($_POST['submit'])){
                         </select>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Freedom Fighter Quata *</label>
-                        <select class="select2" name="role" required>
-                            <option >Select Role </option>
-                            <option value="2">Meal Checker </option>
-                            <option value="3">Accountant </option>
-                            <option value="4">Meal Auditor</option>
-                            <option value="5">Manager </option>
-                            <option value="6">Marketing Manager</option>
+                        <label>Role *</label>
+                        <select class="form-control select2" name="role">
+                            <option>Select role</option>
+                            <?php
+                            $res=mysqli_query($con,"SELECT * FROM `roles` where status='1'");
+                            while($row=mysqli_fetch_assoc($res)){
+                                if($row['id']==$role){
+                                    echo "<option selected='selected' value=".$row['value'].">".$row['role_name']."</option>";
+                                }else{
+                                    echo "<option value=".$row['value'].">".$row['role_name']."</option>";
+                                }                                                        
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-6 form-group"></div>

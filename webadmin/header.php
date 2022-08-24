@@ -247,7 +247,7 @@
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Admin Users</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
-                                    <a href="role.php"
+                                    <a href="userRole.php"
                                         class="nav-link <?php // echo  $application_sub_group_active?>"><i
                                             class="fas fa-angle-right"></i>All
                                         Users</a>
@@ -369,6 +369,17 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="manageBatches.php"
+                                        class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>Add new Batch</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="role.php"
+                                        class="nav-link <?php // echo  $application_sub_group_active?>"><i
+                                            class="fas fa-angle-right"></i>All
+                                        Roles</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="manageRoles.php"
                                         class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
                                             class="fas fa-angle-right"></i>Add new Batch</a>
                                 </li>

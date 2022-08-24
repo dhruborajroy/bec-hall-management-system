@@ -199,6 +199,9 @@
                             <li class="nav-item">
                                 <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
                             </li>
+                            <li class="nav-item">
+                                <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>meal On Off Requests</span></a>
+                            </li>
                         <?php }?>
                         <li class="nav-item">
                             <a href="mealOnOffReq2.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>

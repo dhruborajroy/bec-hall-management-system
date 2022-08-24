@@ -37,8 +37,8 @@
 <script src="js/jquery.scrollUp.min.js"></script>
 <!-- Data Table Js -->
 <script src="js/jquery.dataTables.min.js"></script>
-<!-- Vailidate Js -->
-<script src="../assets/js/jquery.validate.js"></script>
+<!-- validate JS -->
+<script src="./js/validate.min.js"></script>
 <!-- Custom Js -->
 <script src="js/toastr.min.js"></script>
 <!-- sweet alert JS -->

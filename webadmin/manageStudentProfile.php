@@ -182,7 +182,7 @@ if(isset($_POST['submit'])){
                     <h3>Manage Details</h3>
                 </div>
             </div>
-            <form class="new-added-form" method="post" enctype="multipart/form-data">
+            <form class="new-added-form"  id="validate" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Student's Name *</label>
