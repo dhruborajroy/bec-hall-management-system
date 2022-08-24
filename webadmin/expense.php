@@ -15,10 +15,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
         redirect('./expense.php');
 	}
 
-}else{
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect('index.php');
- }
+}
 ?>
 <!-- Page Area Start Here -->
 <div class="dashboard-content-one">

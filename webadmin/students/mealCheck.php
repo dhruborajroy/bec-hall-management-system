@@ -1,4 +1,11 @@
 <?php include("header.php");
+   $sql="select `role` from `users` where id='1'";
+   $res=mysqli_query($con,$sql);
+   $row=mysqli_fetch_assoc($res);
+   if($row['role']!=2){
+      $_SESSION['PERMISSION_ERROR']=true;
+      redirect("index.php");
+   }
    $roll="";
    $date="";
    $month="";

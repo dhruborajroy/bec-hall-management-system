@@ -1,10 +1,16 @@
-<?php 
-include('header.php');
+<?php include('header.php');
+   $sql="select `role` from `users` where id='1'";
+   $res=mysqli_query($con,$sql);
+   $row=mysqli_fetch_assoc($res);
+   if($row['role']!=5){
+      $_SESSION['PERMISSION_ERROR']=true;
+      redirect("index.php");
+   }
 if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id']>0){
 	$type=get_safe_value($_GET['type']);
 	$id=get_safe_value($_GET['id']);
 	// if($type=='delete'){
-	// 	mysqli_query($con,"delete from applicants where id='$id'");
+	// 	mysqli_query($con,"delete from depts where id='$id'");
 	// 	redirect('bus.php');
 	// }
 	if($type=='active' || $type=='deactive'){
@@ -12,15 +18,11 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		if($type=='deactive'){
 			$status=0;
 		}
-        $sql="update users set status='$status' where id='$id'";
-		mysqli_query($con,$sql);
-        $_SESSION['UPDATE']=1;
-        redirect('./users.php');
+		mysqli_query($con,"update expense set status='$status' where id='$id'");
+        redirect('./expense.php');
 	}
 
 }
-$sql="select * from users order by id desc";
-$res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
 <div class="dashboard-content-one">
@@ -29,7 +31,7 @@ $res=mysqli_query($con,$sql);
         <!-- <h3>Parents</h3>
             <ul>
                 <li>
-                    <a href="index.php">Home</a>
+                    <a href="index-2.html">Home</a>
                 </li>
                 <li>All Buses</li>
             </ul> -->
@@ -40,10 +42,10 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Students Data</h3>
+                    <h3>applicants Data</h3>
                 </div>
                 <div class="item-title">
-                    <form action="./pdfreports/users.php">
+                    <form action="./pdfreports/expense.php">
                     <div class="row">
                         <select name="month_id" class="select2">
                             <option value="01">January</option>
@@ -66,8 +68,7 @@ $res=mysqli_query($con,$sql);
             <form class="mg-b-20">
                 <div class="row gutters-8">
                     <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                        <input type="text" placeholder="Search by ID/ Name/ Number ..." class="form-control"
-                            id="myInput">
+                        <input type="text" placeholder="Search by ID ..." class="form-control" id="myInput">
                     </div>
                 </div>
             </form>
@@ -76,44 +77,35 @@ $res=mysqli_query($con,$sql);
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Student ID</th>
-                            <th>Father's Name</th>
-                            <th>Number</th>
-                            <th>Email</th>
+                            <th>Amount</th>
+                            <th>Date</th>
+                            <th>Expense Category</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        <?php if(mysqli_num_rows($res)>0){
+                        <?php
+                        $sql="select expense.*,expense_category.name from expense,expense_category WHERE expense.expense_category_id=expense_category.id order by expense.date_id DeSC";
+                        $res=mysqli_query($con,$sql);
+                        if(mysqli_num_rows($res)>0){
                         $i=1;
                         while($row=mysqli_fetch_assoc($res)){
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><img class="rounded-circle w-25" src="<?php echo STUDENT_IMAGE.$row['image']?>"
-                                    alt="student"></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['amount']?> Taka</td>
+                            <td class="sorting_1 dtr-control"><?php echo date("d-M Y",strtotime($row['date_id']."-".$row['month']."-".$row['year']))?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['roll']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['fName']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['email']?></td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <span class="flaticon-more-button-of-three-dots"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <?php if($row['status']=='1'){?>
-                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=deactive"><i
-                                                    class="fas fa-times text-orange-red"></i>Deactive</a>
-                                        <?php }else{?>
-                                            <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=active"><i
-                                                    class="fas fa-times text-orange-red"></i>Active</a>
-                                        <?php }?>
+                                        <!-- <a class="dropdown-item" href="#"><i
+                                                class="fas fa-times text-orange-red"></i>Close</a> -->
                                         <a class="dropdown-item"
-                                            href="manageStudentProfile.php?id=<?php echo md5($row['id'])?>"><i
+                                            href="manageExpense.php?id=<?php echo $row['id']?>"><i
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                         <!-- <a class="dropdown-item" href="#"><i
                                                 class="fas fa-redo-alt text-orange-peel"></i>Refresh</a> -->
@@ -128,6 +120,7 @@ $res=mysqli_query($con,$sql);
                             <td colspan="5">No data found</td>
                         </tr>
                         <?php } ?>
+                    </tbody>
                 </table>
             </div>
         </div>

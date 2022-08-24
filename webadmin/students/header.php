@@ -188,14 +188,23 @@
                         <li class="nav-item">
                             <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                         </li>
+                        <?php 
+                        $sql="select `role` from `users` where id='1'";
+                        $res=mysqli_query($con,$sql);
+                        $row=mysqli_fetch_assoc($res);
+                        if($row['role']==2){?>
+                            <li class="nav-item">
+                                <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Maintance</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
+                            </li>
+                        <?php }?>
                         <li class="nav-item">
                             <a href="mealOnOffReq2.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
+                            <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Guest Meal On Off Request</span></a>
                         </li>
                     </ul>
                 </div>
