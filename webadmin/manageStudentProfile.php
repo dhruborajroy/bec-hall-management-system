@@ -210,7 +210,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Phone Number *</label>
-                        <input class="form-control" placeholder="Phone Number" autocomplete="off" name="phoneNumber"
+                        <input class="form-control"  placeholder="Phone Number" autocomplete="off" name="phoneNumber"
                             type="tel" required value="<?php echo $phoneNumber?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">

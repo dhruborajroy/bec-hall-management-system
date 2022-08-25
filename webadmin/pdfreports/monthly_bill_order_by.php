@@ -17,18 +17,18 @@ if (isset($_GET['month_id']) && $_GET['month_id']!="") {
 // if(mysqli_num_rows($res)>0){
     $html='<table class="table" width="100%">';
     $html.='
-        <tr>
+        <tr>    
             <td align="center">                    
-                <img width="150" src="./img/logo.jpg" width="100" height="100" />
+                <img width="70" src="./img/logo.jpg" width="100" />
             </td>
-            <td  align="center" colspan="4">
-                <strong><span style="font-size:25px">Barisal Engineering College Hall</span></strong>
+            <td  align="center" colspan="2">
+                <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>
                 <br>
-                Durgapur, Barisal
+                '.ADDRESS.'
                 <br>
-                Tel: +00 000 000 0000 | Email: becians2017@gmail.com
+                Tel: '.TEL.' | Email: '.EMAIL.'
                 <br>
-                http://www.barisal-eng.edu.bd/
+                '.WEBSITE.'
             </td>
         </tr>';
 	    $html.='<tr><td colspan="5"><hr></td></tr>';

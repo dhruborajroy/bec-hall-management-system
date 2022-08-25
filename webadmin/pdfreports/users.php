@@ -22,17 +22,13 @@ $html.='
         <img width="150" src="./img/logo.jpg" width="100" height="100" />
     </td>
     <td  align="center" colspan="3">
-        <strong>
-            <span style="font-size:25px">
-                Barisal Engineering College Hall
-            </span>
-        </strong>
-        <br>
-        Durgapur, Barisal
-        <br>
-        Tel: +00 000 000 0000 | Email: becians2017@gmail.com
-        <br>
-        http://www.barisal-eng.edu.bd/
+    <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>
+    <br>
+    '.ADDRESS.'
+    <br>
+    Tel: '.TEL.' | Email: '.EMAIL.'
+    <br>
+    '.WEBSITE.'
     </td>
 </tr>';
 $html.='<tr><td colspan="7"><hr></td></tr>';

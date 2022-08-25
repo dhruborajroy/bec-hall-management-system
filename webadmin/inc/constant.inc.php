@@ -1,5 +1,10 @@
 <?php
 define('SITE_NAME','Admission');
+define('HALL_NAME','Barisal Engineering College Hall');
+define('ADDRESS','Durgapur, Barisal');
+define('WEBSITE','http://www.barisal-eng.edu.bd/');
+define('TEL',' +00 000 000 0000');
+define('EMAIL','becians2017@gmail.com');
 define('FRONT_SITE_PATH','http://localhost/hall/');
 define('STORE_ID',"dhrub5f103f94cd3e4");
 define('STORE_PASSWORD',"dhrub5f103f94cd3e4@ssl");
