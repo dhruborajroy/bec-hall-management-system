@@ -17,18 +17,18 @@ $html="";
 if(mysqli_num_rows($res)>0){
     $html='<table class="table" width="100%">';
     $html.='
-        <tr>    
+        <tr>
             <td align="center">                    
-                <img width="70" src="./img/logo.jpg" width="100" />
+                <img width="150" src="./img/logo.jpg" width="100" height="100" />
             </td>
             <td  align="center" colspan="2">
-                <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>
-                <br>
-                '.ADDRESS.'
-                <br>
-                Tel: '.TEL.' | Email: '.EMAIL.'
-                <br>
-                '.WEBSITE.'
+            <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>
+            <br>
+            '.ADDRESS.'
+            <br>
+            Tel: '.TEL.' | Email: '.EMAIL.'
+            <br>
+            '.WEBSITE.'
             </td>
         </tr>';
 	    $html.='<tr><td colspan="3"><hr></td></tr>';
