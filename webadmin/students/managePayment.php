@@ -171,7 +171,7 @@ include("header.php");
                            ?>
                         <tr>
                            <td>
-                              <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
+                              <input class="form-control" type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
                            </td>
                            <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
                            <td >

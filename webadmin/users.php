@@ -94,7 +94,7 @@ $res=mysqli_query($con,$sql);
                                     <div class="dropdown-menu dropdown-menu-right">
                                         <?php if($row['status']=='1'){?>
                                             <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=deactive"><i
-                                                    class="fas fa-times text-orange-red"></i>Deactive</a>
+                                                    class="fas fa-times text-orange-red"></i>Deactivate</a>
                                         <?php }else{?>
                                             <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=active"><i
                                                     class="fas fa-times text-orange-red"></i>Active</a>

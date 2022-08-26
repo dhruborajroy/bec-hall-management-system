@@ -22,13 +22,13 @@ $res=mysqli_query($con,$sql);
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <!-- <h3>Parents</h3>
+        <h3>Department</h3>
             <ul>
                 <li>
-                    <a href="index-2.html">Home</a>
+                    <a href="index.php">Home</a>
                 </li>
-                <li>All Buses</li>
-            </ul> -->
+                <li>Department</li>
+            </ul>
     </div>
     <!-- Breadcubs Area End Here -->
     <!-- Teacher Table Area Start Here -->
@@ -36,7 +36,7 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>applicants Data</h3>
+                    <h3>Department Data</h3>
                 </div>
             </div>
             <form class="mg-b-20">
@@ -51,8 +51,8 @@ $res=mysqli_query($con,$sql);
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Depertment Name</th>
-                            <th>Short From</th>
+                            <th>Department Name</th>
+                            <th>Short Form</th>
                             <th>Action</th>
                         </tr>
                     </thead>

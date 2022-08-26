@@ -36,7 +36,7 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>applicants Data</h3>
+                    <h3>Batch Data</h3>
                 </div>
             </div>
             <form class="mg-b-20">
@@ -52,7 +52,7 @@ $res=mysqli_query($con,$sql);
                         <tr>
                             <th>ID</th>
                             <th>Batch Name</th>
-                            <th>Numaric Value</th>
+                            <th>Numeric Value</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -71,7 +71,7 @@ $res=mysqli_query($con,$sql);
                                         <span class="flaticon-more-button-of-three-dots"></span>
                                     </a>
                                     <div class="dropdown-menu dropdown-menu-right">
-                                        <a class="dropdown-item" href="managebatch.php?id=<?php echo $row['id']?>"><i
+                                        <a class="dropdown-item" href="manageBatches.php?id=<?php echo $row['id']?>"><i
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                     </div>
                                 </div>

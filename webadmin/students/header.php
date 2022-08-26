@@ -104,7 +104,7 @@
                                 <span>Student</span>
                             </div>
                             <div class="admin-img">
-                                <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="Admin">
+                                <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="user photo">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
@@ -208,6 +208,9 @@
                                 <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>meal On Off Requests</span></a>
                             </li>
                         <?php }?>
+                        <li class="nav-item">
+                            <a href="managePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Pay online</span></a>
+                        </li>
                         <li class="nav-item">
                             <a href="mealOnOffReq2.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
                         </li>

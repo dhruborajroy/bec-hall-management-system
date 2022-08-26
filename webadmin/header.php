@@ -98,7 +98,7 @@
                 </ul>
                 <?php 
                 $uid=$_SESSION['ADMIN_ID']; 
-                $sql="select * from users where id='$uid'";
+                $sql="select * from `admin` where id='$uid'";
                 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
                 ?>
                 <ul class="navbar-nav">
@@ -235,13 +235,13 @@
                             <span>Dashboard</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
-                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Users</span></a>
+                            <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
                                     <a href="users.php"
                                         class="nav-link <?php // echo  $application_sub_group_active?>"><i
                                             class="fas fa-angle-right"></i>All
-                                        Users</a>
+                                            Students</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="manageStudentProfile.php"
@@ -262,7 +262,7 @@
                                 <li class="nav-item">
                                     <a href="manageRole.php"
                                         class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new student</a>
+                                            class="fas fa-angle-right"></i>Add new admin users</a>
                                 </li>
                             </ul>
                         </li>
@@ -319,7 +319,7 @@
                                     class="flaticon-menu-1"></i><span>Guest Meal On Off Requests</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Monthly Payment</span></a>
+                            <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Generate Payment</span></a>
                         </li>
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Fees</span></a>
@@ -382,13 +382,13 @@
                                 <li class="nav-item">
                                     <a href="role.php"
                                         class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>All
-                                        Roles</a>
+                                            class="fas fa-angle-right"></i>
+                                        Dining Maintance Committee</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="manageRoles.php"
                                         class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                            class="fas fa-angle-right"></i>Add new Batch</a>
+                                            class="fas fa-angle-right"></i>Add new committee member</a>
                                 </li>
                             </ul>
                         </li>

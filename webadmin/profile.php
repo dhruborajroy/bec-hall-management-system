@@ -1,7 +1,7 @@
 <?php 
 include("header.php");
 $uid=$_SESSION['ADMIN_ID']; 
-$sql="select * from users where id='$uid'";
+$sql="select * from `admin` where id='$uid'";
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 ?>
 
@@ -60,26 +60,6 @@ $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
                                             <tr>
                                                 <td>Name:</td>
                                                 <td class="font-medium text-dark-medium"><?php echo $row['name']?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Gender:</td>
-                                                <td class="font-medium text-dark-medium"><?php echo $row['gender']?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dept.:</td>
-                                                <td class="font-medium text-dark-medium"><?php echo $row['dept_id']?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>ID:</td>
-                                                <td class="font-medium text-dark-medium">#<?php echo $row['roll']?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Address:</td>
-                                                <td class="font-medium text-dark-medium"><?php echo $row['presentAddress']?></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Religion:</td>
-                                                <td class="font-medium text-dark-medium"><?php echo $row['religion']?></td>
                                             </tr>
                                             <tr>
                                                 <td>Phone:</td>

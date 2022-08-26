@@ -21,13 +21,13 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <!-- <h3>Parents</h3>
+        <h3>Expense</h3>
             <ul>
                 <li>
                     <a href="index-2.html">Home</a>
                 </li>
-                <li>All Buses</li>
-            </ul> -->
+                <li>All Expense</li>
+            </ul>
     </div>
     <!-- Breadcubs Area End Here -->
     <!-- Teacher Table Area Start Here -->
@@ -35,7 +35,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>applicants Data</h3>
+                    <h3>Expense Data</h3>
                 </div>
                 <div class="item-title">
                     <form action="./pdfreports/expense.php">

@@ -51,7 +51,7 @@ if(mysqli_num_rows($res)>0){
                 $html.='
                     <tr>
                         <td align="left" colspan="3" align="center" style="padding-top:30px">                    
-                        <u><h1>'.$row['title'].'</h1></u>
+                        <u style="font-size:35px">'.$row['title'].'</u>
                         </td>
                     </tr>';
                     $html.='
@@ -94,13 +94,8 @@ $mpdf=new \Mpdf\Mpdf([
 	'margin_top' => 2,
 	'margin_bottom' => 10,
 ]);
-$mpdf->SetTitle('Invoice of Barisal Engineering College Hall Payment');
+$mpdf->SetTitle('Notice Barisal Engineering College Hall');
 $mpdf->SetFooter('Developed By The Web divers');
-// $mpdf->SetHeader('Document Title|Center Text|{PAGENO}');
-$mpdf->WriteHTML($html); //.$sql
+$mpdf->WriteHTML($html);
 $file=time().'.pdf';
 $mpdf->output($file,'I');
-// $mpdf->output($file,'F');
-// send_email("dhruborajroy3@gmail.com","Invoice","Skm",$file);
-// unlink($file);
-//D

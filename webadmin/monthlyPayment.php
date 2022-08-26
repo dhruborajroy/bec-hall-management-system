@@ -2,10 +2,10 @@
 if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id']>0){
 	$type=get_safe_value($_GET['type']);
 	$id=get_safe_value($_GET['id']);
-	// if($type=='delete'){
-	// 	mysqli_query($con,"delete from applicants where id='$id'");
-	// 	redirect('bus.php');
-	// }
+	if($type=='delete'){
+		mysqli_query($con,"delete from monthly_bill where id='$id'");
+		redirect('monthlyPayment.php');
+	}
 	if($type=='active' || $type=='deactive'){
 		$status=1;
 		if($type=='deactive'){
@@ -15,7 +15,6 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		mysqli_query($con,"update monthly_bill set status='$status' where id='$id'");
         redirect('./monthlyPayment.php');
 	}
-
 }
 $sql="select monthly_bill.*, users.name, users.id as uid from monthly_bill, users where monthly_bill.user_id=users.id order by id desc;";
 $res=mysqli_query($con,$sql);
@@ -40,12 +39,18 @@ $res=mysqli_query($con,$sql);
                 <div class="item-title">
                     <h3>All Fees Data</h3>
                 </div>
+                <?php
+                $last_date=cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+                $date=getdate();
+                if($date['mday']==$last_date){
+                ?>
                 <div class="dropdown show">
                     <button type="button" class="">Last generated <?php $reos=mysqli_query($con,"select * from general_informations"); if(mysqli_num_rows($reos)>0){ $rowww=mysqli_fetch_assoc($reos); echo date("d-M-Y h:i:s",$rowww['last_bill_generated']);}?></button>
                     <a href="generateMonthlyBill.php">
                         <button type="button" class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Generate Monthly Bill</button>
                     </a>
                 </div>
+                <?php }?>
             </div>
             <form class="mg-b-20">
                 <div class="row gutters-8">
@@ -82,9 +87,9 @@ $res=mysqli_query($con,$sql);
                                         <button type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
                                     </a>
                                 <?php }elseif($row['paid_status']==1){?>
-                                    <a href="invoice.php?id=<?php echo $row['id']?>">
-                                        <button type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-dark-pastel-green">Paid(See invoice)</button>
-                                    </a>
+                                    <!-- <a href="invoice.php?id=<?php //echo $row['id']?>"> -->
+                                        <button type="button" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-dark-pastel-green">Paid</button>
+                                    <!-- </a> -->
                                 <?php }?>
                             </td>
                         </tr>

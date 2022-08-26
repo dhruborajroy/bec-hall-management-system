@@ -97,23 +97,8 @@ $mpdf=new \Mpdf\Mpdf([
     'format' => 'A4-L',
     'orientation' => 'L',
 ]);
-$mpdf->WriteHTML($html);
 $mpdf->SetTitle('Monthly Bill chart for '.date('F - Y'));
 $mpdf->SetFooter('Monthly Bill chart for '.date('F-y').'| Developed By The Web divers | {PAGENO} of {nbpg} ');
-// $mpdf->SetHTMLFooter('
-// <table width="100%">
-//     <tr>
-//         <td width="33%">{DATE j-m-Y}</td>
-//         <td width="33%" align="center">{PAGENO}/{nbpg}</td>
-//         <td width="33%" style="text-align: right;">My document</td>
-//     </tr>
-// </table>');
-// $mpdf->SetHeader('Document Title | Center Text | {PAGENO}');
+$mpdf->WriteHTML($html);
 $file=time().'.pdf';
 $mpdf->output($file,'I');
-// $mpdf->output($file,'F');
-// send_email("orinkarmaker03@gmail.com","Invoice","Skm",$file);
-// send_email("azadahammed52@gmail.com","Invoice","Skm",$file);
-// send_email("dhruborajroy3@gmail.com","Invoice","Skm",$file);
-// unlink($file);
-//D

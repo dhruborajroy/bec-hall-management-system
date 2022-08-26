@@ -35,12 +35,12 @@ if(isset($_POST['submit'])){
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Admin Dashboard</h3>
+        <h3>Dining Committee</h3>
         <ul>
             <li>
                 <a href="index.php">Home</a>
             </li>
-            <li>Admin</li>
+            <li>Dining Committee</li>
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
@@ -51,19 +51,7 @@ if(isset($_POST['submit'])){
                 <div class="card-body">
                     <div class="heading-layout1">
                         <div class="item-title">
-                            <h3>Create A Notice</h3>
-                        </div>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                aria-expanded="false">...</a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
+                            <h3>Create A member</h3>
                         </div>
                     </div>
                     <form id="validate" class="new-added-form" method="post">

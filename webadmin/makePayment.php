@@ -23,13 +23,13 @@ $res=mysqli_query($con,$sql);
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <!-- <h3>Parents</h3>
+        <h3>Payments</h3>
             <ul>
                 <li>
                     <a href="index.php">Home</a>
                 </li>
-                <li>All Buses</li>
-            </ul> -->
+                <li>Payments</li>
+            </ul>
     </div>
     <!-- Breadcubs Area End Here -->
     <!-- Teacher Table Area Start Here -->
@@ -37,7 +37,7 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Students Data</h3>
+                    <h3>All Students' Data</h3>
                 </div>
                 <div class="item-title">
                     <form action="./pdfreports/collection.php">

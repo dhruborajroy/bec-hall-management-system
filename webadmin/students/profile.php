@@ -9,12 +9,12 @@ $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
         <h3>Profile</h3>
-        <!-- <ul>
+        <ul>
             <li>
                 <a href="index.php">Home</a>
             </li>
-            <li>All Students</li>
-        </ul> -->
+            <li>Profile</li>
+        </ul>
     </div>
     <!-- Breadcubs Area End Here -->
                 <!-- Student Details Area Start Here -->

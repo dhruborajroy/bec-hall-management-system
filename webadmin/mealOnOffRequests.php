@@ -29,12 +29,12 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Students</h3>
+        <h3>Meal Requests</h3>
         <ul>
             <li>
                 <a href="index.php">Home</a>
             </li>
-            <li>Meal On Off Requests</li>
+            <li>Meal  On/Off Requests</li>
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
@@ -43,17 +43,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>Meal On Off Requests</h3>
-                </div>
-                <div class="dropdown">
-                    <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                        aria-expanded="false">...</a>
-
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                        <a class="dropdown-item" href="#"><i class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                    </div>
+                    <h3>Meal On/Off Requests</h3>
                 </div>
             </div>
             <form class="mg-b-20">

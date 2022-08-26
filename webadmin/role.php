@@ -23,13 +23,13 @@ $res=mysqli_query($con,$sql);
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <!-- <h3>Parents</h3>
+        <h3>Dining Committee</h3>
             <ul>
                 <li>
                     <a href="index.php">Home</a>
                 </li>
-                <li>All Buses</li>
-            </ul> -->
+                <li>Dining Committee</li>
+            </ul>
     </div>
     <!-- Breadcubs Area End Here -->
     <!-- Teacher Table Area Start Here -->

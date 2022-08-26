@@ -45,12 +45,12 @@ if(isset($_POST['submit'])){
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Admin Dashboard</h3>
+        <h3>Notice board</h3>
         <ul>
             <li>
                 <a href="index.php">Home</a>
             </li>
-            <li>Admin</li>
+            <li>Notices </li>
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
@@ -62,18 +62,6 @@ if(isset($_POST['submit'])){
                     <div class="heading-layout1">
                         <div class="item-title">
                             <h3>Create A Notice</h3>
-                        </div>
-                        <div class="dropdown">
-                            <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                                aria-expanded="false">...</a>
-
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <a class="dropdown-item" href="#"><i class="fas fa-times text-orange-red"></i>Close</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
-                                <a class="dropdown-item" href="#"><i
-                                        class="fas fa-redo-alt text-orange-peel"></i>Refresh</a>
-                            </div>
                         </div>
                     </div>
                     <form id="validate" class="new-added-form" method="post">
@@ -90,7 +78,7 @@ if(isset($_POST['submit'])){
                             </div>
                             <div class="col-12-xxxl col-lg-12 col-12 form-group">
                                 <label>Details</label>
-                                <textarea name="details" id="editor details" cols="30" rows="10"><?php echo $details?></textarea>
+                                <textarea name="details" id="editor" cols="30" rows="10"><?php echo $details?></textarea>
                             </div>
                             <div class="col-12 form-group mg-t-8">
                                 <input type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark"
@@ -104,3 +92,15 @@ if(isset($_POST['submit'])){
         <!-- Add Notice Area End Here -->
     </div>
     <?php include("footer.php")?>
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.0.1/classic/ckeditor.js"></script>
+
+    <script>
+            ClassicEditor
+                    .create( document.querySelector( '#editor' ) )
+                    .then( editor => {
+                            console.log( editor );
+                    } )
+                    .catch( error => {
+                            console.error( error );
+                    } );
+    </script>

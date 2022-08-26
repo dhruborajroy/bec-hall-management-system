@@ -93,7 +93,7 @@ if(isset($_POST['submit'])){
 		}elseif($info['mime']=="image/png"){
 			$img=imagecreatefrompng($_FILES['image']['tmp_name']);
 		}else{
-			echo "Only select jpg or png image";
+			$msg= "Only select jpg or png image";
 		}
 		if(isset($img)){
             // if ($width > "300" || $height > "200"){
@@ -101,12 +101,13 @@ if(isset($_POST['submit'])){
             // }
             // else
             if (($_FILES["image"]["size"] > 300000)) {//2000000 = 2Mb
-                echo "Image size exceeds 300 kb";
+                $msg= "Image size exceeds 300 kb";
             }else{
+                $password=password_hash("12345678",PASSWORD_DEFAULT);
                 $image=time().'.jpg';
                 move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
                 $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
-                                        VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','12345678','$time',0,1, 0,0,0,0,0,1, 1)";
+                                        VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
                 
                 mysqli_query($con,$sql);
                 $_SESSION['INSERT']=1;
@@ -126,7 +127,7 @@ if(isset($_POST['submit'])){
                 }elseif($info['mime']=="image/png"){
                     $img=imagecreatefrompng($_FILES['image']['tmp_name']);
                 }else{
-                    echo "Only select jpg or png image";
+                    $msg= "Only select jpg or png image";
                 }
                 if(isset($img)){
                     // if ($width > "300" || $height > "200"){
@@ -134,7 +135,7 @@ if(isset($_POST['submit'])){
                     // }
                     // else
                     if (($_FILES["image"]["size"] > 300000)) {//2000000 = 2Mb
-                        echo "Image size exceeds 200 kb";
+                        $msg= "Image size exceeds 200 kb";
                     }else{
                         $image=time().'.jpg';
                         // $image=imagejpeg($img,$image,40);
@@ -318,7 +319,7 @@ if(isset($_POST['submit'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Dept *</label>
                         <select class="form-control select2" name="dept_id">
-                            <option>Select Depertment</option>
+                            <option>Select Department</option>
                             <?php
                             $res=mysqli_query($con,"SELECT * FROM `depts` where status='1'");
                             while($row=mysqli_fetch_assoc($res)){
@@ -348,9 +349,9 @@ if(isset($_POST['submit'])){
                         </select>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Freedom Fighter Quata *</label>
+                        <label>Freedom Fighter Quota *</label>
                         <select class="select2" name="ffQuata" required>
-                            <option>Please Select ffQuata </option>
+                            <option>Please Select ffQuota </option>
                             <?php
                             $data=[
                                 'name'=>[

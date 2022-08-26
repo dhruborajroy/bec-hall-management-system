@@ -29,7 +29,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Students</h3>
+        <h3>Guest Meal On/off</h3>
         <ul>
             <li>
                 <a href="index.php">Home</a>

@@ -59,12 +59,12 @@
 <div class="dashboard-content-one">
 <!-- Breadcubs Area Start Here -->
 <div class="breadcrumbs-area">
-   <h3>Students</h3>
+   <h3>Meal Maintenance</h3>
    <ul>
       <li>
          <a href="index.php">Home</a>
       </li>
-      <li>All Students</li>
+      <li>Meal Maintenance</li>
    </ul>
 </div>
 <!-- Breadcubs Area End Here -->

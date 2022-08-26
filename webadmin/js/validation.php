@@ -69,10 +69,10 @@ $(document).ready(function () {
         required: true,
       },
       legalGuardianName: {
-        required: true,
+        required: false,
       },
       legalGuardianRelation: {
-        required: true,
+        required: false,
       },
       // Notice
       reference: {

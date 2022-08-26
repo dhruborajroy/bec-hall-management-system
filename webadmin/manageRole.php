@@ -39,7 +39,7 @@ if(isset($_POST['submit'])){
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>Add New Depertment</h3>
+                    <h3>Appoint Role</h3>
                 </div>
             </div>
             <form id="validate" class="new-added-form" method="post">

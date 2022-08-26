@@ -78,8 +78,8 @@ $mpdf=new \Mpdf\Mpdf([
     'default_font_size' => 12,
     'default_font' => 'FreeSerif'
 ]);
-$mpdf->WriteHTML($html);
 $mpdf->SetTitle('Monthly Bill chart for '.date('F - Y'));
 $mpdf->SetFooter('Monthly Bill chart for '.date('F-y').'| Developed By The Web divers | {PAGENO}');
+$mpdf->WriteHTML($html);
 $file=time().'.pdf';
 $mpdf->output($file,'I');

@@ -44,7 +44,7 @@ if(isset($_POST['submit'])){
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>Add New Depertment</h3>
+                    <h3>Add New batch</h3>
                 </div>
             </div>
             <form id="validate" class="new-added-form" method="post">
@@ -55,8 +55,8 @@ if(isset($_POST['submit'])){
                             class="form-control">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Numaric value of batch</label>
-                        <input type="text" placeholder="Numaric value of batch" value="<?php echo $numaric_value?>"
+                        <label>Numeric value of batch</label>
+                        <input type="text" placeholder="Numeric value of batch" value="<?php echo $numaric_value?>"
                             name="numaric_value"  id="numaric_value" class="form-control">
                     </div>
                     <div class="col-md-6 form-group"></div>
