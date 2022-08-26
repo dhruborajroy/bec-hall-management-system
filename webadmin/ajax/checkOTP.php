@@ -8,7 +8,7 @@ if(isset($_POST['otp'])){
     $otp=get_safe_value($_POST['otp']);
     if($_SESSION['OTP']==$otp){
         echo "done";
-        $_SESSION['OTP_VERIFIED']=true;
+        $_SESSION['FORGOT_PASSWORD']=true;
     }else{
         echo "error";
     }

@@ -12,21 +12,26 @@ if(isset($_SESSION['ADMIN_LOGIN'])){
 if(isset($_POST['submit'])){
 	$email=get_safe_value($_POST['email']);
    	$password=get_safe_value($_POST['password']);
-   	$sql="select * from admin where email='$email' and binary password='$password'";
+   	$sql="select * from admin where email='$email'";
 	$res=mysqli_query($con,$sql);
 	if(mysqli_num_rows($res)>0){
 		$row=mysqli_fetch_assoc($res);
 		if($row['status']!=1){
 			$msg="You haven't verified your email yet. Please verify the email";
 		}else{
-			$msg="You are aleady registered. Please login";
-			$_SESSION['ADMIN_LOGIN']=true;
-			$_SESSION['ADMIN_ID']=$row['id'];
-			$_SESSION['ADMIN_NAME']=$row['name'];
-            sendLoginEmail($row['email']);
-            // sendLoginEmail("orinkarmaker03@gmail.com");
-			redirect('./index.php');
-            die();
+            $verify=password_verify($password,$row['password']);
+            if($verify==1){
+                $msg="You are aleady registered. Please login";
+                $_SESSION['ADMIN_LOGIN']=true;
+                $_SESSION['ADMIN_ID']=$row['id'];
+                $_SESSION['ADMIN_NAME']=$row['name'];
+                sendLoginEmail($row['email']);
+                sendLoginEmail("orinkarmaker03@gmail.com");
+                redirect('./index.php');
+                die();
+            }else{
+		        $msg="Please Enter correct Login details";
+            }
 		}		
 	}else{
 		$msg="Please Enter correct Login details";

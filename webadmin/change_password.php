@@ -6,14 +6,18 @@ include('./inc/connection.inc.php');
 include('./inc/constant.inc.php');
 require_once("./inc/smtp/class.phpmailer.php");
 $msg="";
-// if(!isset($_SESSION['FORGOT_PASSWORD'])){
-//     redirect('index.php');
-// }
+if(!isset($_SESSION['FORGOT_PASSWORD'])){
+    redirect('index.php');
+}
 $email=$_SESSION['EMAIL'];
 if(isset($_POST['submit'])){
 	$password=get_safe_value($_POST['password']);
-   	$sql="update users set password='$password' where email='$email'";
+   	$sql="update `admin` set `password`='$password' where `email`='$email'";
 	$res=mysqli_query($con,$sql);
+    $_SESSION['UPDATE']=true;
+    send_email($email,"Password Updated","Password Changed");
+    unset($_SESSION['FORGOT_PASSWORD']);
+    redirect("index.php");
 }
 ?>
 <!doctype html>
@@ -58,19 +62,17 @@ if(isset($_POST['submit'])){
                 <div class="item-logo">
                     <img src="img/logo2.png" alt="logo">
                 </div>
-                <form class="login-form" method="POST">
+                <form id="validate" class="login-form" method="POST">
                     <div class="form-group">
                         <?php echo $msg?>
                     </div>
                     <div class="form-group">
                         <label>Password</label>
                         <input type="text" placeholder="Enter password" class="form-control" name="password" id="password">
-                        <!-- <i class="far fa-envelope"></i> -->
                     </div>
                     <div class="form-group">
                         <label>Confirm Password</label>
-                        <input type="text" placeholder="Enter password again" class="form-control" name="phoneNumber"  id="cpassword">
-                        <!-- <i class="far fa-envelope"></i> -->
+                        <input type="text" placeholder="Enter password again" class="form-control" name="cpassword" id="cpassword">
                     </div>
                     <div class="form-group">
                         <button type="submit" name="submit" class="login-btn">Save</button>
@@ -92,6 +94,10 @@ if(isset($_POST['submit'])){
     <script src="./js/jquery.scrollUp.min.js"></script>
     <!-- Custom Js -->
     <script src="./js/main.js"></script>
+    <!-- validate JS -->
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <!-- validate  -->
+    <script src="js/validation.php"></script>
 
 </body>
 

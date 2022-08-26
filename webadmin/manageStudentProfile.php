@@ -1,5 +1,6 @@
 <?php 
 include('header.php');
+$msg="";
 $id="";
 $name='';
 $fname='';
@@ -104,16 +105,15 @@ if(isset($_POST['submit'])){
             }else{
                 $image=time().'.jpg';
                 move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`status`)
-                                        VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','12345678','$time',0,1, 0,0, 1)";
+                $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
+                                        VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','12345678','$time',0,1, 0,0,0,0,0,1, 1)";
                 
                 mysqli_query($con,$sql);
                 $_SESSION['INSERT']=1;
             }
-			echo "Processing done";
 		}
 	}else{
-		echo "Only select jpg or png image";
+		$msg= "Only select jpg or png image";
 	}
    }else{
         if($_FILES['image']['name']!=''){
@@ -144,7 +144,7 @@ if(isset($_POST['submit'])){
                     }
                 }
             }else{
-                echo "Only select jpg or png image";
+                $msg= "Only select jpg or png image";
             }
             $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         }else{
@@ -153,6 +153,7 @@ if(isset($_POST['submit'])){
         }
         $_SESSION['UPDATE']=1;
     }
+    // echo $sql;
 }
 ?>
 <div class="dashboard-content-one">
@@ -174,6 +175,8 @@ if(isset($_POST['submit'])){
             <div class="heading-layout1">
                 <div class="item-title">
                     <h3>Manage Details</h3>
+                    <br>
+                    <?php echo $msg?>
                 </div>
             </div>
             <form class="new-added-form" id="validate" method="post" enctype="multipart/form-data">

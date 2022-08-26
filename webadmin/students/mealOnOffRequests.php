@@ -1,5 +1,6 @@
 <?php include("header.php");
-   $sql="select `role` from `users` where id='1'";
+$uid=$_SESSION['USER_ID'];
+   $sql="select `role` from `users` where id='$uid'";
    $res=mysqli_query($con,$sql);
    $row=mysqli_fetch_assoc($res);
    if($row['role']!=2){

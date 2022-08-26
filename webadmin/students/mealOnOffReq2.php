@@ -3,9 +3,12 @@
 include("header.php");
 $meal_status="";
 $meal_request_status="";
+$uid=$_SESSION['USER_ID'];
 if(isset($_POST['meal_request_status'])){
+    // pr($_POST);
     $meal_request_status=get_safe_value($_POST['meal_request_status']);
-    mysqli_query($con,"update users set `meal_request_status`='$meal_request_status', `meal_request_pending`='1' where users.id='1'");
+    $sql="update `users` set `meal_request_status`='$meal_request_status', `meal_request_pending`='1' where users.id='$uid'";
+    mysqli_query($con,$sql);
     $_SESSION['UPDATE']=true;
 }
 ?>
@@ -37,7 +40,7 @@ if(isset($_POST['meal_request_status'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Current Meal status </label>
                             <?php
-                            $res=mysqli_query($con,"Select meal_status from users where id='1'");
+                            $res=mysqli_query($con,"Select meal_status from users where id='$uid'");
                             $row=mysqli_fetch_assoc($res);
                             if($row['meal_status']==1){
                                 echo "On";
@@ -50,7 +53,7 @@ if(isset($_POST['meal_request_status'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label></label>
                             <?php
-                            $res=mysqli_query($con,"Select meal_request_status,meal_request_pending,meal_status from users where id='1'");
+                            $res=mysqli_query($con,"Select meal_request_status,meal_request_pending,meal_status from users where id='$uid'");
                             $row=mysqli_fetch_assoc($res);
                             if($row['meal_request_pending']!=1){
                                 if($row['meal_request_status']==1){

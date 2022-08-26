@@ -210,7 +210,12 @@ function getTotalMeal($month_id,$roll=""){
 }
 
 function getMealRate($month_id){
-	return floatval(getTotalExpense($month_id)/getTotalMeal($month_id));
+	$getTotalMeal=getTotalMeal($month_id);
+	if($getTotalMeal!=0){
+		return floatval(getTotalExpense($month_id)/getTotalMeal($month_id));
+	}else{
+		return "0";
+	}
 }
 function numberTowords($num){
     $ones = array(

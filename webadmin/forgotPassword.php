@@ -84,7 +84,7 @@
                      <span id="otp_error"></span>
                   </div>
                   <div class="form-group">
-                     <button type="submit" name="submit" class="login-btn">Login</button>
+                     <a href="change_password.php" type="submit" name="submit" class="login-btn change_password" style="display:none;">Change Password</a>
                   </div>
                </form>
             </div>
@@ -141,6 +141,7 @@
         if(otp==""){
             jQuery('#otp_error').html("Please Enter otp");
         }else{
+            jQuery('#verifyOTP').html('Please Wait');
             jQuery.ajax({
                 url:'./ajax/checkOTP.php',
                 type:'post',
@@ -151,7 +152,9 @@
                         jQuery('#otp').attr('disabled',true);
                         jQuery('#verifyOTP').hide();
                         jQuery('#otp_box').html("Email verified");
+                        jQuery('.change_password').show();
                     }else{
+                        jQuery('#verifyOTP').html('Verify Otp');
                         jQuery('#otp_error').html("Please enter valid OTP");
                     }
                 }

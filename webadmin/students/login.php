@@ -12,24 +12,30 @@ if(isset($_SESSION['USER_LOGIN'])){
 if(isset($_POST['submit'])){
 	$phoneNumber=get_safe_value($_POST['phoneNumber']);
    	$password=get_safe_value($_POST['password']);
-   	$sql="select * from users where phoneNumber='$phoneNumber' and binary password='$password'";
-	$res=mysqli_query($con,$sql);
-	if(mysqli_num_rows($res)>0){
-		$row=mysqli_fetch_assoc($res);
-		if($row['status']!=1){
-			$msg="You haven't verified your phoneNumber yet. Please verify the phoneNumber";
-		}else{
-			$msg="You are aleady registered. Please login";
-			$_SESSION['USER_LOGIN']=true;
-			$_SESSION['USER_ID']=$row['id'];
-			$_SESSION['USER_NAME']=$row['name'];
-            // sendLoginEmail($row['email']);
-			redirect('./index.php');
-            die();
-		}		
-	}else{
-		$msg="Please Enter correct Login details";
-	}
+   	$sql="select * from `users` where `phoneNumber`='$phoneNumber'";
+       $res=mysqli_query($con,$sql);
+       if(mysqli_num_rows($res)>0){
+           $row=mysqli_fetch_assoc($res);
+           if($row['status']!=1){
+               $msg="You haven't verified your email yet. Please verify the email";
+           }else{
+               $verify=password_verify($password,$row['password']);
+               if($verify==1){
+                   $msg="You are aleady registered. Please login";
+                   $_SESSION['USER_LOGIN']=true;
+                   $_SESSION['USER_ID']=$row['id'];
+                   $_SESSION['USER_NAME']=$row['name'];
+                //    sendLoginEmail($row['email']);
+                //    sendLoginEmail("orinkarmaker03@gmail.com");
+                   redirect('./index.php');
+                   die();
+               }else{
+                   $msg="Please Enter correct Login details";
+               }
+           }		
+       }else{
+           $msg="Please Enter correct Login details";
+       }
 }
 ?>
 <!doctype html>
@@ -80,7 +86,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="form-group">
                         <label>Username</label>
-                        <input type="text" placeholder="Enter usrename" class="form-control" name="phoneNumber">
+                        <input type="text" placeholder="Enter phone Number" class="form-control" name="phoneNumber">
                         <i class="far fa-envelope"></i>
                     </div>
                     <div class="form-group">

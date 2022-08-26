@@ -127,6 +127,10 @@ $(document).ready(function () {
       phoneNumber:{
         required: true,
       },
+      password: "required",
+      cpassword: {
+        equalTo: "#password"
+      }
     },
     messages: {},
   });
