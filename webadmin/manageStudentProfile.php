@@ -229,7 +229,7 @@ if(isset($_POST['submit'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Permanent Address *</label>
                         <input class="form-control" placeholder="Permanent Address" autocomplete="off"
-                            name="permanentAddress" type="text" required value="<?php echo $presentAddress?>">
+                            name="permanentAddress" type="text" required value="<?php echo $permanentAddress?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Date of Birth *</label>

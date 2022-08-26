@@ -90,21 +90,26 @@
                         </div>
                     </li>
                 </ul>
+                <?php 
+                $uid=$_SESSION['USER_ID']; 
+                $sql="select * from users where id='$uid'";
+                $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
+                ?>
                 <ul class="navbar-nav">
                     <li class="navbar-item dropdown header-admin">
                         <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="admin-title">
-                                <h5 class="item-title">Dhrubo</h5>
-                                <span>Admin</span>
+                                <h5 class="item-title"><?php echo $row['name']?></h5>
+                                <span>Student</span>
                             </div>
                             <div class="admin-img">
-                                <img src="../img/figure/admin.jpg" alt="Admin">
+                                <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="Admin">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="item-header">
-                                <h6 class="item-title">Welcome Dhrubo</h6>
+                                <h6 class="item-title">Welcome <?php echo $row['name']?></h6>
                             </div>
                             <div class="item-content">
                                 <ul class="settings-list">
