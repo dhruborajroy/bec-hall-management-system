@@ -109,7 +109,7 @@
                             <div class="item-content">
                                 <ul class="settings-list">
                                     <li><a href="profile.php"><i class="flaticon-user"></i>My Profile</a></li>
-                                    <li><a href="login.php"><i class="flaticon-turn-off"></i>Log Out</a></li>
+                                    <li><a href="logout.php"><i class="flaticon-turn-off"></i>Log Out</a></li>
                                 </ul>
                             </div>
                         </div>

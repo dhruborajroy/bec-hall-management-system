@@ -15,6 +15,9 @@ include("header.php");
             $_SESSION['PERMISSION_ERROR']=1;
             redirect('index.php');
        }
+   }else{
+      $_SESSION['PERMISSION_ERROR']=1;
+      redirect('index.php');
    }
    if(isset($_POST['submit']) ){
       $user_id=get_safe_value($_GET['id']);
@@ -122,7 +125,7 @@ include("header.php");
                            ?>
                         <tr>
                            <td>
-                              <input type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
+                              <input class="form-control" type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
                            </td>
                            <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
                            <td >
@@ -148,15 +151,17 @@ include("header.php");
                   <table class="table table-hover" style="width: 100%;">
                      <thead class="thead-dark">
                         <tr>
-                           <th scope="col">#</th>
+                           <th scope="col">Select</th>
                            <th scope="col">Month</th>
                            <th scope="col">Due</th>
-                           <th scope="col">Status</th>
+                           <th scope="col">Due</th>
+                           <th scope="col">qty</th>
+                           <!-- <th scope="col">Status</th> -->
                         </tr>
                      </thead>
                      <tbody>
                         <?php 
-                           $sqll="select * from fees";
+                           $sqll="select * from fees where show_payment_page='1'";
                            $ress=mysqli_query($con,$sqll);
                            if(mysqli_num_rows($ress)>0){
                               $i=1;
@@ -164,18 +169,23 @@ include("header.php");
                            ?>
                         <tr>
                            <td>
-                              <input type="checkbox" value="<?php echo $i?>"  id="fee_checkbox_<?php echo $i?>"  onchange="get_fee_total(this.value)">
+                              <input class="form-control" type="checkbox" value="<?php echo $i?>"  id="fee_checkbox_<?php echo $i?>"  onchange="get_fee_total(this.value)">
                            </td>
                            <td>
                               <?php echo $roww['name']?>
                            </td>
-                           <td >
-                              <input disabled type="hidden" name="fee_id[]" value="<?php echo  $roww['id']?>" class="amount" id="fee_id_<?php echo $i?>"> 
-                              <input disabled type="hidden" name="fee_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="fee_amount_<?php echo $i?>"> 
-                              <?php echo  $roww['amount']?>
+                           <td>
+                              <span style="margin-right: 10px;font-size: 35px;cursor: pointer;" onclick="minus('<?php echo $i?>')">-</span><span>
+                                 <input type="button" value="1" id="qty_<?php echo $i?>"></span>
+                              <span onclick="plus('<?php echo $i?>')" style="margin-left: 10px;font-size: 25px;cursor: pointer;">+</span>
                            </td>
                            <td>
-                              <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                              <?php echo  $roww['amount']?>
+                           </td>
+                           <td >
+                              <input disabled type="hidden" name="fee_id[]" value="<?php echo  $roww['id']?>" class="amount" id="fee_id_<?php echo $i?>"> 
+                              <input disabled type="text" style="text-align:center;font-size:20px;"  readonly name="fee_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="fee_amount_<?php echo $i?>"> 
+                              <input type="hidden" id="fee_main_amount_<?php echo $i?>" value="<?php echo  $roww['amount']?>">
                            </td>
                         </tr>
                         <?php 
@@ -218,6 +228,35 @@ include("header.php");
 <!-- Student Table Area End Here -->
 <?php include("footer.php")?>
 <script>
+   function minus(id){
+      var qty=jQuery('#qty_'+id).val();
+      var main_price=jQuery('#fee_main_amount_'+id).val();
+      if(qty>1){
+         qty=parseInt(qty)-1;
+      }
+      jQuery('#qty_'+id).val(qty);
+      price=(parseInt(qty)*parseFloat(main_price));
+      jQuery('#fee_amount_'+id).val(price);
+      get_fee_total(id);
+   }
+   function plus(id){
+      var qty=jQuery('#qty_'+id).val();
+      var main_price=jQuery('#fee_main_amount_'+id).val();
+      qty=parseInt(qty)+1;
+      jQuery('#qty_'+id).val(qty);
+      price=(parseInt(qty)*parseFloat(main_price));
+      jQuery('#fee_amount_'+id).val(price);
+      get_fee_total(id);
+   }
+   // function plus(id){
+      // var value=jQuery('#qty_'+id).val();
+      // value=parseInt(value)+1;
+      // jQuery('#qty_'+id).val(value);
+      // var amount=jQuery('#fee_amount_'+id).val();
+      // var final_amount=parseInt(value)*parseFloat(amount);
+      // var amount=jQuery('#fee_amount_'+id).val(final_amount);
+      // get_fee_total(id);
+   // }
    function get_total(id) {
       if(document.getElementById("checkbox_"+id).checked==true){
          jQuery('#amount_'+id).addClass('active_amount');

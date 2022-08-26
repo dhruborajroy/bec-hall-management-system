@@ -6,8 +6,8 @@ define('WEBSITE','http://www.barisal-eng.edu.bd/');
 define('TEL',' +00 000 000 0000');
 define('EMAIL','becians2017@gmail.com');
 define('FRONT_SITE_PATH','http://localhost/hall/');
-define('STORE_ID',"dhrub5f103f94cd3e4");
-define('STORE_PASSWORD',"dhrub5f103f94cd3e4@ssl");
+define('STORE_ID',"thewe630883975551e");
+define('STORE_PASSWORD',"thewe630883975551e@ssl");
 define('STUDENT_IMAGE',FRONT_SITE_PATH."/media/users/");
 // define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/hall/media/users/");/Users/dhrubo/Desktop
 define('UPLOAD_STUDENT_IMAGE',"/Users/dhrubo/Desktop");

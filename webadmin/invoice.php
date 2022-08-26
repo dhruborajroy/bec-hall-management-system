@@ -283,7 +283,7 @@ $mpdf->watermarkImageAlpha = 0.1;
 $mpdf->WriteHTML($html);
 $file=time().'.pdf';
 $mpdf->output($file,'I');
-$mpdf->output($file,'D');
+// $mpdf->output($file,'D');
 $mpdf->output('media/'.$file,'F');
 send_email("dhruborajroy3@gmail.com","Invoice","Invoice of Payment ".$file,'media/'.$file);
 unlink($file);

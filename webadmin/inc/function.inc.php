@@ -143,8 +143,8 @@ function gettotalstudent(){
 	}
 }
 function send_email_using_tamplate($name,$otp){
-	$tamplate= "./email.php";
-	$file_content=file_get_contents($tamplate);
+	$tamplate= "email.php";
+	$file_content=file_get_contents("../email.php");
 	$array=array(
 		"{YOUR_NAME}"=>$name,
 		"{OTP_NUMBER}"=>$otp,

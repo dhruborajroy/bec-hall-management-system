@@ -42,7 +42,7 @@ $res=mysqli_query($con,$sql);
                 <div class="item-title">
                     <form action="./pdfreports/collection.php">
                     <div class="row">
-                        <select name="month_id" class="select2">
+                        <select name="month_id" class="">
                             <option value="01">January</option>
                             <option value="02">February</option>
                             <option value="03">March</option>

@@ -123,6 +123,10 @@ $(document).ready(function () {
       expense_category_id: {
         required: true,
       },
+      //forgot password 
+      phoneNumber:{
+        required: true,
+      },
     },
     messages: {},
   });

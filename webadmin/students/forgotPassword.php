@@ -83,17 +83,12 @@ if(isset($_POST['submit'])){
                         <input type="text" placeholder="Enter usrename" class="form-control" name="phoneNumber">
                         <i class="far fa-envelope"></i>
                     </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="text" placeholder="Enter password" class="form-control" name="password">
-                        <i class="fas fa-lock"></i>
-                    </div>
                     <div class="form-group d-flex align-items-center justify-content-between">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="remember-me">
                             <label for="remember-me" class="form-check-label">Remember Me</label>
                         </div>
-                        <a href="forgotPassword.php" class="forgot-btn">Forgot Password?</a>
+                        <a href="#" class="forgot-btn">Forgot Password?</a>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="submit" class="login-btn">Login</button>

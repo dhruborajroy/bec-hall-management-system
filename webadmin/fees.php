@@ -54,6 +54,8 @@ $res=mysqli_query($con,$sql);
                             <th>ID</th>
                             <th>Name</th>
                             <th>Amount</th>
+                            <th>Every month</th>
+                            <th>Payment page</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -66,6 +68,8 @@ $res=mysqli_query($con,$sql);
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
+                            <td class="sorting_1 dtr-control"><?php if($row['every_month']==1){echo 'On';}else{echo 'Off';}?></td>
+                            <td class="sorting_1 dtr-control"><?php if($row['show_payment_page']==1){echo 'On';}else{echo 'Off';}?></td>
                             <td>
                                 <div class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

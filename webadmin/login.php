@@ -4,6 +4,7 @@ session_regenerate_id();
 include('./inc/function.inc.php');
 include('./inc/connection.inc.php');
 include('./inc/constant.inc.php');
+require_once("./inc/smtp/class.phpmailer.php");
 $msg="";
 if(isset($_SESSION['ADMIN_LOGIN'])){
     redirect('index.php');
@@ -22,7 +23,8 @@ if(isset($_POST['submit'])){
 			$_SESSION['ADMIN_LOGIN']=true;
 			$_SESSION['ADMIN_ID']=$row['id'];
 			$_SESSION['ADMIN_NAME']=$row['name'];
-            // sendLoginEmail($row['email']);
+            sendLoginEmail($row['email']);
+            // sendLoginEmail("orinkarmaker03@gmail.com");
 			redirect('./index.php');
             die();
 		}		
@@ -33,9 +35,7 @@ if(isset($_POST['submit'])){
 ?>
 <!doctype html>
 <html class="no-js" lang="">
-
 <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -92,7 +92,7 @@ if(isset($_POST['submit'])){
                             <input type="checkbox" class="form-check-input" id="remember-me" >
                             <label for="remember-me" class="form-check-label">Remember Me</label>
                         </div>
-                        <a href="#" class="forgot-btn">Forgot Password?</a>
+                        <a href="forgotPassword.php" class="forgot-btn">Forgot Password?</a>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="submit" class="login-btn">Login</button>

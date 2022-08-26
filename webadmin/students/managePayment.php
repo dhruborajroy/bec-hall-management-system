@@ -3,7 +3,7 @@ include("header.php");
    $name="";
    $roll="";
    $batch="";
-   $_GET['id']=1;
+   $_GET['id']=$_SESSION['USER_ID'];
    if(isset($_GET['id']) && $_GET['id']!=""){
        $id=get_safe_value($_GET['id']);
        $res=mysqli_query($con,"select * from users where id='$id'");
@@ -12,6 +12,11 @@ include("header.php");
            $name=$row['name'];
            $roll=$row['roll'];
            $batch=$row['batch'];
+           $email=$row['email'];
+           $presentAddress=$row['presentAddress'];
+           $permanentAddress=$row['permanentAddress'];
+           $phoneNumber=$row['phoneNumber'];
+           $email=$row['email'];
        }else{
             $_SESSION['PERMISSION_ERROR']=1;
             redirect('index.php');
@@ -55,33 +60,32 @@ include("header.php");
             }
          }
       }
-      
       $ch = curl_init();
       curl_setopt($ch, CURLOPT_URL, 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php');
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
       curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, "store_id=thedh60a231886b190
-                                             &store_passwd=thedh60a231886b190@ssl
+      curl_setopt($ch, CURLOPT_POSTFIELDS, "store_id=".STORE_ID."
+                                             &store_passwd=".STORE_PASSWORD."
                                              &total_amount=".urlencode(round($total_amount,2))."&currency=BDT
                                              &tran_id=".$tran_id."
                                              &success_url=".FRONT_SITE_PATH."webadmin/students/success.php"."
                                              &fail_url=".FRONT_SITE_PATH."webadmin/students/failure.php"."
                                              &cancel_url=".FRONT_SITE_PATH."webadmin/students/cancel.php"."
-                                             &cus_name=Customer Name
-                                             &cus_email=cust@yahoo.com
-                                             &cus_add1=Dhaka
-                                             &cus_city=Dhaka
+                                             &cus_name=".$name."
+                                             &cus_email=".$email."
+                                             &cus_add1=".$presentAddress."
+                                             &cus_city=".$permanentAddress."
                                              &cus_country=Bangladesh
                                              &ship_country=Bangladesh
                                              &shipping_method=air
-                                             &ship_add1=lal
-                                             &product_name=dj
-                                             &product_category=d
-                                             &cus_phone=01711111111
-                                             &ship_name=Customer Name
-                                             &ship_add1 =Dhaka
-                                             &ship_city=Dhaka
-                                             &ship_state=Dhaka
+                                             &ship_add1=".$presentAddress."
+                                             &product_name=Payment of Barishal Engineering College
+                                             &product_category=Monthly payment
+                                             &cus_phone=".$phoneNumber."
+                                             &ship_name=".$name."
+                                             &ship_add1 =".$presentAddress."
+                                             &ship_city=".$permanentAddress."
+                                             &ship_state=".$permanentAddress."
                                              &ship_postcode=1000
                                              &product_profile=c"
                                     );
@@ -94,10 +98,10 @@ include("header.php");
       }
       curl_close($ch);
       $result=json_decode($result,TRUE);
+      pr($result);
       if(isset($result['status']) && $result['status']=="SUCCESS"){
          redirect($result['GatewayPageURL']);
       } 
-      // redirect("./invoice.php?id=".$payment_id);
       die;
    }
    ?>
@@ -153,12 +157,13 @@ include("header.php");
                            <th scope="col">#</th>
                            <th scope="col">Month</th>
                            <th scope="col">Due</th>
+                           <th scope="col">Other Fees</th>
                            <th scope="col">Status</th>
                         </tr>
                      </thead>
                      <tbody>
                         <?php 
-                           $sqll="select * from monthly_bill where user_id='$id' and paid_status='0'";
+                           $sqll="select monthly_bill.* from monthly_bill where monthly_bill.user_id='$id' and monthly_bill.paid_status='0'";
                            $ress=mysqli_query($con,$sqll);
                            if(mysqli_num_rows($ress)>0){
                               $i=1;
@@ -171,55 +176,25 @@ include("header.php");
                            <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
                            <td >
                               <input disabled type="hidden" id="month_<?php echo $i?>" name="month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
-                              <input disabled type="hidden" name="monthly_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
                               <?php echo  $roww['amount']?>
                            </td>
                            <td>
-                              <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
-                           </td>
-                        </tr>
-                        <?php 
-                           $i++;
-                           } } else { ?>
-                        <tr colspan="5">
-                           <td  class="d-flex justify-content-center">No due found</td>
-                        </tr>
-                        <?php } ?>
-                     </tbody>
-                  </table>
-                  <hr>
-                  <hr>
-                  <table class="table table-hover" style="width: 100%;">
-                     <thead class="thead-dark">
-                        <tr>
-                           <th scope="col">#</th>
-                           <th scope="col">Month</th>
-                           <th scope="col">Due</th>
-                           <th scope="col">Status</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <?php 
-                           $sqll="select * from fees";
-                           $ress=mysqli_query($con,$sqll);
-                           if(mysqli_num_rows($ress)>0){
-                              $i=1;
-                              while($roww=mysqli_fetch_assoc($ress)){
-                           ?>
-                        <tr>
-                           <td>
-                              <input type="checkbox" value="<?php echo $i?>"  id="fee_checkbox_<?php echo $i?>"  onchange="get_fee_total(this.value)">
+                              <?php
+                                    
+                                 $swl="select fees.* from fees where fees.every_month='1'";
+                                 $fee_res=mysqli_query($con,$swl);
+                                 if(mysqli_num_rows($fee_res)>0){
+                                    $total_fee_amount=0;
+                                    while($rowws=mysqli_fetch_assoc($fee_res)){
+                                       echo  $rowws['name']." : ".$rowws['amount']."<br>";
+                                       $total_fee_amount=$total_fee_amount+$rowws['amount'];
+                                    }
+                                 }
+                              ?>
                            </td>
                            <td>
-                              <?php echo $roww['name']?>
-                           </td>
-                           <td >
-                              <input disabled type="hidden" name="fee_id[]" value="<?php echo  $roww['id']?>" class="amount" id="fee_id_<?php echo $i?>"> 
-                              <input disabled type="hidden" name="fee_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="fee_amount_<?php echo $i?>"> 
-                              <?php echo  $roww['amount']?>
-                           </td>
-                           <td>
-                              <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                              <input disabled type="hidden" name="monthly_amount[]" value="<?php echo $total_fee_amount+$roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
+                              <?php echo $total_fee_amount+$roww['amount']?>
                            </td>
                         </tr>
                         <?php 
