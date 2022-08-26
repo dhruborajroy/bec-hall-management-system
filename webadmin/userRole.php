@@ -37,9 +37,9 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Students Data</h3>
+                    <h3>All Admin Users Data</h3>
                 </div>
-                <div class="item-title">
+                <!-- <div class="item-title">
                     <form action="./pdfreports/users.php">
                     <div class="row">
                         <select name="month_id" class="select2">
@@ -58,7 +58,7 @@ $res=mysqli_query($con,$sql);
                         <input type="submit" value="Generate report">
                     </div>
                     </form>
-                </div>
+                </div> -->
             </div>
             <form class="mg-b-20">
                 <div class="row gutters-8">

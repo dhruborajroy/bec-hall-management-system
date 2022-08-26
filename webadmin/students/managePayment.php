@@ -29,9 +29,8 @@ include("header.php");
       $time=time();
       $payment_type='sslcommerz';
       $tran_id="becHall_".uniqid();
-
        $sql="INSERT INTO `payments` ( `user_id`,`payment_type`,`tran_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES 
-                                    ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '0', '1')";
+                                    ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '0', '0')";
        mysqli_query($con,$sql);
        $payment_id=mysqli_insert_id($con);
        if(isset($_POST['monthly_amount'])){
@@ -44,7 +43,7 @@ include("header.php");
                   $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
                                                                  ('$user_id', '$payment_id', '$month_id', '$monthly_amount', '1')";
                   mysqli_query($con,$swl);
-                  mysqli_query($con,"update monthly_bill set paid_status='1' where user_id='$user_id' and month_id='$month_id' ");
+                  mysqli_query($con,"update monthly_bill set paid_status='0' where user_id='$user_id' and month_id='$month_id' ");
              }
          }
        }

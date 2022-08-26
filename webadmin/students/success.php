@@ -17,7 +17,8 @@ if(isset($_POST['status'])){
         mysqli_query($con,$swl);
     }
     mysqli_query($con,$sql);
-    $row=mysqli_fetch_assoc(mysqli_query($con,"select id from payments where tran_id='$tran_id'"));
+    $row=mysqli_fetch_assoc(mysqli_query($con,"select id,user_id from payments where tran_id='$tran_id'"));
+    // mysqli_query($con,"update monthly_bill set paid_status='0' where user_id='$user_id' and month_id='$month_id' ");
     redirect("../invoice.php?id=".$row['id']);
 }
 ?>
