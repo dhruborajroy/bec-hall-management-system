@@ -2,16 +2,6 @@
 include('../inc/connection.inc.php');
 session_start();
 ?>
-$(document).ready(function() {
-
-  <!-- $('#editor').summernote(); -->
-
-  $('#summernote').summernote({
-        placeholder: 'Hello Bootstrap 4',
-        tabsize: 2,
-        height: 100
-      });
-});
 google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 

@@ -24,8 +24,8 @@
                     <div class="col-6">
                         <div class="item-content">
                             <div class="item-title">Meal Amount</div>
-                            <?php 
-                            $getTotalMeal=getTotalMeal(date("m"),'200129');
+                            <?php
+                            $getTotalMeal=getTotalMeal(date("m"),$_SESSION['USER_ROLL']);
                             $getMealRate=round(getMealRate(date("m")),2);
                             $getTotalFee=round($getTotalMeal*$getMealRate,2);
                             ?>

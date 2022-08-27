@@ -25,8 +25,8 @@ if(isset($_POST['submit'])){
                 $_SESSION['ADMIN_LOGIN']=true;
                 $_SESSION['ADMIN_ID']=$row['id'];
                 $_SESSION['ADMIN_NAME']=$row['name'];
-                sendLoginEmail($row['email']);
-                sendLoginEmail("orinkarmaker03@gmail.com");
+                // sendLoginEmail($row['email']);
+                // sendLoginEmail("orinkarmaker03@gmail.com");
                 redirect('./index.php');
                 die();
             }else{

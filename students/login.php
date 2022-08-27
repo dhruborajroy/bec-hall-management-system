@@ -1,10 +1,10 @@
 <?php 
 session_start();
 session_regenerate_id();
-include('../inc/function.inc.php');
-include('../inc/connection.inc.php');
-include('../inc/constant.inc.php');
-require_once("../inc/smtp/class.phpmailer.php");
+include('../webadmin/inc/function.inc.php');
+include('../webadmin/inc/connection.inc.php');
+include('../webadmin/inc/constant.inc.php');
+require_once("../webadmin/inc/smtp/class.phpmailer.php");
 $msg="";
 if(isset($_SESSION['USER_LOGIN'])){
     redirect('index.php');
@@ -24,9 +24,8 @@ if(isset($_POST['submit'])){
                    $msg="You are aleady registered. Please login";
                    $_SESSION['USER_LOGIN']=true;
                    $_SESSION['USER_ID']=$row['id'];
+                   $_SESSION['USER_ROLL']=$row['roll'];
                    $_SESSION['USER_NAME']=$row['name'];
-                //    sendLoginEmail($row['email']);
-                //    sendLoginEmail("orinkarmaker03@gmail.com");
                    redirect('./index.php');
                    die();
                }else{
@@ -52,19 +51,19 @@ if(isset($_POST['submit'])){
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../webadmin/css/normalize.css">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../webadmin/css/main.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../webadmin/css/bootstrap.min.css">
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../webadmin/css/all.min.css">
     <!-- Flaticon CSS -->
     <link rel="stylesheet" href="fonts/flaticon.css">
     <!-- Animate CSS -->
-    <link rel="stylesheet" href="../css/animate.min.css">
+    <link rel="stylesheet" href="../webadmin/css/animate.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../webadmin/css/style.css">
     <!-- Modernize js -->
     <script src="../js/modernizr-3.6.0.min.js"></script>
 </head>
@@ -111,17 +110,17 @@ if(isset($_POST['submit'])){
     </div>
     <!-- Login Page End Here -->
     <!-- jquery-->
-    <script src="../js/jquery-3.3.1.min.js"></script>
+    <script src="../webadmin/js/jquery-3.3.1.min.js"></script>
     <!-- Plugins js -->
-    <script src="../js/plugins.js"></script>
+    <script src="../webadmin/js/plugins.js"></script>
     <!-- Popper js -->
-    <script src="../js/popper.min.js"></script>
+    <script src="../webadmin/js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../webadmin/js/bootstrap.min.js"></script>
     <!-- Scroll Up Js -->
-    <script src="../js/jquery.scrollUp.min.js"></script>
+    <script src="../webadmin/js/jquery.scrollUp.min.js"></script>
     <!-- Custom Js -->
-    <script src="../js/main.js"></script>
+    <script src="../webadmin/js/main.js"></script>
 
 </body>
 

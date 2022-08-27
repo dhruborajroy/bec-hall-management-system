@@ -1,10 +1,11 @@
 <?php 
    session_start();
    session_regenerate_id();
-   require('../inc/constant.inc.php');
-   require('../inc/connection.inc.php');
-   require('../inc/function.inc.php');
-   require_once("../inc/smtp/class.phpmailer.php");
+   require('../webadmin/inc/constant.inc.php');
+   require('../webadmin/inc/connection.inc.php');
+   require('../webadmin/inc/function.inc.php');
+   require_once("../webadmin/inc/smtp/class.phpmailer.php");
+   isUSER();
 ?>
 <!doctype html>
 <html class="no-js" lang="">
@@ -19,28 +20,28 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
     <!-- Normalize CSS -->
-    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../webadmin/css/normalize.css">
     <!-- Main CSS -->
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../webadmin/css/main.css">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../webadmin/css/bootstrap.min.css">
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="../css/all.min.css">
+    <link rel="stylesheet" href="../webadmin/css/all.min.css">
     <!-- Flaticon CSS -->
-    <link rel="stylesheet" href="../fonts/flaticon.css">
+    <link rel="stylesheet" href="../webadmin/fonts/flaticon.css">
     <!-- Full Calender CSS -->
-    <link rel="stylesheet" href="../css/fullcalendar.min.css">
+    <link rel="stylesheet" href="../webadmin/css/fullcalendar.min.css">
     <!-- Animate CSS -->
-    <link rel="stylesheet" href="../css/animate.min.css">
+    <link rel="stylesheet" href="../webadmin/css/animate.min.css">
     <!-- Select 2 CSS -->
-    <link rel="stylesheet" href="../css/select2.min.css">
+    <link rel="stylesheet" href="../webadmin/css/select2.min.css">
     <!-- Data Table CSS -->
-    <link rel="stylesheet" href="../css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../webadmin/css/jquery.dataTables.min.css">
     <!-- Date Picker CSS -->
-    <link rel="stylesheet" href="../css/datepicker.min.css">
+    <link rel="stylesheet" href="../webadmin/css/datepicker.min.css">
     <!-- Toastr CSS -->
-    <link rel="stylesheet" href="../css/toastr.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../webadmin/css/toastr.min.css">
+    <link rel="stylesheet" href="../webadmin/css/style.css">
     <!-- Modernize js -->
     <script src="../js/modernizr-3.6.0.min.js"></script>
 </head>

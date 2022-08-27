@@ -1,8 +1,13 @@
 <?php 
 include("header.php");
-   $name="";
-   $roll="";
-   $batch="";
+   $val_id="";
+   $amount="";
+   $card_type="";
+   $tran_date="";
+   $card_issuer="";
+   $card_no="";
+   $error="";
+   $status="";
    $_GET['id']=$_SESSION['USER_ID'];
    if(isset($_GET['id']) && $_GET['id']!=""){
        $id=get_safe_value($_GET['id']);
@@ -67,9 +72,9 @@ include("header.php");
                                              &store_passwd=".STORE_PASSWORD."
                                              &total_amount=".urlencode(round($total_amount,2))."&currency=BDT
                                              &tran_id=".$tran_id."
-                                             &success_url=".FRONT_SITE_PATH."webadmin/students/success.php"."
-                                             &fail_url=".FRONT_SITE_PATH."webadmin/students/failure.php"."
-                                             &cancel_url=".FRONT_SITE_PATH."webadmin/students/cancel.php"."
+                                             &success_url=".FRONT_SITE_PATH."/students/success.php"."
+                                             &fail_url=".FRONT_SITE_PATH."/students/failure.php"."
+                                             &cancel_url=".FRONT_SITE_PATH."/students/cancel.php"."
                                              &cus_name=".$name."
                                              &cus_email=".$email."
                                              &cus_add1=".$presentAddress."
@@ -96,6 +101,9 @@ include("header.php");
          echo 'Error:' . curl_error($ch);
       }
       curl_close($ch);
+      $sql="INSERT INTO `online_payment`(`tran_id`,`user_id`, `val_id`, `amount`, `card_type`, `tran_date`, `card_issuer`, `card_no`, `error`, `status`) VALUES 
+                                            ('$tran_id','$user_id','$val_id','$amount','$card_type','$tran_date','$card_issuer','$card_no','$error','$status')";
+      mysqli_query($con,$sql);
       $result=json_decode($result,TRUE);
       pr($result);
       if(isset($result['status']) && $result['status']=="SUCCESS"){

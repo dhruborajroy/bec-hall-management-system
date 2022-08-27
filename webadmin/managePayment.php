@@ -207,15 +207,40 @@ include("header.php");
                      </div>
                   </div>
                   <hr>
+               <div class="row">
+                  <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
+                  <div class="col-xl-2 col-lg-2 col-12 form-group">
+                     <button type="button" class="modal-trigger mt-2" data-toggle="modal"
+                        data-target="#standard-modal">
+                     Save
+                     </button>
+                  </div>
+                  <!-- Modal -->
+                  <div class="modal fade" id="standard-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                     <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <h5 class="modal-title">Are You sure?</h5>
+                           </div>
+                           <div class="modal-body">
+                              Do you want to Pay?
+                           </div>
+                           <div class="modal-footer">
+                              <button type="button" class="footer-btn bg-dark-low"
+                                 data-dismiss="modal">Cancel</button>
+                              <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
+                              data-target="#standard-modal" name="submit">Payment</button>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
                   <div class="modal-box">
                      <!-- Button trigger modal -->
                      <div class="row">
                         <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
                         <div class="col-xl-2 col-lg-2 col-12 form-group">
-                           <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
-                              data-target="#standard-modal" name="submit">
-                           Payment
-                           </button>
+                           
                         </div>
                      </div>
                   </div>

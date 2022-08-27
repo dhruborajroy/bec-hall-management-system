@@ -2,7 +2,7 @@
 <footer class="footer-wrap-layout1">
     <div class="copyright">© Copyrights <a href="#">Barishal Engineering College Hall </a> 2018-<?php echo date('Y')?>.
         All
-        rights reserved. Developed by <a href="https://dhruborajroy.github.io/myPortfollioWebsite">Dhrubo</a></div>
+        rights reserved. Developed by <a href="https://dhruborajroy.github.io/myPortfollioWebsite">The Web Divers</a></div>
 </footer>
 <!-- Footer Area End Here -->
 </div>

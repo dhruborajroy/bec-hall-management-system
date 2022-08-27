@@ -179,7 +179,7 @@ if(mysqli_num_rows($res)>0){
                         $html.='
                             <tr width="100%">
                                 <td  style="border: 1px solid black;border-collapse: collapse;padding-left: 20px;">
-                                Roll : '.$row["roll"].'
+                                Roll : '.$row["class_roll"].'
                                 </td>
                                 <td style="text-align:right;border: 1px solid black;border-collapse: collapse;" >
                                     Created: #'.date("d M Y h:i A",$row["created_at"]).'

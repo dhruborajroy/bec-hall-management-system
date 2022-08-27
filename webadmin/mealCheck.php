@@ -147,7 +147,7 @@
                         ?>
                      <tr>
                         <td><?php echo $row['roll']?></td>
-                        <input type="hidden" name="roll[]" value="<?php echo $row['roll']?>">
+                        <input type="hidden" name="roll[]" value="<?php echo $row['user_id']?>">
                         <td><?php echo $row['name']?></td>
                         <td><?php echo $row['batch']?> batch</td>
                         <td>

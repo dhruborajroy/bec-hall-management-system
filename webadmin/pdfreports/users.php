@@ -53,7 +53,7 @@ $html.='<tr>
             // the while loop
             $html.='<tr>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$i.'</td>
-            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['roll'].'</td>
+            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['class_roll'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['name'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['fName'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['mName'].'</td>

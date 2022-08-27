@@ -31,7 +31,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
 	if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
         $name=$row['name'];
-        $roll=$row['roll'];
+        $class_roll=$row['roll'];
         $fname=$row['fName'];
         $fOccupation=$row['fOccupation'];
         $mname=$row['mName'];
@@ -61,7 +61,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
 }
 if(isset($_POST['submit'])){
 	$name=get_safe_value($_POST['name']);
-	$roll=get_safe_value($_POST['roll']);
+	$class_roll=get_safe_value($_POST['roll']);
 	$fName=get_safe_value($_POST['fName']);
 	$fOccupation=get_safe_value($_POST['fOccupation']);
 	$mName=get_safe_value($_POST['mName']);
@@ -103,11 +103,12 @@ if(isset($_POST['submit'])){
             if (($_FILES["image"]["size"] > 300000)) {//2000000 = 2Mb
                 $msg= "Image size exceeds 300 kb";
             }else{
+                $roll=date('y').rand(1111,9999);
                 $password=password_hash("12345678",PASSWORD_DEFAULT);
                 $image=time().'.jpg';
                 move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                $sql="INSERT INTO `users` (`name`, `roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
-                                        VALUES ( '$name', '$roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
+                $sql="INSERT INTO `users` (`name`, `roll`, `class_roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
+                                        VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
                 
                 mysqli_query($con,$sql);
                 $_SESSION['INSERT']=1;
@@ -140,7 +141,7 @@ if(isset($_POST['submit'])){
                         $image=time().'.jpg';
                         // $image=imagejpeg($img,$image,40);
                         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                        $sql="update `users` set  `name`='$name',`roll`='$roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id',`meal_request_status`='0'  where md5(id)='$id'";
+                        $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id',`meal_request_status`='0'  where md5(id)='$id'";
                         mysqli_query($con,$sql);
                     }
                 }
@@ -149,7 +150,7 @@ if(isset($_POST['submit'])){
             }
             $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         }else{
-            $sql="update `users` set  `name`='$name', `roll`='$roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0' where  md5(id)='$id'";
+            $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0' where  md5(id)='$id'";
             mysqli_query($con,$sql);
         }
         $_SESSION['UPDATE']=1;
@@ -190,7 +191,7 @@ if(isset($_POST['submit'])){
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Student's ID *</label>
                         <input class="form-control" placeholder="Student's ID" name="roll" id="roll" type="number"
-                            value="<?php echo $roll?>" required>
+                            value="<?php echo $class_roll?>" required>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Father's Name *</label>

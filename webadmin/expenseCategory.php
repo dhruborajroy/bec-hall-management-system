@@ -22,12 +22,12 @@ $res=mysqli_query($con,$sql);
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <h3>Fee</h3>
+        <h3>Expense Category</h3>
         <ul>
             <li>
                 <a href="index.php">Home</a>
             </li>
-            <li>Fees</li>
+            <li>Expense Category</li>
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
@@ -36,7 +36,7 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Fees Data</h3>
+                    <h3>All Expense Category Data</h3>
                 </div>
                 <div class="dropdown show">
                     <!-- <a class="dropdown-toggle" href="../pdf/list.php" aria-expanded="true">Generate PDF</a> -->

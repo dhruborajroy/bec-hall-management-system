@@ -5,6 +5,7 @@
    require('./inc/connection.inc.php');
    require('./inc/function.inc.php');
    require_once("./inc/smtp/class.phpmailer.php");
+   isAdmin();
 ?>
 <!doctype html>
 <html class="no-js" lang="">
