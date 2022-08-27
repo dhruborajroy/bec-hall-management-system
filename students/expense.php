@@ -2,7 +2,7 @@
    $sql="select `role` from `users` where id='1'";
    $res=mysqli_query($con,$sql);
    $row=mysqli_fetch_assoc($res);
-   if($row['role']!=5){
+   if($row['role']!=4){
       $_SESSION['PERMISSION_ERROR']=true;
       redirect("index.php");
    }
@@ -45,7 +45,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                     <h3>applicants Data</h3>
                 </div>
                 <div class="item-title">
-                    <form action="./pdfreports/expense.php">
+                    <form action="../webadmin/pdfreports/expense.php">
                     <div class="row">
                         <select name="month_id" class="select2">
                             <option value="01">January</option>

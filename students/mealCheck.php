@@ -1,4 +1,5 @@
-<?php include("header.php");
+<?php 
+   include("header.php");
    $sql="select `role` from `users` where id='1'";
    $res=mysqli_query($con,$sql);
    $row=mysqli_fetch_assoc($res);
@@ -18,7 +19,6 @@
       $year=date_format($date_time,"Y");
    }
    if(isset($_POST['submit']) ){
-      // pr($_POST);
       $date_time=get_safe_value($_POST['date']);
       $date_time=date_create_from_format("d/m/Y",$date_time);
       $date=date_format($date_time,"d");

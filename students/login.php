@@ -26,6 +26,7 @@ if(isset($_POST['submit'])){
                    $_SESSION['USER_ID']=$row['id'];
                    $_SESSION['USER_ROLL']=$row['roll'];
                    $_SESSION['USER_NAME']=$row['name'];
+                   $_SESSION['LAST_NOTIFICATION']=$row['last_notification'];
                    redirect('./index.php');
                    die();
                }else{

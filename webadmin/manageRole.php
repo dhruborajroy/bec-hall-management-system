@@ -7,6 +7,8 @@ if(isset($_GET['id']) && $_GET['id']>0 && $_GET['id']!=""){
     $res=mysqli_query($con,"select * from users where id='$id'");
     if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
+        // echo "<pre>";
+        // print_r($row);
         $student_id=$row['id'];
         $role=$row['role'];
     }else{
@@ -65,12 +67,12 @@ if(isset($_POST['submit'])){
                         <select class="form-control select2" name="role" id="role">
                             <option>Select role</option>
                             <?php
-                            $res=mysqli_query($con,"SELECT * FROM `roles` where status='1'");
-                            while($row=mysqli_fetch_assoc($res)){
-                                if($row['id']==$role){
-                                    echo "<option selected='selected' value=".$row['value'].">".$row['role_name']."</option>";
+                            $resss=mysqli_query($con,"SELECT * FROM `roles` where status='1'");
+                            while($rowss=mysqli_fetch_assoc($resss)){
+                                if($rowss['value']==$role){
+                                    echo "<option selected='selected' value=".$rowss['value'].">".$rowss['role_name']."</option>";
                                 }else{
-                                    echo "<option value=".$row['value'].">".$row['role_name']."</option>";
+                                    echo "<option value=".$rowss['value'].">".$rowss['role_name']."</option>";
                                 }                                                        
                             }
                             ?>

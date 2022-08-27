@@ -120,58 +120,60 @@
                             </div>
                         </div>
                     </li>
-                    <li class="navbar-item dropdown header-message">
-                        <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="far fa-envelope"></i>
-                            <div class="item-title d-md-none text-16 mg-l-10">Message</div>
-                            <span>5</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right">
-                            <div class="item-header">
-                                <h6 class="item-title">05 Message</h6>
-                            </div>
-                            <div class="item-content">
-                                <div class="media">
-                                    <div class="item-img bg-skyblue author-online">
-                                        <img src="img/figure/student11.png" alt="img">
-                                    </div>
-                                    <div class="media-body space-sm">
-                                        <div class="item-title">
-                                            <a href="#">
-                                                <span class="item-name">Maria Zaman</span>
-                                                <span class="item-time">18:30</span>
-                                            </a>
-                                        </div>
-                                        <p>What is the reason of buy this item.
-                                            Is it usefull for me.....</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
                     <li class="navbar-item dropdown header-notification">
-                        <a class="navbar-nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                            aria-expanded="false">
+                        <?php 
+                            if(isset($_SESSION['LAST_NOTIFICATION'])){
+                                $session=$_SESSION['LAST_NOTIFICATION'];
+                            }else{
+                                $session=time();
+                            }
+                            $sql="select count(id) as number from notice where added_on between ".$session." AND '".time()."'";
+                            $res=mysqli_query($con,$sql);
+                            $counter=mysqli_fetch_assoc($res);
+                            ?>
+
+                        <a class="navbar-nav-link dropdown-toggle" onclick="read_notification('<?php echo time()?>')"
+                            role="button" data-toggle="dropdown" aria-expanded="false">
                             <i class="far fa-bell"></i>
                             <div class="item-title d-md-none text-16 mg-l-10">Notification</div>
-                            <span>8</span>
+                            <?php 
+                                $number=$counter['number'];
+                            if($number!=0){?>
+                            <span id="counter">
+                                <?php echo $number;?>
+                            </span><?php } ?>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
                             <div class="item-header">
-                                <h6 class="item-title">03 Notifiacations</h6>
+                                <h6 class="item-title"><?php echo $number?> unread Notifiacations</h6>
                             </div>
+                            <?php 
+                            $sql="select * from notice where status=1 order by added_on desc limit 5";
+                            $res=mysqli_query($con,$sql);
+                            if(mysqli_num_rows($res)>0){
+                            $i=1;
+                            while($row=mysqli_fetch_assoc($res)){
+                            ?>
                             <div class="item-content">
                                 <div class="media">
                                     <div class="item-icon bg-violet-blue">
                                         <i class="fas fa-cogs"></i>
                                     </div>
+                                    <a href="../webadmin/pdfreports/notice.php?notice_id=<?php echo $row['id']?>">
                                     <div class="media-body space-sm">
-                                        <div class="post-title">Update Password</div>
-                                        <span>45 Mins ago</span>
+                                        <div class="post-title"><?php echo $row['title']?></div>
+                                        <span><?php echo get_time_ago(intval($row['added_on']));?></span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
+                            <?php 
+                           $i++;
+                           } } else { ?>
+                            <tr>
+                                <td colspan="5">No data found</td>
+                            </tr>
+                            <?php } ?>
                         </div>
                     </li>
                     <li class="navbar-item dropdown header-language">
@@ -195,7 +197,7 @@
                             <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                         </li>
                         <?php 
-                        $sql="select `role` from `users` where id='1'";
+                        $sql="select `role` from `users` where id='$uid'";
                         $res=mysqli_query($con,$sql);
                         $row=mysqli_fetch_assoc($res);
                         if($row['role']==2){?>
@@ -207,6 +209,21 @@
                             </li>
                             <li class="nav-item">
                                 <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>meal On Off Requests</span></a>
+                            </li>
+                        <?php }?>
+                        <?php
+                        if($row['role']==3){?>
+                            <li class="nav-item">
+                                <a href="mealAudit.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Audit</span></a>
+                            </li>
+                        <?php }?>
+                        <?php
+                        if($row['role']==4){?>
+                            <li class="nav-item">
+                                <a href="expense.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Expense</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="manageExpense.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Add new expense</span></a>
                             </li>
                         <?php }?>
                         <li class="nav-item">

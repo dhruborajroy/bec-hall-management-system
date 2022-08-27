@@ -1,6 +1,10 @@
 <?php include("header.php");
 $month="";
 $year="";
+if($row['role']!=2){
+   $_SESSION['PERMISSION_ERROR']=true;
+   redirect("index.php");
+}
 if(isset($_GET['month']) && isset($_GET['year'])) {
     $display_none="";
 	$month=get_safe_value($_GET['month']);

@@ -197,10 +197,12 @@
                                     <div class="item-icon bg-violet-blue">
                                         <i class="fas fa-cogs"></i>
                                     </div>
+                                    <a href="./pdfreports/notice.php?notice_id=<?php echo $row['id']?>">
                                     <div class="media-body space-sm">
                                         <div class="post-title"><?php echo $row['title']?></div>
                                         <span><?php echo get_time_ago(intval($row['added_on']));?></span>
                                     </div>
+                                    </a>
                                 </div>
                             </div>
                             <?php 
@@ -224,7 +226,7 @@
             <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
                 <div class="mobile-sidebar-header d-md-none">
                     <div class="header-logo">
-                        <a href="index.php"><img src="img/logo1.png" alt="logo"></a>
+                        <a href="index.php"><img src="<?php FRONT_SITE_PATH?>/hall/img/logo1.png" alt="logo"></a>
                     </div>
                 </div>
                 <div class="sidebar-menu-content">
@@ -386,11 +388,11 @@
                                             class="fas fa-angle-right"></i>
                                         Dining Maintance Committee</a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a href="manageRoles.php"
                                         class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
                                             class="fas fa-angle-right"></i>Add new committee member</a>
-                                </li>
+                                </li> -->
                             </ul>
                         </li>
                     </ul>

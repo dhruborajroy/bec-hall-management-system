@@ -53,7 +53,9 @@ if(isset($_POST['meal_request_status'])){
                     <?php
                     $last_date=cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
                     $date=getdate();
-                    if($date['hours']>!23){ //11 PM
+                    if($date['hours']>=23){//11 PM
+
+                    }else{
                     ?>
                         <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <?php

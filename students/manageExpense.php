@@ -1,8 +1,9 @@
-<?php include('header.php');
+<?php 
+include('header.php');
 $sql="select `role` from `users` where id='1'";
 $res=mysqli_query($con,$sql);
 $row=mysqli_fetch_assoc($res);
-if($row['role']!=5){
+if($row['role']!=4){
     $_SESSION['PERMISSION_ERROR']=true;
     redirect("index.php");
 }
@@ -27,15 +28,9 @@ if(isset($_GET['id']) && $_GET['id']>0){
         redirect("index.php");
         die;
     }
-}if($_GET['id']==0){
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect("index.php");
-}else{
-    $_SESSION['PERMISSION_ERROR']=1;
-    redirect('index.php');
 }
 if(isset($_POST['submit'])){
-    pr($_POST);
+    // pr($_POST);
     // break;
     $date_time=get_safe_value($_POST['date']);
     $expense_category_id=get_safe_value($_POST['expense_category_id']);

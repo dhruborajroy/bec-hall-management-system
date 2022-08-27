@@ -1,0 +1,28 @@
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.logo {
+  width: 70px;
+  height: 70px;
+}
+
+.header_part {
+  background-color: red;
+  font-size: 30px;
+
+}
+
+.about {
+  background-color: #FFB562;
+  height: 4px;
+  width: 80px;
+}
+
+.hrNavigation {
+  position: relative;
+  border: none;
+  height: 2px;
+  background: whitesmoke;
+
+}

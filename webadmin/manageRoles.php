@@ -66,6 +66,29 @@ if(isset($_POST['submit'])){
                                 <input type="text" required class="form-control" name="value" id="value"
                                     value="<?php echo $value?>">
                             </div>
+                            <!-- tab area started -->
+                                <div class="card ui-tab-card col-12-xxxl col-lg-12 col-12 form-group">
+                                    <div class="card-body">
+                                        <div class="heading-layout1 mg-b-25">
+                                            <div class="item-title">
+                                                <h3>Default Notice</h3>
+                                            </div>
+                                        </div>
+                                        <div class="basic-tab">
+                                            <div class="tab-content">
+                                                <div class="tab-pane fade active show" id="tab1" role="tabpanel">
+                                                    <p>Default Role Values</p>
+                                                    <p>2 = Meal Checker</p>
+                                                    <p>3 = Meal Auditor</p>
+                                                    <p>4 = Manager</p>
+                                                    <p>5 = Marketting Manager</p>
+                                                    <p><b>If you change the values this will affect your role system.</b></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <!-- tab area ended -->
                             <div class="col-12 form-group mg-t-8">
                                 <input type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark"
                                     name="submit">

@@ -107,7 +107,7 @@ $res=mysqli_query($con,$sql);
                                                 class="fas fa-cogs text-dark-pastel-green"></i>Edit</a>
                                         <?php if($row['status']=='1'){?>
                                             <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=deactive"><i
-                                                    class="fas fa-times text-orange-red"></i>Delete meal manager</a>
+                                                    class="fas fa-times text-orange-red"></i>Delete</a>
                                         <?php }else{?>
                                             <a class="dropdown-item" href="?id=<?php echo $row['id']?>&type=active"><i
                                                     class="fas fa-times text-orange-red"></i>Add as meal manager</a>

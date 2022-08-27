@@ -1,8 +1,26 @@
 <?php 
 include("header.php");
-$uid=$_SESSION['ADMIN_ID']; 
+$msg="";
+$uid=$_SESSION['ADMIN_ID'];
 $sql="select * from `admin` where id='$uid'";
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
+$email=$row['email'];
+if(isset($_POST['submit'])){
+	$current_password=get_safe_value($_POST['current_password']);
+	$password=get_safe_value($_POST['password']);
+    $sql="select * from admin where id=".$_SESSION['USER_ID'];
+    $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
+    $verify=password_verify($current_password,$row['password']);
+    if($verify==1){
+        $password=password_hash($password,PASSWORD_DEFAULT);
+        $sql="update `admin` set `password`='$password' where `email`='$email'";
+        $res=mysqli_query($con,$sql);
+        $_SESSION['UPDATE']=true;
+        send_email($email,"Password Updated","Password Changed");
+    }else{
+        $msg="Please enter current password correctly";
+    }
+}
 ?>
 
 <div class="dashboard-content-one">
@@ -23,6 +41,8 @@ $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
                         <div class="heading-layout1">
                             <div class="item-title">
                                 <h3>About Me</h3>
+                                <br>
+                                <?php echo $msg?>
                             </div>
                            <div class="dropdown">
                                 <a class="dropdown-toggle" href="#" role="button" 
@@ -74,6 +94,35 @@ $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <div class="card height-auto">
+                    <div class="card-body">
+                        <div class="heading-layout1">
+                            <div class="item-title">
+                                <h3>Change Password</h3>
+                            </div>
+                        </div>
+                        <form id="validate" method="post">
+                            <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                    <label>Current Password *</label>
+                                    <input required type="password" name="current_password" autocomplete="off" placeholder="Current Password" class="form-control">
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                    <label>New password *</label>
+                                    <input required type="password" name="password" id="password" autocomplete="off" placeholder="New Password" class="form-control">
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-12 form-group">
+                                    <label>Confirm New password *</label>
+                                    <input required type="password" name="cpassword" id="cpassword" autocomplete="off" placeholder="Confirm New Password" class="form-control">
+                                </div>
+                                <div class="col-12 form-group mg-t-8">
+                                    <button name="submit" type="submit"
+                                        class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Save</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <!-- Student Details Area End Here -->
