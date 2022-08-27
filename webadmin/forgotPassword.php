@@ -11,7 +11,7 @@
    // }
    if(isset($_POST['submit'])){
    	$phoneNumber=get_safe_value($_POST['phoneNumber']);
-      	$sql="select * from users where phoneNumber='$phoneNumber'";
+      	$sql="select * from admin where phoneNumber='$phoneNumber'";
         $res=mysqli_query($con,$sql);
         if(mysqli_num_rows($res)>0){
             $row=mysqli_fetch_assoc($res);

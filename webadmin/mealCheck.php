@@ -50,8 +50,8 @@
          }
          $_SESSION['INSERT']=1;
       }
-      // echo $swl;
-       redirect('mealCheck.php');
+      echo $swl;
+      //  redirect('mealCheck.php');
    }
    
    
@@ -147,7 +147,7 @@
                         ?>
                      <tr>
                         <td><?php echo $row['roll']?></td>
-                        <input type="hidden" name="roll[]" value="<?php echo $row['user_id']?>">
+                        <input type="hidden" name="roll[]" value="<?php echo $row['roll']?>">
                         <td><?php echo $row['name']?></td>
                         <td><?php echo $row['batch']?> batch</td>
                         <td>

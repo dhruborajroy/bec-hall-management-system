@@ -23,6 +23,8 @@ $legalGuardianRelation='';
 $image='';
 $email='';
 $merit='';
+$block='';
+$room_number='';
 $batch='';
 $deptId="";
 if(isset($_GET['id']) && $_GET['id']!=""){
@@ -46,11 +48,13 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $ffQuata=$row['ffQuata'];
         $bloodGroup=$row['bloodGroup'];
         $merit=$row['merit'];
+        $block=$row['block'];
         $legalGuardianName=$row['legalGuardianName'];
         $legalGuardianRelation=$row['legalGuardianRelation'];
         $image=$row['image'];
         $email=$row['email'];
         $dept_id=$row['dept_id'];
+        $room_number=$row['room_number'];
         $examRoll=$row['examRoll'];
         $batch=$row['batch'];
         $required='';
@@ -76,6 +80,8 @@ if(isset($_POST['submit'])){
 	$bloodGroup=get_safe_value($_POST['bloodGroup']);
 	$examRoll=get_safe_value($_POST['examRoll']);
 	$merit=get_safe_value($_POST['merit']);
+	$room_number=get_safe_value($_POST['room_number']);
+	$block=get_safe_value($_POST['block']);
 	$legalGuardianName=get_safe_value($_POST['legalGuardianName']);
 	$legalGuardianRelation=get_safe_value($_POST['legalGuardianRelation']);
 	$email=get_safe_value($_POST['email']);
@@ -107,11 +113,12 @@ if(isset($_POST['submit'])){
                 $password=password_hash("12345678",PASSWORD_DEFAULT);
                 $image=time().'.jpg';
                 move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                $sql="INSERT INTO `users` (`name`, `roll`, `class_roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
-                                        VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit', '$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
+                $sql="INSERT INTO `users` (`name`, `roll`, `class_roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`,`block`,`room_number`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
+                                        VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit','$block', '$room_number','$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
                 
                 mysqli_query($con,$sql);
                 $_SESSION['INSERT']=1;
+                redirect("users.php");
             }
 		}
 	}else{
@@ -141,19 +148,21 @@ if(isset($_POST['submit'])){
                         $image=time().'.jpg';
                         // $image=imagejpeg($img,$image,40);
                         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                        $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id',`meal_request_status`='0'  where md5(id)='$id'";
+                        $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id', `room_number`='$room_number', `block`='$block',`meal_request_status`='0'  where md5(id)='$id'";
                         mysqli_query($con,$sql);
+                        $_SESSION['UPDATE']=1;
+                        redirect("users.php");
                     }
                 }
             }else{
                 $msg= "Only select jpg or png image";
             }
-            $image=rand(111111111,999999999).'_'.$_FILES['image']['name'];
         }else{
-            $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0' where  md5(id)='$id'";
+            $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0', `room_number`='$room_number', `block`='$block' where  md5(id)='$id'";
             mysqli_query($con,$sql);
+            $_SESSION['UPDATE']=1;
+            // redirect("users.php");
         }
-        $_SESSION['UPDATE']=1;
     }
     // echo $sql;
 }
@@ -242,6 +251,33 @@ if(isset($_POST['submit'])){
                         <label>Birth certificate Id number *</label>
                         <input class="form-control" placeholder="Birth certificate Id number" autocomplete="off"
                             name="birthId" type="number" required value="<?php echo $birthId?>">
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Block *</label>
+                        <select class="select2" name="block" required>
+                            <option>Please Select block </option>
+                            <?php
+                        $data=[
+                                'name'=>[
+                                    'A',
+                                    'B',
+                                ]
+                            ];
+                            $count=count($data['name']);
+                            for($i=0;$i<$count;$i++){
+                                if($data['name'][$i]==$block){
+                                    echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                                }else{
+                                    echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                                }                                                        
+                            }
+                        ?>
+                        </select>
+                    </div>
+                    <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>Room number *</label>
+                        <input class="form-control" placeholder="Example- 107" autocomplete="off"
+                        name="room_number" id="room_number" type="number" required value="<?php echo $room_number?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Gender *</label>
