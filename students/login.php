@@ -91,7 +91,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="text" placeholder="Enter password" class="form-control" name="password">
+                        <input type="password" placeholder="Enter password" class="form-control" name="password">
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="form-group d-flex align-items-center justify-content-between">

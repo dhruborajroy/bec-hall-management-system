@@ -62,7 +62,7 @@
             <div class="nav-bar-header-one">
                 <div class="header-logo">
                     <a href="index.php">
-                        <img src="img/logo.png" alt="logo">
+                        <img src="img/logo.png" alt="logo" width="172px">
                     </a>
                 </div>
                 <div class="toggle-button sidebar-toggle">

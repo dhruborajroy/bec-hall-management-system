@@ -4,7 +4,7 @@ define('ADDRESS','Durgapur, Barisal');
 define('WEBSITE','https://barisal-eng.portal.gov.bd/');
 define('TEL',' +00 000 000 0000');
 define('EMAIL','becians2017@gmail.com');
-define('FRONT_SITE_PATH','http://192.168.31.80/hall/');
+define('FRONT_SITE_PATH','http://192.168.0.156/hall/');
 define('STORE_ID',"thewe630883975551e");
 define('STORE_PASSWORD',"thewe630883975551e@ssl");
 define('STUDENT_IMAGE',FRONT_SITE_PATH."media/users/");

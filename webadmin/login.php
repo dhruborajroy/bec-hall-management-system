@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
                 $_SESSION['ADMIN_LOGIN']=true;
                 $_SESSION['ADMIN_ID']=$row['id'];
                 $_SESSION['ADMIN_NAME']=$row['name'];
-                // sendLoginEmail($row['email']);
+                sendLoginEmail($row['email']);
                 // sendLoginEmail("orinkarmaker03@gmail.com");
                 redirect('./index.php');
                 die();
@@ -76,7 +76,7 @@ if(isset($_POST['submit'])){
         <div class="login-page-content">
             <div class="login-box">
                 <div class="item-logo">
-                    <img src="img/logo2.png" alt="logo">
+                    <img src="<?php echo FRONT_SITE_PATH?>/webadmin/img/logo2.png" alt="logo">
                 </div>
                 <form class="login-form" method="POST">
                     <div class="form-group">
@@ -89,7 +89,7 @@ if(isset($_POST['submit'])){
                     </div>
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="text" placeholder="Enter password" class="form-control" name="password">
+                        <input type="password" placeholder="Enter password" class="form-control" name="password">
                         <i class="fas fa-lock"></i>
                     </div>
                     <div class="form-group d-flex align-items-center justify-content-between">

@@ -51,7 +51,7 @@ if(mysqli_num_rows($res)>0){
                     </td>
                     <td rowspan="3" align="center" >   
                         <span style="font-size:20px; background-color: #b7b4b4">Student\'s Copy</span><br>
-                        <img width="150" src="https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl='.FRONT_SITE_PATH.'/invoice.php?id='.$invoice_id.'&choe=UTF-8"  width="100" height="100" />
+                        <img width="150" src="https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl='.FRONT_SITE_PATH.'/webadmin/invoice.php?id='.$invoice_id.'&choe=UTF-8"  width="100" height="100" />
                         <br>Scan QR to verify Payment
                     </td>
                     <td style="text-align:right;border: 1px solid black;border-collapse: collapse;" >

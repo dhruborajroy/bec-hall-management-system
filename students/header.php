@@ -235,6 +235,9 @@
                         <li class="nav-item">
                             <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Guest Meal On Off Request</span></a>
                         </li>
+                        <li class="nav-item">
+                            <a href="complaint_box.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Complaint Box</span></a>
+                        </li>
                     </ul>
                 </div>
             </div>

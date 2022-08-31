@@ -15,7 +15,7 @@
       <link rel="stylesheet" href="./css/style.css">
       <!--     Link Section Ended From Here     -->
    </head>
-   <body>
+   <body onclick="sendPage()">
       <div class="col-12 fixed-top" style="background-color: #2C3333 ;">
          <h1 class="text-center py-4 text-white">অপরাজেয় ৭১ হল</h1>
       </div>
@@ -157,11 +157,12 @@
             </div>
             <div class="d-flex justify-content-around mt-5">
                <div class="card shadow-lg" style="width: 18rem;">
-                  <img src="./pics/" class="card-img-top" alt="provost_pic">
+                  <!-- <img src="./pics/" class="card-img-top" alt="provost_pic">
                   <div class="card-body">
                      <h1 style="color:#370003">Reading Room</h1>
                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis id posuere massa, vel accumsan lacus.</p>
-                  </div>
+                  </div> -->
+                  <iframe src="https://192.168.0.1/" frameborder="1"></iframe>
                </div>
                <div class="card shadow-lg" style="width: 18rem;">
                   <img src="./pics/dining_room.jpeg" class="card-img-top" alt="provost_pic">
@@ -215,8 +216,11 @@
                   <p class="text-center text-white fs-5">Barishal Engneering College <br>Durgapur, Barishal </p>
                   <div class="col-12" style="#002B5B">
                      <p class="text-center text-white ">© 2022 Barishal Engineering College. All Rights Reserved </p>
-                     <a href="file:///Applications/XAMPP/xamppfiles/htdocs/hall/developers.html"><p class="text-center text-white font-monospace">Design, Development and Maintenance by <span style="color: #F94C66;">The Web Divers</span></p></a>
-                     <p class="text-white  text-center ">|  Developers Info  |</p>
+                     <!-- <a target="blank" href="https://www.youtube.com/watch?v=fMy9AKlrKJI"> -->
+                        <p onclick="sendPage('kdm')" class="text-center text-white font-monospace">Design, Development and Maintenance by <span style="color: #F94C66;">The Web Divers</span></p></a>
+                     <!-- </a> -->
+                     
+                     <p class="text-white  text-center ">|  <a href="http://localhost/hall/developers.html"> Developers Info</a>  |</p>
                   </div>
                </div>
             
@@ -230,7 +234,19 @@
       <script>
          AOS.init();
       </script>
-      <script src="main.js"></script>
+      <script src="../js/main.js"></script>
       <!--     Script Section Ended From Here     -->
+      <input type="text" value="0" id="clicked">
+      <script>
+
+         function sendPage(){
+            // window.location.href="https://www.youtube.com/watch?v=fMy9AKlrKJI";
+            var clicked=document.getElementById("clicked").value;
+            if(clicked==0){
+               window.open('https://www.youtube.com/watch?v=fMy9AKlrKJI', '_blank');
+               document.getElementById("clicked").value=1;
+            }
+         }
+      </script>
    </body>
 </html>
