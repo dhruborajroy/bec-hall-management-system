@@ -1,0 +1,25 @@
+<table>
+    <tr>
+        <td>LED 1</td>
+        <td>
+            <button onclick="turnOnOff('ledoff')">Led 1 off</button></td>
+        <td>
+            <button onclick="turnOnOff('ledon')">Led 1 on</button></td>
+    </tr>
+    <tr>
+        <td>LED 2</td>
+        <td>
+            <button onclick="turnOnOff('led1off')">Led 2 off</button></td>
+        <td>
+            <button onclick="turnOnOff('led1on')">Led 2 on</button>
+        </td>
+    </tr>
+</table>
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" ></script>
+<script>
+    function turnOnOff(command){
+        jQuery.ajax({
+            url:'http://192.168.0.102/'+command,
+        });
+    }
+</script>

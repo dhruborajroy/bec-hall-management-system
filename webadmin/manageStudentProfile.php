@@ -33,7 +33,7 @@ if(isset($_GET['id']) && $_GET['id']!=""){
 	if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
         $name=$row['name'];
-        $class_roll=$row['roll'];
+        $class_roll=$row['class_roll'];
         $fname=$row['fName'];
         $fOccupation=$row['fOccupation'];
         $mname=$row['mName'];
@@ -64,11 +64,11 @@ if(isset($_GET['id']) && $_GET['id']!=""){
     }
 }
 if(isset($_POST['submit'])){
-	$name=get_safe_value($_POST['name']);
+	$name=ucfirst(get_safe_value($_POST['name']));
 	$class_roll=get_safe_value($_POST['roll']);
-	$fName=get_safe_value($_POST['fName']);
+	$fName=ucfirst(get_safe_value($_POST['fName']));
 	$fOccupation=get_safe_value($_POST['fOccupation']);
-	$mName=get_safe_value($_POST['mName']);
+	$mName=ucfirst(get_safe_value($_POST['mName']));
 	$mOccupation=get_safe_value($_POST['mOccupation']);
 	$phoneNumber=get_safe_value($_POST['phoneNumber']);
 	$presentAddress=get_safe_value($_POST['presentAddress']);
@@ -89,46 +89,15 @@ if(isset($_POST['submit'])){
     $dept_id=get_safe_value($_POST['dept_id']);
     $batch=get_safe_value($_POST['batch']);
     $time=time();
-   if($id==''){
-    $info=getimagesize($_FILES['image']['tmp_name']);
-    $width = $info[0];
-    $height = $info[1];
-	if(isset($info['mime'])){
-		if($info['mime']=="image/jpeg"){
-			$img=imagecreatefromjpeg($_FILES['image']['tmp_name']);
-		}elseif($info['mime']=="image/png"){
-			$img=imagecreatefrompng($_FILES['image']['tmp_name']);
-		}else{
-			$msg= "Only select jpg or png image";
-		}
-		if(isset($img)){
-            // if ($width > "300" || $height > "200"){
-            //     echo "Image dimension should be within 300X200";
-            // }
-            // else
-            if (($_FILES["image"]["size"] > 300000)) {//2000000 = 2Mb
-                $msg= "Image size exceeds 300 kb";
-            }else{
-                $roll=date('y').rand(1111,9999);
-                $password=password_hash("12345678",PASSWORD_DEFAULT);
-                $image=time().'.jpg';
-                move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                $sql="INSERT INTO `users` (`name`, `roll`, `class_roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`,`block`,`room_number`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
-                                        VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit','$block', '$room_number','$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
-                
-                mysqli_query($con,$sql);
-                $_SESSION['INSERT']=1;
-                redirect("users.php");
-            }
-		}
-	}else{
-		$msg= "Only select jpg or png image";
-	}
-   }else{
-        if($_FILES['image']['name']!=''){
+    if(mysqli_num_rows(mysqli_query($con,"select id from users where phoneNumber='$phoneNumber'"))){
+        $msg="Phone number is already added";
+    }elseif(mysqli_num_rows(mysqli_query($con,"select id from users where email='$email'"))){
+        $msg="Email is already added";
+    }else{
+        if($id==''){
             $info=getimagesize($_FILES['image']['tmp_name']);
-            // $width = $info[0];
-            // $height = $info[1];
+            $width = $info[0];
+            $height = $info[1];
             if(isset($info['mime'])){
                 if($info['mime']=="image/jpeg"){
                     $img=imagecreatefromjpeg($_FILES['image']['tmp_name']);
@@ -143,14 +112,17 @@ if(isset($_POST['submit'])){
                     // }
                     // else
                     if (($_FILES["image"]["size"] > 300000)) {//2000000 = 2Mb
-                        $msg= "Image size exceeds 200 kb";
+                        $msg= "Image size exceeds 300 kb";
                     }else{
+                        $roll=date('y').rand(1111,9999);
+                        $password=password_hash("12345678",PASSWORD_DEFAULT);
                         $image=time().'.jpg';
-                        // $image=imagejpeg($img,$image,40);
                         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                        $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id', `room_number`='$room_number', `block`='$block',`meal_request_status`='0'  where md5(id)='$id'";
+                        $sql="INSERT INTO `users` (`name`, `roll`, `class_roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`,`block`,`room_number`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
+                                                VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit','$block', '$room_number','$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
+                        send_email($email,"Your account has been created. Your password is <b>12345678 </b>. Please login and change your password <br> http://localhost/hall/students/ ","Account Created");
                         mysqli_query($con,$sql);
-                        $_SESSION['UPDATE']=1;
+                        $_SESSION['INSERT']=1;
                         redirect("users.php");
                     }
                 }
@@ -158,13 +130,46 @@ if(isset($_POST['submit'])){
                 $msg= "Only select jpg or png image";
             }
         }else{
-            $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0', `room_number`='$room_number', `block`='$block' where  md5(id)='$id'";
-            mysqli_query($con,$sql);
-            $_SESSION['UPDATE']=1;
-            // redirect("users.php");
-        }
+                if($_FILES['image']['name']!=''){
+                    $info=getimagesize($_FILES['image']['tmp_name']);
+                    // $width = $info[0];
+                    // $height = $info[1];
+                    if(isset($info['mime'])){
+                        if($info['mime']=="image/jpeg"){
+                            $img=imagecreatefromjpeg($_FILES['image']['tmp_name']);
+                        }elseif($info['mime']=="image/png"){
+                            $img=imagecreatefrompng($_FILES['image']['tmp_name']);
+                        }else{
+                            $msg= "Only select jpg or png image";
+                        }
+                        if(isset($img)){
+                            // if ($width > "300" || $height > "200"){
+                            //     echo "Image dimension should be within 300X200";
+                            // }
+                            // else
+                            if (($_FILES["image"]["size"] > 300000)) {//2000000 = 2Mb
+                                $msg= "Image size exceeds 200 kb";
+                            }else{
+                                $image=time().'.jpg';
+                                // $image=imagejpeg($img,$image,40);
+                                move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
+                                $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id', `room_number`='$room_number', `block`='$block',`meal_request_status`='0'  where md5(id)='$id'";
+                                mysqli_query($con,$sql);
+                                $_SESSION['UPDATE']=1;
+                                redirect("users.php");
+                            }
+                        }
+                    }else{
+                        $msg= "Only select jpg or png image";
+                    }
+                }else{
+                    $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0', `room_number`='$room_number', `block`='$block' where  md5(id)='$id'";
+                    mysqli_query($con,$sql);
+                    $_SESSION['UPDATE']=1;
+                    // redirect("users.php");
+                }
+            }
     }
-    // echo $sql;
 }
 ?>
 <div class="dashboard-content-one">
@@ -237,6 +242,25 @@ if(isset($_POST['submit'])){
                         <input class="form-control" placeholder="Present Address" autocomplete="off"
                             name="presentAddress" type="text" required value="<?php echo $presentAddress?>">
                     </div>
+                    <!-- <div class="col-xl-3 col-lg-6 col-12 form-group">
+                        <label>district *</label>
+                        <select class="select2" name="district" required>
+                            <option>Please Select district </option>
+                            <?php //echo "<pre>";
+                                // $data=file_get_contents("./inc/district.json");
+                                // $result= json_decode($data,1);
+                                // // print_r($result['districts']);
+                                // $count=count($result['districts']);
+                                // for($i=0;$i<$count;$i++){
+                                //     if(($result['districts'][$i]['name'])==$homeDistrict){
+                                //         echo "<option selected='selected' value=".$result['districts'][$i]['name'].">".$result['districts'][$i]['name']."</option>";
+                                //     }else{
+                                //         echo "<option value=".$result['districts'][$i]['name'].">".$result['districts'][$i]['name']."</option>";
+                                //     } 
+                                // }
+                                ?>
+                        </select>
+                    </div> -->
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Permanent Address *</label>
                         <input class="form-control" placeholder="Permanent Address" autocomplete="off"
@@ -275,9 +299,23 @@ if(isset($_POST['submit'])){
                         </select>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Room number *</label>
-                        <input class="form-control" placeholder="Example- 107" autocomplete="off"
-                        name="room_number" id="room_number" type="number" required value="<?php echo $room_number?>">
+                        <label>Room Number *</label>
+                        <select class="select2" name="room_number" required>
+                            <option>Please Select Room Number </option>
+                            <?php 
+                                $data=file_get_contents("inc/rooms.json");
+                                $result= json_decode($data,1);
+                                print_r($result['number'][0]);
+                                $count=count($result['number']);
+                                for($i=0;$i<$count;$i++){
+                                    if(($result['number'][$i])==$room_number){
+                                        echo "<option selected='selected' value=".$result['number'][$i].">".$result['number'][$i]."</option>";
+                                    }else{
+                                        echo "<option value=".$result['number'][$i].">".$result['number'][$i]."</option>";
+                                    } 
+                                }
+                                ?>
+                        </select>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Gender *</label>
@@ -386,14 +424,16 @@ if(isset($_POST['submit'])){
                         </select>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Freedom Fighter Quota *</label>
+                        <label> Quota *</label>
                         <select class="select2" name="ffQuata" required>
                             <option>Please Select ffQuota </option>
                             <?php
                             $data=[
                                 'name'=>[
-                                    'Yes',
-                                    'No',
+                                    'N/A',
+                                    'FF',
+                                    'TR',
+                                    'DI',
                                 ]
                             ];
                             $count=count($data['name']);

@@ -4,10 +4,10 @@ define('ADDRESS','Durgapur, Barisal');
 define('WEBSITE','https://barisal-eng.portal.gov.bd/');
 define('TEL',' +00 000 000 0000');
 define('EMAIL','becians2017@gmail.com');
-define('FRONT_SITE_PATH','http://192.168.0.156/hall/');
+define('FRONT_SITE_PATH','http://localhost/hall/');
 define('STORE_ID',"thewe630883975551e");
 define('STORE_PASSWORD',"thewe630883975551e@ssl");
-define('STUDENT_IMAGE',FRONT_SITE_PATH."media/users/");
+define('STUDENT_IMAGE',FRONT_SITE_PATH."webadmin/media/users/");
 // define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/hall/media/users/");/Users/dhrubo/Desktop
 define('UPLOAD_STUDENT_IMAGE',"/Users/dhrubo/Desktop");
 
@@ -23,14 +23,14 @@ define('UPLOAD_STUDENT_IMAGE',"/Users/dhrubo/Desktop");
 // $users_group_active="";
 // $users_menu_active="";
 // //////variables
-// $curStr=$_SERVER['REQUEST_URI'];
-// $curArr=explode('/',$curStr);
-// $cur_path=$curArr[count($curArr)-1];
-// $page_title='';
-// $mark_entry='';
-// $mark_sub_entry='';
-// $read_mark_entry="";
-// $read_mark_sub_entry="";
+$curStr=$_SERVER['REQUEST_URI'];
+$curArr=explode('/',$curStr);
+$cur_path=$curArr[count($curArr)-1];
+$page_title='';
+$mark_entry='';
+$mark_sub_entry='';
+$read_mark_entry="";
+$read_mark_sub_entry="";
 
 // if($cur_path=='' || $cur_path=='index.php'){
 // 	$page_title='Dashboard';

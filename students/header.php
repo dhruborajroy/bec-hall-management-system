@@ -56,7 +56,7 @@
             <div class="nav-bar-header-one">
                 <div class="header-logo">
                     <a href="index.php">
-                        <img src="../img/logo.png" alt="logo">
+                        <img src="../webadmin/img/logo.png" alt="logo" width="170px">
                     </a>
                 </div>
                 <div class="toggle-button sidebar-toggle">
@@ -105,7 +105,7 @@
                                 <span>Student</span>
                             </div>
                             <div class="admin-img">
-                                <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="user photo">
+                                <img src="<?php echo STUDENT_IMAGE.$row['image']?>" alt="user photo" width="50px" height="50px">
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">

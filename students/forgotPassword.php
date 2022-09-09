@@ -61,11 +61,12 @@
          <div class="login-page-content">
             <div class="login-box">
                <div class="item-logo">
-                  <img src="img/logo2.png" alt="logo">
+                  <img src="../webadmin/img/logo.png" alt="logo" width="300px">
                </div>
                <form id="validate" class="login-form" method="POST">
                   <div class="form-group">
                      <?php echo $msg?>
+                     Please Enter registered email and press send OTP.
                   </div>
                   <div class="form-group">
                      <div class="input-group mb-3">
@@ -117,6 +118,7 @@
             jQuery('#email_error').html("Please Enter Email");
         }else{
             jQuery('.sendOtpButton').html("please wait...");
+            jQuery('.sendOtpButton').attr('disabled',true);
             jQuery.ajax({
                 url:'../webadmin/ajax/sendEmail.php',
                 type:'post',
@@ -127,6 +129,10 @@
                         jQuery('#email').attr('disabled',true);
                         jQuery('#sendOTP').hide();
                         jQuery('#otp_box').show();
+                    }
+                    else if(result=='not_registered'){                   
+                        jQuery('#email_error').html("You are not registered. Please contat authority");
+                        jQuery('.sendOtpButton').html("Send OTP");
                     }else{
                         jQuery('#email_error').html("Please try after sometime");
                     }

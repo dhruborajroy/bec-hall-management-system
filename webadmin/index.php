@@ -106,18 +106,6 @@
                </div>
             </div>
             <div class="expense-report">
-               <!-- <div class="monthly-expense pseudo-bg-Aquamarine">
-                  <div class="expense-date">Jan 2019</div>
-                  <div class="expense-amount"><span>$</span> 15,000</div>
-                  </div>
-                  <div class="monthly-expense pseudo-bg-blue">
-                  <div class="expense-date">Feb 2019</div>
-                  <div class="expense-amount"><span>$</span> 10,000</div>
-                  </div>
-                  <div class="monthly-expense pseudo-bg-yellow">
-                  <div class="expense-date">Mar 2019</div>
-                  <div class="expense-amount"><span>$</span> 8,000</div>
-                  </div> -->
             </div>
             <div class="expense-chart-wrap">
                <canvas id="expense-bar-chart" width="100" height="300"></canvas>

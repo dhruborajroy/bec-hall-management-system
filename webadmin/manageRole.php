@@ -25,6 +25,8 @@ if(isset($_POST['submit'])){
         $sql="update `users` set `role`='$role' where id='$student_id'";
     }
     // $sql;
+    $rows=mysqli_fetch_assoc(mysqli_query($con,"select email from users where id='$student_id'"));
+    send_email($rows['email'],"You have been appoined as a '$role'","Role appointed");
     mysqli_query($con,$sql);
     $_SESSION['UPDATE']=1;
     redirect('./userRole.php');

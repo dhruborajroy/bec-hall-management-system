@@ -78,7 +78,7 @@ if(isset($_POST['submit'])){
         <div class="login-page-content">
             <div class="login-box">
                 <div class="item-logo">
-                    <img src="img/logo2.png" alt="logo">
+                    <img src="../webadmin/img/logo.png" alt="logo" width="300px">
                 </div>
                 <form class="login-form" method="POST">
                     <div class="form-group">

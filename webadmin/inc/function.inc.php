@@ -62,8 +62,18 @@ function sendLoginEmail($email){
 	$result=json_decode($result,1);
 	// echo "<pre>";
 	// print_r($result);
+	$html="";
 	if($result['status']=='success'){
-		$html='New Login information. '.date("F j, Y \a\t h:i:s A").' <br>Country: '.$result["country"].'<br>'.'<b>Ip Address: '.$result["query"].'</b><br> Zip: '.$result["zip"].'<br> City: '.$result["city"].'<br> Isp: '.$result["isp"].'<br> Region Name: '.$result["regionName"];
+		$html.='New Login information. '.date("F j, Y \a\t h:i:s A").' <br>Country: '.$result["country"].'<br>'.'<b>Ip Address: '.$result["query"].'</b><br> Zip: '.$result["zip"].'<br> City: '.$result["city"].'<br> Isp: '.$result["isp"].'<br> Region Name: '.$result["regionName"].'<br> ';
+		include("inc/browserDetection.php");
+		$Browser = new foroco\BrowserDetection();
+		$useragent = $_SERVER['HTTP_USER_AGENT'];
+		$result = $Browser->getAll($useragent);
+		foreach ($result as $key => $value) {
+			$key=str_replace("_", " ", $key);
+			$html.=ucfirst($key).'= '.ucfirst($value).'<br> ';
+			
+		}
 	}
 	send_email($email,$html,"Login Information ".date('F j, Y \at h:i:s A'));
 }

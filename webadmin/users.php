@@ -42,9 +42,24 @@ $res=mysqli_query($con,$sql);
                 <div class="item-title">
                     <h3>All Students Data</h3>
                 </div>
-                <div class="item-title">
+                <div class="item-title row">
                     <form action="./pdfreports/users.php">
-                    <div class="row">
+                    <div >
+                        <select name="batch_id" id="batch_id">
+                        <option value="">Select Batch</option>
+                            <?php
+                            $batch_res=mysqli_query($con,"SELECT * FROM `batch` where status='1' order by numaric_value asc");
+                            while($batch_row=mysqli_fetch_assoc($batch_res)){
+                                if($batch_row['id']==$batch){
+                                    echo "<option selected='selected' value=".$batch_row['id'].">".$batch_row['name']."</option>";
+                                }else{
+                                    echo "<option value=".$batch_row['id'].">".$batch_row['name']."</option>";
+                                }                                                        
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div>
                         <input type="submit" value="Generate report">
                     </div>
                     </form>
@@ -67,6 +82,7 @@ $res=mysqli_query($con,$sql);
                             <th>Name</th>
                             <th>Student ID</th>
                             <th>Father's Name</th>
+                            <th>Room</th>
                             <th>Number</th>
                             <th>Email</th>
                             <th>Action</th>
@@ -79,11 +95,14 @@ $res=mysqli_query($con,$sql);
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><img class="rounded-circle w-25" src="<?php echo STUDENT_IMAGE.$row['image']?>"
-                                    alt="student"></td>
+                                <td class="sorting_1 dtr-control">
+                            <a href="<?php echo STUDENT_IMAGE.$row['image']?>" target="_blank" style="text-decoration:none;"><img class="rounded-circle w-75" src="<?php echo STUDENT_IMAGE.$row['image']?>"
+                                    alt="student">
+                            </a></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['roll']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['class_roll']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['fName']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['block'].'-'.$row['room_number']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['email']?></td>
                             <td>
