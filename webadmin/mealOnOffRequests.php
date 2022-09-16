@@ -76,7 +76,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                     </thead>
                     <tbody id="myTable">
                         <?php 
-                        $sql="SELECT * from users where meal_request_pending='1'";
+                        $sql="SELECT users.*,depts.name as dept_name from users,depts where meal_request_pending='1' and users.dept_id=depts.id";
                         $res=mysqli_query($con,$sql);
                         if(mysqli_num_rows($res)>0){
                         $i=1;
@@ -88,7 +88,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                             <td><?php echo $row['batch']?></td>
                             <td><?php if($row['meal_status']==1){echo "On";}elseif($row['meal_status']==0){echo "Off";}?></td>
                             <td><?php if($row['meal_request_status']==1){echo "On";}elseif($row['meal_request_status']==0){echo "Off";}?></td>
-                            <td><?php echo $row['dept_id']?></td>
+                            <td><?php echo $row['dept_name']?></td>
                             <td>
                                 <div class="ui-btn-wrap">
                                     <ul>

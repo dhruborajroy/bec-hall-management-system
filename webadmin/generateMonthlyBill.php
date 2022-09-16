@@ -29,6 +29,6 @@ if(mysqli_num_rows($res)>0){
         }
         $_SESSION['UPDATE']=1;
     }
-    redirect("monthlyPayment");
+    redirect("monthlyPayment.php");
 }
 ?>

@@ -5,11 +5,11 @@ $meal_status="";
 $meal_request_status="";
 $uid=$_SESSION['USER_ID'];
 if(isset($_POST['meal_request_status'])){
-    // pr($_POST);
     $meal_request_status=get_safe_value($_POST['meal_request_status']);
     $sql="update `users` set `meal_request_status`='$meal_request_status', `meal_request_pending`='1' where users.id='$uid'";
     mysqli_query($con,$sql);
     $_SESSION['UPDATE']=true;
+    redirect("mealOnOffReq2.php");
 }
 ?>
 
@@ -62,14 +62,14 @@ if(isset($_POST['meal_request_status'])){
                                 $res=mysqli_query($con,"Select meal_request_status,meal_request_pending,meal_status from users where id='$uid'");
                                 $row=mysqli_fetch_assoc($res);
                                 if($row['meal_request_pending']!=1){
-                                    if($row['meal_request_status']==1){
+                                    if($row['meal_status']==1){
                                         echo '<input type="hidden" value="0" name="meal_request_status">';
                                         if($row['meal_status']==1){
                                             echo '<button type="submit" class="btn-fill-md text-light bg-orange-red">Request to Meal off</button></li>';
                                         }else{
                                             echo '<button type="submit" class="btn-fill-md text-light bg-dark-pastel-green">Request to Meal on</button></li>';
                                         }
-                                    }elseif($row['meal_request_status']==0){
+                                    }elseif($row['meal_status']==0){
                                         echo '<input type="hidden" value="1" name="meal_request_status">';
                                         if($row['meal_status']==0){
                                             echo '<button type="submit" class="btn-fill-md text-light bg-dark-pastel-green">Request to Meal on</button></li>';

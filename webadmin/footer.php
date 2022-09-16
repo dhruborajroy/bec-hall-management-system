@@ -44,7 +44,7 @@
 <!-- sweet alert JS -->
 <script src="./js/sweetalert.min.js"></script>
 <!-- summernote editor -->
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 <!--  -->
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- Custom Js -->

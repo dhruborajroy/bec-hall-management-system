@@ -40,7 +40,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                 <div class="item-title">
                     <form action="./pdfreports/expense.php">
                     <div class="row">
-                        <select name="month_id" class="select2">
+                        <select name="month_id">
                             <option value="01">January</option>
                             <option value="02">February</option>
                             <option value="03">March</option>
@@ -52,6 +52,13 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                             <option value="10">October</option>
                             <option value="11">November</option>
                             <option value="12">December</option>
+                        </select>
+                        <select name="year" >
+                            <?php
+                            for ($i=date("Y"); $i >=2021 ; $i--) { 
+                            ?>  
+                                <option value="<?php echo $i?>"><?php echo $i?></option>
+                            <?php }?>
                         </select>
                         <input type="submit" value="Generate report">
                     </div>

@@ -1,12 +1,12 @@
 <?php include("header.php");
 $uid=$_SESSION['USER_ID'];
-   $sql="select `role` from `users` where id='$uid'";
-   $res=mysqli_query($con,$sql);
-   $row=mysqli_fetch_assoc($res);
-   if($row['role']!=2){
-      $_SESSION['PERMISSION_ERROR']=true;
-      redirect("index.php");
-   }
+$sql="select `role` from `users` where id='$uid'";
+$res=mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($res);
+if($row['role']!=2){
+    $_SESSION['PERMISSION_ERROR']=true;
+    redirect("index.php");
+}
 if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id']>0){
 	$type=get_safe_value($_GET['type']);
 	$id=get_safe_value($_GET['id']);
