@@ -19,7 +19,7 @@ if (isset($_GET['month_id']) && $_GET['month_id']!="") {
     $html.='
         <tr>
             <td align="center">                    
-                <img width="150" src="./img/logo.jpg" width="100" height="100" />
+                <!--- <img width="150" src="'.LOGO.'" width="100" height="100" /> --->
             </td>
             <td  align="center" colspan="4">
             <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>

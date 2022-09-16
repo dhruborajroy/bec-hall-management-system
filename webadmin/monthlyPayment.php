@@ -28,7 +28,7 @@ $res=mysqli_query($con,$sql);
             <li>
                 <a href="index.php">Home</a>
             </li>
-            <li>Fees</li>
+            <li>Monthly Payment</li>
         </ul>
     </div>
     <!-- Breadcubs Area End Here -->
@@ -37,20 +37,26 @@ $res=mysqli_query($con,$sql);
         <div class="card-body">
             <div class="heading-layout1">
                 <div class="item-title">
-                    <h3>All Fees Data</h3>
+                    <h3>All Monthly Payment Data</h3>
                 </div>
-                <?php
-                $last_date=cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
-                $date=getdate();
-                if($date['mday']==$last_date){
-                ?>
                 <div class="dropdown show">
                     <button type="button" class="">Last generated <?php $reos=mysqli_query($con,"select * from general_informations"); if(mysqli_num_rows($reos)>0){ $rowww=mysqli_fetch_assoc($reos); echo date("d-M-Y h:i:s",$rowww['last_bill_generated']);}?></button>
                     <a href="generateMonthlyBill.php">
                         <button type="button" class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Generate Monthly Bill</button>
                     </a>
                 </div>
-                <?php }?>
+                <?php
+                // $last_date=cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+                // $date=getdate();
+                // if($date['mday']==$last_date){
+                ?>
+                <!-- <div class="dropdown show">
+                    <button type="button" class="">Last generated <?php $reos=mysqli_query($con,"select * from general_informations"); if(mysqli_num_rows($reos)>0){ $rowww=mysqli_fetch_assoc($reos); echo date("d-M-Y h:i:s",$rowww['last_bill_generated']);}?></button>
+                    <a href="generateMonthlyBill.php">
+                        <button type="button" class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Generate Monthly Bill</button>
+                    </a>
+                </div> -->
+                <?php //}?>
             </div>
             <form class="mg-b-20">
                 <div class="row gutters-8">

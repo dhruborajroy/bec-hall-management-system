@@ -19,7 +19,7 @@ if(mysqli_num_rows($res)>0){
     $html.='
         <tr>    
             <td align="center">                    
-                <img width="70" src="./img/logo.jpg" width="100" />
+                <!--- <img width="150" src="'.LOGO.'" width="100" height="100" /> --->
             </td>
             <td  align="center" colspan="2">
                 <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>

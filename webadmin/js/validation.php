@@ -127,7 +127,10 @@ $(document).ready(function () {
       phoneNumber:{
         required: true,
       },
-      password: "required",
+      password: {
+        minlength: 8,
+        required: true,
+      }
       cpassword: {
         equalTo: "#password"
       }

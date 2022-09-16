@@ -78,7 +78,7 @@ if(isset($_POST['submit'])){
                 <div class="item-logo">
                     <img src="<?php echo FRONT_SITE_PATH?>/webadmin/img/logo2.png" alt="logo">
                 </div>
-                <form class="login-form" method="POST">
+                <form class="login-form" method="POST" id="validate">
                     <div class="form-group">
                         <?php echo $msg?>
                     </div>
@@ -114,12 +114,15 @@ if(isset($_POST['submit'])){
     <script src="js/plugins.js"></script>
     <!-- Popper js -->
     <script src="js/popper.min.js"></script>
+<!-- validate JS -->
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <!-- Bootstrap js -->
     <script src="js/bootstrap.min.js"></script>
     <!-- Scroll Up Js -->
     <script src="js/jquery.scrollUp.min.js"></script>
     <!-- Custom Js -->
     <script src="js/main.js"></script>
+    <script src="js/validation.php"></script>
 
 </body>
 

@@ -1,9 +1,10 @@
 <?php
-define('HALL_NAME','Barisal Engineering College Hall');
+define('HALL_NAME','WD Hostel Management');
 define('ADDRESS','Durgapur, Barisal');
-define('WEBSITE','https://barisal-eng.portal.gov.bd/');
+define('LOGO','Durgapur, Barisal');
+define('WEBSITE','http://hallmanagement.thewebdivers.com/');
 define('TEL',' +00 000 000 0000');
-define('EMAIL','becians2017@gmail.com');
+define('EMAIL','contact@thewebdivers.com');
 define('FRONT_SITE_PATH','http://localhost/hall/');
 define('STORE_ID',"thewe630883975551e");
 define('STORE_PASSWORD',"thewe630883975551e@ssl");

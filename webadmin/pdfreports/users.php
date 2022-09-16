@@ -5,6 +5,7 @@ include("../inc/connection.inc.php");
 include("../inc/function.inc.php");
 require_once("../inc/smtp/class.phpmailer.php");
 require('../vendor/autoload.php');
+$batch_id="";
 if (isset($_GET['batch_id']) && $_GET['batch_id']!="") {
     $batch_id=get_safe_value($_GET['batch_id']);
 }else{
@@ -18,8 +19,8 @@ $html.='
         </td>
         <td align="center">
         </td>
-        <td align="center">                    
-            <img width="150" src="./img/logo.jpg" width="100" height="100" />
+        <td align="center">
+        <!--- <img width="150" src="'.LOGO.'" width="100" height="100" /> --->
         </td>
         <td  align="center" colspan="4">
         <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>
@@ -34,6 +35,7 @@ $html.='
 $html.='<tr><td colspan="8"><hr></td></tr>';
 $html.='<tr>
         <td width="5px" style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;"></td>
+        <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Picture</td>
         <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Roll</td>
         <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Name</td>
         <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Father\'s Name</td>
@@ -54,6 +56,7 @@ $html.='<tr>
             // the while loop
             $html.='<tr>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$i.'</td>
+            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;"><img src="'.STUDENT_IMAGE.$row['image'].'" style="border-radius:60px" height="100px" weight="100px"></td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['class_roll'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['name'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['fName'].'</td>
@@ -73,6 +76,7 @@ $html.='<tr>
     }//else ended
 $html.='</table>';
 
+// echo $html;
 $mpdf=new \Mpdf\Mpdf([
     'tempDir' => __DIR__ . '/custom/temp/dir/path',
     'default_font_size' => 12,

@@ -21,7 +21,7 @@ if (isset($_GET['month']) && $_GET['month']!="" && isset($_GET['year']) && $_GET
     $html.='
         <tr>
             <td align="center"  colspan="3">                    
-                <img width="150" src="./img/logo.jpg" width="100" height="100" />
+                <!--- <img width="150" src="'.LOGO.'" width="100" height="100" /> --->
             </td>
             <td  align="center" colspan="30">
             <strong><span style="font-size:25px">'.HALL_NAME.'</span></strong>
