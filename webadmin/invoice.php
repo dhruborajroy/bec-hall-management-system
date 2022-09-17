@@ -40,7 +40,7 @@ if(mysqli_num_rows($res)>0){
             <tr><td colspan="3"><hr></td></tr>
             <tr width="100%">
             </tr>';
-            $sql="select users.id,users.name,users.batch,users.dept_id,users.roll,depts.id,depts.name as dept_name, payments.id,payments.user_id,payments.created_at from users,depts, payments where users.id=payments.user_id and users.dept_id=depts.id and payments.id='$invoice_id'";
+            $sql="select users.id,users.name,users.batch,users.dept_id,users.class_roll,depts.id,depts.name as dept_name, payments.id,payments.user_id,payments.created_at from users,depts, payments where users.id=payments.user_id and users.dept_id=depts.id and payments.id='$invoice_id'";
             $res=mysqli_query($con,$sql);
             if(mysqli_num_rows($res)>0){
                 while($row=mysqli_fetch_assoc($res)){
@@ -61,7 +61,7 @@ if(mysqli_num_rows($res)>0){
                 $html.='
                     <tr width="100%">
                         <td  style="border: 1px solid black;border-collapse: collapse;padding-left: 20px;">
-                        Roll : '.$row["roll"].'
+                        Roll : '.$row["class_roll"].'
                         </td>
                         <td style="text-align:right;border: 1px solid black;border-collapse: collapse;" >
                             Created: #'.date("d M Y h:i A",$row["created_at"]).'
@@ -159,7 +159,7 @@ if(mysqli_num_rows($res)>0){
                 $html.='
                     <tr width="100%">
                     </tr>';
-                    $sql="select users.id,users.name,users.batch,users.dept_id,users.roll,depts.id,depts.name as dept_name, payments.id,payments.user_id,payments.created_at from users,depts, payments where users.id=payments.user_id and users.dept_id=depts.id and payments.id='$invoice_id'";
+                    $sql="select users.id,users.name,users.batch,users.dept_id,users.class_roll,depts.id,depts.name as dept_name, payments.id,payments.user_id,payments.created_at from users,depts, payments where users.id=payments.user_id and users.dept_id=depts.id and payments.id='$invoice_id'";
                     $res=mysqli_query($con,$sql);
                     if(mysqli_num_rows($res)>0){
                         while($row=mysqli_fetch_assoc($res)){
@@ -284,6 +284,5 @@ $mpdf->WriteHTML($html);
 $file=time().'.pdf';
 $mpdf->output($file,'I');
 // $mpdf->output($file,'D');
-$mpdf->output('media/'.$file,'F');
 send_email("dhruborajroy3@gmail.com","Invoice","Invoice of Payment ".$file,'media/'.$file);
 unlink($file);

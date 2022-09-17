@@ -44,7 +44,7 @@ $res=mysqli_query($con,$sql);
                 </div>
                 <div class="item-title row">
                     <form action="./pdfreports/users.php">
-                    <div >
+                    <div class="row">
                         <select name="batch_id" id="batch_id">
                         <option value="">Select Batch</option>
                             <?php
@@ -58,8 +58,6 @@ $res=mysqli_query($con,$sql);
                             }
                             ?>
                         </select>
-                    </div>
-                    <div>
                         <input type="submit" value="Generate report">
                     </div>
                     </form>

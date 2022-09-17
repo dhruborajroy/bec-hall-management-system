@@ -1,11 +1,12 @@
 <?php include('header.php');
-   $sql="select `role` from `users` where id='1'";
-   $res=mysqli_query($con,$sql);
-   $row=mysqli_fetch_assoc($res);
-   if($row['role']!=4){
-      $_SESSION['PERMISSION_ERROR']=true;
-      redirect("index.php");
-   }
+$uid=$_SESSION['USER_ID'];
+$sql="select `role` from `users` where id='$uid'";
+$res=mysqli_query($con,$sql);
+$row=mysqli_fetch_assoc($res);
+if($row['role']!=4){
+    $_SESSION['PERMISSION_ERROR']=true;
+    redirect("index.php");
+}
 if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id']>0){
 	$type=get_safe_value($_GET['type']);
 	$id=get_safe_value($_GET['id']);
@@ -47,7 +48,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                 <div class="item-title">
                     <form action="../webadmin/pdfreports/expense.php">
                     <div class="row">
-                        <select name="month_id" class="select2">
+                        <select name="month_id">
                             <option value="01">January</option>
                             <option value="02">February</option>
                             <option value="03">March</option>
@@ -59,6 +60,13 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
                             <option value="10">October</option>
                             <option value="11">November</option>
                             <option value="12">December</option>
+                        </select>
+                        <select name="year" >
+                            <?php
+                            for ($i=date("Y"); $i >=2021 ; $i--) { 
+                            ?>  
+                                <option value="<?php echo $i?>"><?php echo $i?></option>
+                            <?php }?>
                         </select>
                         <input type="submit" value="Generate report">
                     </div>
