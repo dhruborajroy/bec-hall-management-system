@@ -15,7 +15,7 @@ $html.='
         <td  align="center" colspan="2">
             <strong><span style="font-size:25px">'.NAME.'</span></strong>
             <br>
-            <span style="font-size:25px;text-align:left">Sylhet Engineering College</span>
+            <span style="font-size:25px;text-align:left"><b>Sylhet Engineering College</b></span>
         </td>
         <td align="center">                    
              <img width="150" src="../assets/img/logo.svg" width="100" /> 
@@ -183,10 +183,11 @@ $html.='<table class="table" width="100%" style="border: 1px solid black;border-
 $html.='
     <tr>
         <td align="center">
-            '.date("Y").' Sylhet Engineering College
+            2021-'.date("Y").' © Sylhet Engineering College
         </td>
     </tr>';
 $html.="</table>";
+echo $html;
 $mpdf=new \Mpdf\Mpdf([
     'tempDir' => __DIR__ . '/custom/temp/dir/path',
     'default_font_size' => 12,
@@ -196,8 +197,8 @@ $mpdf=new \Mpdf\Mpdf([
 	'margin_top' => 17,
 	'margin_bottom' => 20,
 ]);
-$mpdf->SetTitle('Students list');
+$mpdf->SetTitle('Admit Card');
 $mpdf->SetFooter('|| Developed By The Web Divers');
-$mpdf->WriteHTML($html);
-$file="Admit_".time().'.pdf';
-$mpdf->output($file,'I');
+// $mpdf->WriteHTML($html);
+// $file="Admit_".time().'.pdf';
+// $mpdf->output($file,'I');

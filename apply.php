@@ -1,3 +1,26 @@
+<?php 
+/*
+   [first_name] => dmk
+   [last_name] => km
+   [f_name] => km
+   [m_name] => kl
+   [phone_number] => 7868
+   [email] => 696@sc.c
+   [present_address] => sdkn
+   [permanent_address] => kn
+   [gender] => Male
+   [bloodgroup] => A+
+   [religion] => Hinduism
+   [dob] => 2022-09-24
+   [quota] => Freedom Fighter Quota
+   [password] => sdkn
+   [submit] => 
+*/
+if(isset($_POST['submit'])){
+   echo "<pre>";
+   print_r($_POST);
+}
+?>
 <?php include("header.php");?>
 
 <div class="breadcrumb-bar">
@@ -28,7 +51,7 @@
                                  <h4>Applicant Form</h4>
                               </div>
                               <div class="checkout-form">
-                                 <form action="#">
+                                 <form method="POST">
                                     <div class="row">
                                        <div class="col-lg-6">
                                           <div class="form-group">
@@ -109,27 +132,59 @@
                                              <label class="form-label">Religion</label>
                                              <select class="form-select select" name="religion" id="religion">
                                                 <option>Select Religion</option>
-                                                <option>Islam</option>
-                                                <option>Hinduism</option>
-                                                <option>Buddha</option>
-                                                <option>Christian</option>
+                                                   <?php
+                                                   $religion="";
+                                                $data=[
+                                                      'name'=>[
+                                                            'Islam',
+                                                            'Hinduism',
+                                                            'Christian',
+                                                            'Buddhism',
+                                                            'Other',
+                                                      ]
+                                                   ];
+                                                   $count=count($data['name']);
+                                                   for($i=0;$i<$count;$i++){
+                                                      if($data['name'][$i]==$religion){
+                                                            echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                                                      }else{
+                                                            echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                                                      }                                                        
+                                                   }
+                                                ?>
                                              </select>
                                           </div>
                                        </div>
-                                       <div class="col-lg-8">
+                                       <div class="col-lg-6">
                                           <div class="form-group">
                                              <label class="form-control-label">Date of Birth</label>
                                              <input type="date" name="dob" id="dob" class="form-control" placeholder="Date of birth">
                                           </div>
                                        </div>
-                                       <div class="col-lg-4">
+                                       <div class="col-lg-6">
                                           <div class="form-group">
                                              <label class="form-label">Quota</label>
                                              <select class="form-select select" name="quota" id="quota">
                                                 <option>Select quota</option>
-                                                <option>Freedom Fighter Quota</option>
-                                                <option>Tribal Quota</option>
-                                                <option>Disabled Quota</option>
+                                                   <?php
+                                                   $religion="";
+                                                   $data=[
+                                                       'name'=>[
+                                                           'N/A',
+                                                           'FF',
+                                                           'TR',
+                                                           'DI',
+                                                       ]
+                                                   ];
+                                                   $count=count($data['name']);
+                                                   for($i=0;$i<$count;$i++){
+                                                      if($data['name'][$i]==$religion){
+                                                            echo "<option selected='selected' value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                                                      }else{
+                                                            echo "<option value=".$data['name'][$i].">".$data['name'][$i]."</option>";
+                                                      }                                                        
+                                                   }
+                                                ?>
                                              </select>
                                           </div>
                                        </div>
@@ -145,17 +200,9 @@
                                              <input type="password" name="password" id="password" class="form-control" placeholder="Confirm password">
                                           </div>
                                        </div>
-                                       <div class="payment-btn" style="text-align:right ;">
-                                          <button class="btn btn-primary" type="submit">Submit</button>
+                                       <div class="payment-btn" style="text-align:center;">
+                                          <button name="submit" id="submit" class="btn btn-primary" type="submit">Submit</button>
                                        </div>
-                                       <!-- <div class="col-md-12 col-lg-10">
-                                          <div class="form-group ship-check">
-                                             <input class="form-check-input" type="checkbox" name="remember"> Shipping address is the same as my billing address
-                                          </div>
-                                          <div class="form-group ship-check mb-0">
-                                             <input class="form-check-input" type="checkbox" name="remember"> Save this information for next time
-                                          </div>
-                                       </div> -->
                                     </div>
                                  </form>
                               </div>

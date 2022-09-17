@@ -43,6 +43,12 @@
                            <li>
                               <a href="index">Home</a>
                            </li>
+                           <li>
+                              <a href="apply">Apply</a>
+                           </li>
+                           <li>
+                              <a href="dashboard">Dashboard</a>
+                           </li>
                            <li class="login-link">
                               <a href="login.html">Login / Signup</a>
                            </li>

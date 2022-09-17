@@ -16,7 +16,7 @@
                                  <p>Student</p>
                               </div>
                               <div class="go-dashboard text-center">
-                                 <a href="pdfreports/admit" class="btn btn-primary">Download Admit</a>
+                                 <a href="pdfreports/admit" class="btn btn-primary">Download Admit Card</a>
                               </div>
                            </div>
                         </div>
