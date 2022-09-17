@@ -1,29 +1,12 @@
 <?php
-define('HALL_NAME','WD Hostel Management');
-define('ADDRESS','Durgapur, Barisal');
-define('LOGO','Durgapur, Barisal');
-define('WEBSITE','http://hallmanagement.thewebdivers.com/');
-define('TEL',' +00 000 000 0000');
+define('NAME','Get Admitted Online');
+define('TAGLINE','Get Admitted Online');
 define('EMAIL','contact@thewebdivers.com');
-define('FRONT_SITE_PATH','http://localhost/hall/');
+define('FRONT_SITE_PATH','http://localhost/admission/');
 define('STORE_ID',"thewe630883975551e");
 define('STORE_PASSWORD',"thewe630883975551e@ssl");
-define('STUDENT_IMAGE',FRONT_SITE_PATH."webadmin/media/users/");
-// define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/hall/media/users/");/Users/dhrubo/Desktop
-define('UPLOAD_STUDENT_IMAGE',"/Users/dhrubo/Desktop");
+define('STUDENT_IMAGE',FRONT_SITE_PATH."media/users/");
 
-// $manage_class='';
-// $manage_class_menu_active='';
-// $payment_group_active="";
-// $payment_menu_active="";
-// $class_menu_active='';
-// $index_active="";
-// $application_group_active="";
-// $application_sub_group_active="";
-// $manage_application_sub_group_active="";
-// $users_group_active="";
-// $users_menu_active="";
-// //////variables
 $curStr=$_SERVER['REQUEST_URI'];
 $curArr=explode('/',$curStr);
 $cur_path=$curArr[count($curArr)-1];

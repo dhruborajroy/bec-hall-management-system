@@ -1,5 +1,5 @@
 <?php 
-include('../inc/connection.inc.php');
+include('../../inc/connection.inc.php');
 session_start();
 ?>
 google.charts.load('current', {'packages':['corechart']});
