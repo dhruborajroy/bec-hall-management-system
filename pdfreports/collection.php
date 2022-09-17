@@ -1,7 +1,7 @@
 <?php
 session_start();
-include("../inc/constant.inc.php");
 include("../inc/connection.inc.php");
+include("../inc/constant.inc.php");
 include("../inc/function.inc.php");
 require_once("../inc/smtp/class.phpmailer.php");
 require('../vendor/autoload.php');
@@ -15,9 +15,9 @@ $sql="select amount from monthly_bill where month_id='$month_id'";
 $res=mysqli_query($con,$sql);
 $html="";
 if(mysqli_num_rows($res)>0){
-    $html='<table class="table" width="100%"> style="margin-top:10px"';
+    $html='<table class="table" width="100%" style="margin-top:10px">';
     $html.='
-        <tr>    
+        <tr>
             <td align="center">                    
                 <!--- <img width="150" src="'.LOGO.'" width="100" height="100" /> --->
             </td>
@@ -31,6 +31,7 @@ if(mysqli_num_rows($res)>0){
                 '.WEBSITE.'
             </td>
         </tr>';
+        $html.='<table>';
         $html.='<tr>
                 <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Id</td>
                 <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Date</td>

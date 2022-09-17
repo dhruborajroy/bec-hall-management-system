@@ -1,22 +1,22 @@
 
-                  <!-- navbar started -->
+               <!-- navbar started -->
                   <div class="col-xl-3 col-lg-4 col-md-12 theiaStickySidebar">
                      <div class="settings-widget dash-profile">
                         <div class="settings-menu p-0">
                            <div class="profile-bg">
-                              <h5>Beginner</h5>
+                              <!-- <h5>Beginner</h5> -->
                               <img src="assets/img/instructor-profile-bg.jpg" alt="">
                               <div class="profile-img">
-                                 <a href="instructor-profile.html"><img src="assets/img/user/user15.jpg" alt=""></a>
+                                 <a href="dashboard"><img src="assets/img/user/user15.jpg" alt=""></a>
                               </div>
                            </div>
                            <div class="profile-group">
                               <div class="profile-name text-center">
-                                 <h4><a href="instructor-profile.html">Jenny Wilson</a></h4>
+                                 <h4><a href="dashboard">Jenny Wilson</a></h4>
                                  <p>Student</p>
                               </div>
                               <div class="go-dashboard text-center">
-                                 <a href="add-course.html" class="btn btn-primary">Download Admit</a>
+                                 <a href="pdfreports/admit" class="btn btn-primary">Download Admit</a>
                               </div>
                            </div>
                         </div>
@@ -25,8 +25,9 @@
                         <div class="settings-menu">
                            <h3>DASHBOARD</h3>
                            <ul>
-                              <li class="nav-item active">
-                                 <a href="instructor-dashboard.html" class="nav-link">
+                              <!-- active is a optional parameter for selecting menu -->
+                              <li class="nav-item ">
+                                 <a href="dashboard" class="nav-link">
                                  <i class="feather-home"></i> My Dashboard
                                  </a>
                               </li>
@@ -41,17 +42,12 @@
                                  </a>
                               </li>
                               <li class="nav-item">
-                                 <a href="instructor-edit-profile.html" class="nav-link ">
+                                 <a href="profile" class="nav-link ">
                                  <i class="feather-settings"></i> Edit Profile
                                  </a>
                               </li>
                               <li class="nav-item">
-                                 <a href="instructor-security.html" class="nav-link">
-                                 <i class="feather-user"></i> Security
-                                 </a>
-                              </li>
-                              <li class="nav-item">
-                                 <a href="index-2.html" class="nav-link">
+                                 <a href="logout" class="nav-link">
                                  <i class="feather-power"></i> Sign Out
                                  </a>
                               </li>
@@ -59,4 +55,4 @@
                         </div>
                      </div>
                   </div>
-                  <!-- navbar ended -->
+               <!-- navbar ended -->
