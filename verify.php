@@ -4,27 +4,32 @@ $display="";
 $class="";
 $id="";
 $msg="";
+$link="";
 if(isset($_GET['email']) && $_GET['email']!='' && isset($_GET['code']) && $_GET['code']!=''){
 	$email=get_safe_value($_GET['email']);
 	$code=get_safe_value($_GET['code']);
-   $sql="select id from applicants where email='$email'";
-   if(mysqli_num_rows(mysqli_query($con,$sql))>0){
-      $class='class="alert alert-danger"';
-         $msg="Email Already verified";
+   $sql="select id,status from applicants where email='$email' and code='$code'";
+   $res=mysqli_query($con,$sql);
+   if(mysqli_num_rows($res)>0){
+         $row=mysqli_fetch_assoc($res);
+         // pr($row);
+         if ($row['status']==1) {
+            $class='class="alert alert-danger"';
+            $msg="Email Already verified";
+         }else{
+            if(mysqli_num_rows($res)>0){
+               $sql="update applicants set status='1' where email='$email'";
+               mysqli_query($con,$sql);
+               $class='class="alert alert-success"';
+               $msg='Email has been verified. Please Login.';
+               $link='<a class="nav-item nav-link header-sign" href="login">Login</a>';
+               $_SESSION['INSERT']=1;
+            }
+         }
    }else{
-      $sql="select id from applicants where email='$email' and md5(code)='$code' ";
-      if(mysqli_num_rows(mysqli_query($con,$sql))>0){
-         $sql="update applicants set status='1'";
-         mysqli_query($con,$sql);
-         $class='class="alert alert-success"';
-         $msg="An Email has been sent to your $email account. Please Verify your email";
-         $_SESSION['INSERT']=1;
-      }else{
-         $class='class="alert alert-danger"';
-         $msg="Email is not registered. Plese register & try again.";
-      }
+      $class='class="alert alert-danger"';
+      $msg="Email is not registered or the verification code is not correct. Plese register & try again.";
    }
-   echo $sql;
 }else{
    $_SESSION['PERMISSION_ERROR']="You don't have permission to access this page.";
    redirect("index");
@@ -57,6 +62,8 @@ if(isset($_GET['email']) && $_GET['email']!='' && isset($_GET['code']) && $_GET[
                                     <h4>Applicant Form</h4>
                                  <center>
                                     <span <?php echo $class?>><?php echo $msg?></span>
+                                    <br>
+                                    <?php echo $link?>
                                  </center>
                               </div>
                            </div>

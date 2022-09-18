@@ -1,4 +1,6 @@
 <?php 
+session_start();
+session_regenerate_id();
 require("./inc/connection.inc.php");
 require("./inc/constant.inc.php");
 require("./inc/function.inc.php");
@@ -47,17 +49,21 @@ require("./inc/function.inc.php");
                            <li>
                               <a href="index">Home</a>
                            </li>
-                           <li>
-                              <a href="apply">Apply</a>
-                           </li>
+                           <?php if(isset($_SESSION['APPLICANT_ID'])){?>
                            <li>
                               <a href="dashboard">Dashboard</a>
                            </li>
-                           <li class="login-link">
-                              <a href="login">Login / Signup</a>
+                           <?php }else{?>
+                           <li>
+                              <a href="apply">Apply</a>
                            </li>
+                           <li >
+                              <a href="login">Login</a>
+                           </li>
+                           <?php }?>
                         </ul>
                      </div>
+                     <?php if(isset($_SESSION['APPLICANT_ID'])){?>
                      <ul class="nav header-navbar-rht">
                         <li class="nav-item user-nav">
                            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">
@@ -82,6 +88,7 @@ require("./inc/function.inc.php");
                            </div>
                         </li>
                      </ul>
+                     <?php }?>
                   </div>
                </nav>
             </div>

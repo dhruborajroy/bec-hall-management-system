@@ -1,9 +1,53 @@
+<?php
+session_start();
+session_regenerate_id();
+include('./inc/function.inc.php');
+include('./inc/connection.inc.php');
+include('./inc/constant.inc.php');
+require_once("./inc/smtp/class.phpmailer.php");
+$msg=""; 
+$class="";
+if(isset($_SESSION['APPLICANT_LOGIN'])){
+    redirect('index.php');
+}
+if(isset($_POST['submit'])){
+	$email=get_safe_value($_POST['email']);
+   $password=get_safe_value($_POST['password']);
+   $sql="select * from applicants where email='$email'";
+	$res=mysqli_query($con,$sql);
+	if(mysqli_num_rows($res)>0){
+		$row=mysqli_fetch_assoc($res);
+		if($row['status']!=1){
+         $class='class="alert alert-danger"'; 
+			$msg="You haven't verified your email yet. Please verify the email";
+		}else{
+            $verify=password_verify($password,$row['password']);
+            if($verify==1){
+               $msg="You are aleady registered. Please login";
+               $_SESSION['APPLICANT_LOGIN']=true;
+               $_SESSION['APPLICANT_ID']=$row['id'];
+               $_SESSION['APPLICANT_NAME']=$row['name'];
+               // sendLoginEmail($row['email']);
+               redirect('dashboard');
+               die();
+            }else{
+               $class='class="alert alert-danger" style="padding:10px;margin:100px"';  
+		         $msg="Please Enter correct Login details";
+            }
+		}
+      // echo $sql;
+	}else{
+      $class='class="alert alert-danger" style="padding:10px;margin:100px"';  
+		$msg="Please Enter correct Login details";
+	}
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-      <title>Dreams LMS</title>
+      <title><?php echo NAME." || ".TAGLINE?></title>
       <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.svg">
       <link rel="stylesheet" href="assets/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
@@ -54,19 +98,20 @@
                         <div class="img-logo">
                            <img src="assets/img/logo.svg" class="img-fluid" alt="Logo">
                            <div class="back-home">
-                              <a href="index-2.html">Back to Home</a>
+                              <a href="index">Back to Home</a>
                            </div>
                         </div>
                         <h1>Sign into Your Account</h1>
-                        <form action="https://dreamslms.dreamguystech.com/instructor-dashboard.html">
+                        <span <?php echo $class?> ><?php echo $msg?></span>
+                        <form method="post">
                            <div class="form-group">
                               <label class="form-control-label">Email</label>
-                              <input type="email" class="form-control" placeholder="Enter your email address">
+                              <input type="email" name="email" id="email" class="form-control" placeholder="Enter your email address">
                            </div>
                            <div class="form-group">
                               <label class="form-control-label">Password</label>
                               <div class="pass-group">
-                                 <input type="password" class="form-control pass-input" placeholder="Enter your password">
+                                 <input type="password" name="password" id="password" class="form-control pass-input" placeholder="Enter your password">
                                  <span class="feather-eye toggle-password"></span>
                               </div>
                            </div>
@@ -80,7 +125,7 @@
                               </label>
                            </div>
                            <div class="d-grid">
-                              <button class="btn btn-primary btn-start" type="submit">Sign In</button>
+                              <button class="btn btn-primary btn-start"  name="submit" type="submit">Sign In</button>
                            </div>
                         </form>
                         <div class="google-bg text-center">

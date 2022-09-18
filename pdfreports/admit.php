@@ -187,7 +187,7 @@ $html.='
         </td>
     </tr>';
 $html.="</table>";
-echo $html;
+// echo $html;
 $mpdf=new \Mpdf\Mpdf([
     'tempDir' => __DIR__ . '/custom/temp/dir/path',
     'default_font_size' => 12,
@@ -199,6 +199,6 @@ $mpdf=new \Mpdf\Mpdf([
 ]);
 $mpdf->SetTitle('Admit Card');
 $mpdf->SetFooter('|| Developed By The Web Divers');
-// $mpdf->WriteHTML($html);
-// $file="Admit_".time().'.pdf';
-// $mpdf->output($file,'I');
+$mpdf->WriteHTML($html);
+$file="Admit_".time().'.pdf';
+$mpdf->output($file,'D');
