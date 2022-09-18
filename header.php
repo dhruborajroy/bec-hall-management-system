@@ -1,10 +1,14 @@
-
+<?php 
+require("./inc/connection.inc.php");
+require("./inc/constant.inc.php");
+require("./inc/function.inc.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-      <title>Dreams LMS</title>
+      <title><?php echo NAME." || ".TAGLINE?></title>
       <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.svg">
       <link rel="stylesheet" href="assets/css/bootstrap.min.css">
       <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
@@ -50,7 +54,7 @@
                               <a href="dashboard">Dashboard</a>
                            </li>
                            <li class="login-link">
-                              <a href="login.html">Login / Signup</a>
+                              <a href="login">Login / Signup</a>
                            </li>
                         </ul>
                      </div>

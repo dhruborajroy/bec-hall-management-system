@@ -6,6 +6,7 @@ define('FRONT_SITE_PATH','http://localhost/admission/');
 define('STORE_ID',"thewe630883975551e");
 define('STORE_PASSWORD',"thewe630883975551e@ssl");
 define('STUDENT_IMAGE',FRONT_SITE_PATH."media/users/");
+define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/admission/media/users/");
 
 $curStr=$_SERVER['REQUEST_URI'];
 $curArr=explode('/',$curStr);
