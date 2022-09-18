@@ -33,6 +33,7 @@ if(isset($_POST['submit'])){
 	$dob=get_safe_value($_POST['dob']);
 	$quota=get_safe_value($_POST['quota']);
 	$password=get_safe_value($_POST['password']);
+   $password=password_hash($password,PASSWORD_DEFAULT);
 	$religion=get_safe_value($_POST['religion']);
    if(mysqli_num_rows(mysqli_query($con,"select id from applicants where phoneNumber='$phone_number'"))>0){
       $class='class="alert alert-danger"';
@@ -68,12 +69,12 @@ if(isset($_POST['submit'])){
                      $image=time().'.jpg';
                      move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
                      $sql="INSERT INTO `applicants`(`id`, `first_name`,`last_name`, `roll`, `class_roll`, `fName`, `mName`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`, `quota`, `bloodGroup`, `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `password`, `email`, `code`, `image`, `last_notification`, `status`) 
-                     VALUES ('$id','$first_name','$last_name','$roll','','$f_name','$m_name','$phone_number','$present_address','$permanent_address','$dob','$gender','$religion','','$quota','$blood_group','$roll','','','','$password','$email','$code','$image','','1')";
-                     // send_email($email,"Your account has been created. Your password is <b>12345678 </b>. Please login and change your password <br> http://localhost/hall/students/ ","Account Created");
+                     VALUES ('$id','$first_name','$last_name','$roll','','$f_name','$m_name','$phone_number','$present_address','$permanent_address','$dob','$gender','$religion','','$quota','$blood_group','$roll','','','','$password','$email','$code','$image','','0')";
+                     send_email($email,'Your account has been created. <a href="'.FRONT_SITE_PATH.'/verify?email='.$email.'&code='.$code.'">Verify Email</a>','Account Created');
                      mysqli_query($con,$sql);
                      $display='style="display:none;"';
                      $class='class="alert alert-success"';
-                     $msg="An Email has been sent to your $email account. Please Verify your email";
+                     $msg="An Email has been sent to your $email account. Please Verify your email & login.";
                      // echo $sql;
                      $_SESSION['INSERT']=1;
                      // redirect("users.php");

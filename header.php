@@ -4,6 +4,7 @@ session_regenerate_id();
 require("./inc/connection.inc.php");
 require("./inc/constant.inc.php");
 require("./inc/function.inc.php");
+require_once("./inc/smtp/class.phpmailer.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">

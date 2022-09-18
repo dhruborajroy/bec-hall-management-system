@@ -8,7 +8,7 @@ require_once("./inc/smtp/class.phpmailer.php");
 $msg=""; 
 $class="";
 if(isset($_SESSION['APPLICANT_LOGIN'])){
-    redirect('index.php');
+    redirect('dashboard');
 }
 if(isset($_POST['submit'])){
 	$email=get_safe_value($_POST['email']);
