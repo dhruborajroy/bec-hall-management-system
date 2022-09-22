@@ -417,7 +417,7 @@ function refreshToken($refresh_token){
 }
 
 function createPayment($id_token,$user_data){
-    $callbackURL='http://localhost/bkash/database_based/executePayment.php';//'http://thewebdivers.com/';
+    $callbackURL='http://localhost/admission/executePayment.php';
     $requestbody = array(
         'mode' => '0011',
         'amount' => $user_data['amount'],
@@ -447,8 +447,6 @@ function createPayment($id_token,$user_data){
 }
 
 function executePayment($paymentID,$id_token){
-    $paymentID = $paymentID;
-    $auth = $id_token;
     $post_token = array(
         'paymentID' => $paymentID
     );
@@ -456,8 +454,8 @@ function executePayment($paymentID,$id_token){
     $posttoken = json_encode($post_token);
     $header = array(
         'Content-Type:application/json',
-        'Authorization:' . $auth,
-        'X-APP-Key:4f6o0cjiki2rfm34kfdadl1eqq'
+        'Authorization:' . $id_token,
+        'X-APP-Key:'.APP_KEY
     );
     curl_setopt($url, CURLOPT_HTTPHEADER, $header);
     curl_setopt($url, CURLOPT_CUSTOMREQUEST, "POST");
