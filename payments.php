@@ -68,6 +68,27 @@ if (isset($_POST['sslcommerz'])){
    }
 }
 if (isset($_POST['bkash'])){
+   $amount=round($total_amount,2);
+   $token=timeWiseTokenGeneartion();
+   $user_data=array(
+       'tran_id'=>uniqid("admission_"),
+       'amount'=>$amount,
+   );
+   $createPayment=createPayment($token['id_token'],$user_data);
+   if(isset($createPayment['statusCode']) && $createPayment['statusCode']==000){
+      $statusMessage=$createPayment['statusMessage'];
+      $paymentID=$createPayment['paymentID'];
+      $amount=$createPayment['amount'];
+      $paymentCreateTime=$createPayment['paymentCreateTime'];
+      $merchantInvoiceNumber=$createPayment['merchantInvoiceNumber'];
+      echo $sql="INSERT INTO `bkash_online_payment` ( `tran_id`,`user_id`, `bkash_payment_id`,`customerMsisdn`,`trxID`,`amount`,`statusMessage`, `added_on`,`updated_on`,`status`) VALUES 
+                                    ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
+      mysqli_query($con,$sql);
+      redirect($createPayment['bkashURL']);
+      die;
+   }else{
+      $msg=$createPayment['message'];
+   }
 }
 ?>
          <div class="page-content instructor-page-content">
