@@ -201,4 +201,4 @@ $mpdf->SetTitle('Admit Card');
 $mpdf->SetFooter('|| Developed By The Web Divers');
 $mpdf->WriteHTML($html);
 $file="Admit_".time().'.pdf';
-$mpdf->output($file,'D');
+$mpdf->output($file,'I');

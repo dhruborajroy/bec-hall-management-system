@@ -13,9 +13,9 @@ $card_issuer=$_POST['card_issuer'];
 $card_no=$_POST['card_no'];
 $error=$_POST['error'];
 $status=$_POST['status'];
+$time=time();
 if(isset($_POST['status'])){
-    $sql="INSERT INTO `online_payment`(`tran_id`, `val_id`, `amount`, `card_type`, `tran_date`, `card_issuer`, `card_no`, `error`, `status`) VALUES 
-                                            ('$tran_id','$val_id','$amount','$card_type','$tran_date','$card_issuer','$card_no','$error','$status')";   
+    echo $sql="UPDATE `online_payment` SET `val_id`='$val_id',`amount`='$amount',`card_type`='$card_type',`tran_date`='$tran_date',`card_issuer`='$card_issuer',`card_no`='$card_no',`error`='$error',`updated_on`='$time',`status`='$status' WHERE `tran_id`='$tran_id'";
     if ($status=="FAILED") {
         if(!isset($_SESSION['USER_LOGIN'])){
             $ssqls="select * from applicants where id='$user_id'";
@@ -26,8 +26,15 @@ if(isset($_POST['status'])){
             $_SESSION['USER_ROLL']=$rows['roll'];
             $_SESSION['USER_NAME']=$rows['first_name'];
         }
+        mysqli_query($con,$sql);
+        // prx($_POST);
+        redirect("payments");
+    }else{
+        $_SESSION['PERMISSION_ERROR']='1';
+        redirect("index");
     }
-    mysqli_query($con,$sql);
-    prx($_POST);
+}else{
+    $_SESSION['PERMISSION_ERROR']='1';
+    redirect("index");
 }
 ?>

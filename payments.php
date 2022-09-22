@@ -15,7 +15,7 @@ $user_id=$_SESSION['APPLICANT_ID'];
 $sql="select * from `applicants` where id='".$_SESSION['APPLICANT_ID']."'";
 $total_amount=122;
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
-if (isset($_POST['pay_online'])){
+if (isset($_POST['sslcommerz'])){
    $ch = curl_init();
    $tran_id="admission_".uniqid();
    curl_setopt($ch, CURLOPT_URL, 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php');
@@ -67,6 +67,8 @@ if (isset($_POST['pay_online'])){
       $msg="Something Went wrong. Please your internet connection";
    }
 }
+if (isset($_POST['bkash'])){
+}
 ?>
          <div class="page-content instructor-page-content">
             <div class="container">
@@ -77,16 +79,17 @@ if (isset($_POST['pay_online'])){
                         <div class="settings-inner-blk p-0">
                            <div class="profile-heading row">
                               <div class="row">
-                                 <h3>Invoices</h3>
+                                 <h3>Payments</h3>
                               </div>
-                              <p>You can find all of your order Invoices.</p>
+                              <!-- <p>You can find all of your order Invoices.</p> -->
                            </div>
                            <div class="comman-space pb-0">
                               <form  method="post">
                               <div class="go-dashboard text-center ">
                                     <?php echo $msg?>
                                     <br>
-                                    <button type="submit" name="pay_online" class="btn btn-primary">Pay Using Online Payment</button>
+                                    <button type="submit" name="bkash" class="btn btn-primary">Pay Using Bkash</button>
+                                    <button type="submit" name="sslcommerz" class="btn btn-primary">Pay Using Online Payment</button>
                               </div>
                               </form>
                               <div class="settings-invoice-blk table-responsive comman-space pb-0">

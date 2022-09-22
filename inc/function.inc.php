@@ -325,4 +325,202 @@ function form_csrf(){
 	value="'.$csrf_token.'">';
 	return $html;
 }
+// Bkash Functions Starts here
+
+function timeWiseTokenGeneartion(){
+    global $con;
+    $sql="select * from bkash_credentials where id='1' limit 1";
+    $res=mysqli_query($con,$sql);
+    if(mysqli_num_rows($res)>0){
+        $row=mysqli_fetch_assoc($res);
+        $time=$row['time'];
+        if($time==""){
+            $time=0;
+        }
+        if((time()-$time)>3600){
+            $time=time();
+            $data=grandToken();
+            $id_token=$data['id_token'];
+            $refresh_token=$data['refresh_token'];
+            $sql="update bkash_credentials set id_token='$id_token', refresh_token='$refresh_token',  time='$time'  where id='1'";
+            $res=mysqli_query($con,$sql);
+        }else{
+            $time=time();
+            $sql="select refresh_token from bkash_credentials where id='1' limit 1";
+            $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
+            $data=refreshToken($row['refresh_token']);
+            $id_token=$data['id_token'];
+            $refresh_token=$data['refresh_token'];
+            $sql="update bkash_credentials set id_token='$id_token', refresh_token='$refresh_token',  time='$time'  where id='1'";
+            $res=mysqli_query($con,$sql);
+        }
+        $data=array(
+            'id_token'=>$id_token,
+            'refresh_token'=>$refresh_token,
+            'time'=>$time,
+        );
+        return $data;
+    }else{
+        return "error";
+    }
+}
+
+function grandToken(){
+    $request_data = array(
+        'app_key'=>APP_KEY,
+        'app_secret'=>APP_SECRET
+    );  
+    $url = curl_init(BASE_URL.'/tokenized/checkout/token/grant');
+    $request_data_json=json_encode($request_data);
+    $header = array(
+        'Content-Type:application/json',
+        'username:sandboxTokenizedUser02',               
+        'password:sandboxTokenizedUser02@12345'
+    );
+    curl_setopt($url,CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url,CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url,CURLOPT_POSTFIELDS, $request_data_json);
+    curl_setopt($url,CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    $data=curl_exec($url);
+    curl_close($url);
+    $data=json_decode($data,true);
+    // echo "<pre>";
+    return $data;
+}
+
+
+function refreshToken($refresh_token){
+    $request_data = array(
+        'app_key'=>APP_KEY,
+        'app_secret'=>APP_SECRET,
+        'refresh_token'=>$refresh_token,
+    );  
+    $url = curl_init(BASE_URL.'/tokenized/checkout/token/refresh');
+    $request_data_json = json_encode($request_data);
+    $header = array(
+        'Content-Type:application/json',
+        'username:sandboxTokenizedUser02',               
+        'password:sandboxTokenizedUser02@12345'
+    );
+    curl_setopt($url,CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url,CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url,CURLOPT_POSTFIELDS, $request_data_json);
+    curl_setopt($url,CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    $data=curl_exec($url);
+    curl_close($url);
+    $data=json_decode($data,true);
+    return $data;
+}
+
+function createPayment($id_token,$user_data){
+    $callbackURL='http://localhost/bkash/database_based/executePayment.php';//'http://thewebdivers.com/';
+    $requestbody = array(
+        'mode' => '0011',
+        'amount' => $user_data['amount'],
+        'currency' => 'BDT',
+        'intent' => 'sale',
+        'payerReference' => '01770618575',
+        'merchantInvoiceNumber' => $user_data['tran_id'],
+        'callbackURL' => $callbackURL
+    );
+    $url = curl_init(BASE_URL.'/tokenized/checkout/create');
+    $requestbodyJson = json_encode($requestbody);
+    $header = array(
+        'Content-Type:application/json',
+        'Authorization: ' . $id_token,
+        'X-APP-Key:'. APP_KEY
+    );
+    curl_setopt($url, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url, CURLOPT_POSTFIELDS, $requestbodyJson);
+    curl_setopt($url, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    $data = curl_exec($url);
+    curl_close($url);
+    $data = json_decode($data,true);
+    return $data;
+}
+
+function executePayment($paymentID,$id_token){
+    $paymentID = $paymentID;
+    $auth = $id_token;
+    $post_token = array(
+        'paymentID' => $paymentID
+    );
+    $url = curl_init(BASE_URL.'/tokenized/checkout/execute');       
+    $posttoken = json_encode($post_token);
+    $header = array(
+        'Content-Type:application/json',
+        'Authorization:' . $auth,
+        'X-APP-Key:4f6o0cjiki2rfm34kfdadl1eqq'
+    );
+    curl_setopt($url, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url, CURLOPT_POSTFIELDS, $posttoken);
+    curl_setopt($url, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    $data = curl_exec($url);
+    curl_close($url);
+    $data = json_decode($data,true);
+    return $data;
+}
+
+
+
+function queryPayment($paymentID,$id_token){
+    $requestbody = array(
+        'paymentID' => $paymentID
+    );
+    $requestbodyJson = json_encode($requestbody);
+    $url=curl_init(BASE_URL.'/tokenized/checkout/payment/status');
+    $header=array(
+        'Content-Type:application/json',
+        'authorization:'.$id_token,
+        'x-app-key:4f6o0cjiki2rfm34kfdadl1eqq'
+    );    
+    curl_setopt($url,CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url,CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url, CURLOPT_POSTFIELDS, $requestbodyJson);
+    curl_setopt($url,CURLOPT_FOLLOWLOCATION, 1);
+    $data = curl_exec($url);
+    curl_close($url);
+    $data = json_decode($data,true);
+    return $data;
+}
+
+function refundPayment($paymentID,$id_token,$trxID){
+    $callbackURL='http://thewebdivers.com/';
+    $requestbody = array(
+        'paymentID' => $paymentID,
+        'amount'=>'23',
+        'trxID'=>$trxID, //pass tran id
+        'sku'=>'Admission Payment',
+        'reason'=>'Dauble Payment',
+    );
+    $url = curl_init(BASE_URL.'/tokenized/checkout/payment/refund');
+    $requestbodyJson = json_encode($requestbody);
+    $header = array(
+        'Content-Type:application/json',
+        'Authorization: ' . $id_token,
+        'X-APP-Key:'.APP_KEY
+    );
+    curl_setopt($url, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url, CURLOPT_POSTFIELDS, $requestbodyJson);
+    curl_setopt($url, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    $data = curl_exec($url);
+    curl_close($url);
+    $data = json_decode($data,true);
+    return $data;
+}
+
 ?>
