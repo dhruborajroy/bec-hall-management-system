@@ -21,7 +21,7 @@ require_once("./inc/smtp/class.phpmailer.php");
    </head>
    <body>
       <div class="main-wrapper">
-         <header class="header header-page">
+         <header class="header header-page d-print-none">
             <div class="header-fixed">
                <nav class="navbar navbar-expand-lg header-nav scroll-sticky">
                   <div class="container ">

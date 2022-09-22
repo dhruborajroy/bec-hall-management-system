@@ -1,13 +1,15 @@
 <?php include("header.php"); 
-   $val_id="";
-   $amount="";
-   $card_type="";
-   $tran_date="";
-   $card_issuer="";
-   $card_no="";
-   $error="";
-   $msg="";
-   $status="pending";
+$val_id="";
+$amount="";
+$card_type="";
+$tran_date="";
+$card_issuer="";
+$card_no="";
+$error="";
+$msg="";
+$status="pending";
+$createPayment['bkashURL']="";
+$createPayment['message']="";
 if(!isset($_SESSION['APPLICANT_LOGIN'])){
    redirect('index.php');
 }
@@ -16,28 +18,34 @@ $sql="select * from `applicants` where id='".$_SESSION['APPLICANT_ID']."'";
 $total_amount=122;
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 
-if (isset($_POST['bkash'])){
+if(isset($_POST['bkash'])){
    $amount=round($total_amount,2);
    $token=timeWiseTokenGeneartion();
    $user_data=array(
        'tran_id'=>uniqid("admission_"),
        'amount'=>$amount,
    );
-   $createPayment=createPayment($token['id_token'],$user_data);
-   if(isset($createPayment['statusCode']) && $createPayment['statusCode']==000){
-      $statusMessage=$createPayment['statusMessage'];
-      $paymentID=$createPayment['paymentID'];
-      $amount=$createPayment['amount'];
-      $paymentCreateTime=$createPayment['paymentCreateTime'];
-      $merchantInvoiceNumber=$createPayment['merchantInvoiceNumber'];
-      echo $sql="INSERT INTO `bkash_online_payment` ( `tran_id`,`user_id`, `bkash_payment_id`,`customerMsisdn`,`trxID`,`amount`,`statusMessage`, `added_on`,`updated_on`,`status`) VALUES 
-                                    ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
-      mysqli_query($con,$sql);
-      header("location:".$createPayment['bkashURL']);
-      redirect($createPayment['bkashURL']);
-      die;
+   if(isset($token['id_token'])){
+      $createPayment=createPayment($token['id_token'],$user_data);
+      if(isset($createPayment['statusCode']) && $createPayment['statusCode']==000){
+         $statusMessage=$createPayment['statusMessage'];
+         $paymentID=$createPayment['paymentID'];
+         $amount=$createPayment['amount'];
+         $paymentCreateTime=$createPayment['paymentCreateTime'];
+         $merchantInvoiceNumber=$createPayment['merchantInvoiceNumber'];
+         $sql="INSERT INTO `bkash_online_payment` ( `tran_id`,`user_id`, `bkash_payment_id`,`customerMsisdn`,`trxID`,`amount`,`statusMessage`, `added_on`,`updated_on`,`status`) VALUES 
+                                       ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
+         mysqli_query($con,$sql);
+         header("location:".$createPayment['bkashURL']);
+         redirect($createPayment['bkashURL']);
+         die;
+      }else{
+         if(isset($createPayment['message'])){
+            $msg=$createPayment['message'];
+         }
+      }
    }else{
-      $msg=$createPayment['message'];
+      $msg="Something Went Wrong";
    }
 }
 if (isset($_POST['sslcommerz'])){
@@ -107,22 +115,31 @@ if (isset($_POST['sslcommerz'])){
                                <p>You can find all of your order Invoices.</p> 
                            </div> -->
                            <div class="comman-space pb-0">
+                              <?php 
+                              $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
+                              $res=mysqli_query($con,$sql);
+                              if(mysqli_num_rows($res)>0){}else{
+                              ?>
                               <form  method="post">
                               <div class="go-dashboard text-center ">
                                     <?php echo $msg?>
                                     <br>
-                                    <button type="submit" name="bkash" class="btn btn-primary">Pay Using Bkash</button>
+                                    <button type="submit" name="bkash" >
+                                       <img src="./assets/img/bkash.png" weight="100px" height="70px" alt="Bkash Payment" >
+                                    </button>
                                     <!-- <button type="submit" name="sslcommerz" class="btn btn-primary">Pay Using Online Payment</button> -->
                               </div>
                               </form>
+                              <?php }?>
                               <div class="settings-invoice-blk table-responsive comman-space pb-0">
                                  <h4 align="center">Payments</h4>
                                  <table class="table table-borderless mb-0">
                                     <thead>
                                        <tr>
                                           <th>Order id</th>
-                                          <th>Bkash TrxID</th>
+                                          <th>TrxID</th>
                                           <th>amount</th>
+                                          <th>Date</th>
                                           <th>status</th>
                                           <!-- <th>&nbsp;</th> -->
                                        </tr>
@@ -136,9 +153,10 @@ if (isset($_POST['sslcommerz'])){
                                        while($row=mysqli_fetch_assoc($res)){
                                        ?>
                                        <tr>
-                                          <td><a href="#" class="invoice-no">#<?php echo $row['tran_id']?></a></td>
+                                          <td><a href="invoice?invoice=<?php echo $row['tran_id']?>" class="invoice-no">#<?php echo $row['tran_id']?></a></td>
                                           <td><?php echo $row['trxID']?></td>
                                           <td><?php echo $row['amount']?></td>
+                                          <td><?php echo date("d M Y h:i",$row['updated_on'])?></td>
                                           <?php if($row['status']=='Completed'){?>
                                              <td><span class="badge status-completed">Completed</span></td>
                                           <?php }else{?>

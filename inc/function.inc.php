@@ -349,17 +349,21 @@ function timeWiseTokenGeneartion(){
             $sql="select refresh_token from bkash_credentials where id='1' limit 1";
             $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
             $data=refreshToken($row['refresh_token']);
-            $id_token=$data['id_token'];
-            $refresh_token=$data['refresh_token'];
-            $sql="update bkash_credentials set id_token='$id_token', refresh_token='$refresh_token',  time='$time'  where id='1'";
-            $res=mysqli_query($con,$sql);
+            if(isset($data['id_token'])){
+                $id_token=$data['id_token'];
+                $refresh_token=$data['refresh_token'];
+                $sql="update bkash_credentials set id_token='$id_token', refresh_token='$refresh_token',  time='$time'  where id='1'";
+                $res=mysqli_query($con,$sql);
+                $data=array(
+                    'id_token'=>$id_token,
+                    'refresh_token'=>$refresh_token,
+                    'time'=>$time,
+                );
+                return $data;
+            }else{
+                return "error";
+            }
         }
-        $data=array(
-            'id_token'=>$id_token,
-            'refresh_token'=>$refresh_token,
-            'time'=>$time,
-        );
-        return $data;
     }else{
         return "error";
     }
@@ -417,6 +421,7 @@ function refreshToken($refresh_token){
 }
 
 function createPayment($id_token,$user_data){
+    $id_token="";
     $callbackURL='http://localhost/admission/executePayment.php';
     $requestbody = array(
         'mode' => '0011',
@@ -441,6 +446,9 @@ function createPayment($id_token,$user_data){
     curl_setopt($url, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     $data = curl_exec($url);
+    if (curl_errno($url)) {
+       $data=  curl_error($url); 
+    }
     curl_close($url);
     $data = json_decode($data,true);
     return $data;

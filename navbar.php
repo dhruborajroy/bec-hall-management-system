@@ -27,7 +27,7 @@
                            <ul>
                               <!-- active is a optional parameter for selecting menu -->
                               <li class="nav-item ">
-                                 <a href="dashboard" class="nav-link">
+                                 <a href="dashboard" class="nav-link <?php echo $dashboard_active?>" >
                                  <i class="feather-home"></i> My Dashboard
                                  </a>
                               </li>
@@ -37,12 +37,12 @@
                            </div>
                            <ul>
                               <li class="nav-item">
-                                 <a href="payments" class="nav-link ">
+                                 <a href="payments" class="nav-link  <?php echo $payments_active?>">
                                  <i class="feather-dollar-sign"></i> Payment
                                  </a>
                               </li>
                               <li class="nav-item">
-                                 <a href="profile" class="nav-link ">
+                                 <a href="profile" class="nav-link  <?php echo $profile_active?>">
                                  <i class="feather-settings"></i> Edit Profile
                                  </a>
                               </li>
