@@ -18,7 +18,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select payments.*,users.id,users.name from payments,users where payments.user_id=users.id";
+$sql="select bkash_online_payment.*, applicants.first_name, applicants.last_name  from bkash_online_payment,applicants where bkash_online_payment.user_id=applicants.id";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
@@ -58,11 +58,12 @@ $res=mysqli_query($con,$sql);
                     <thead>
                         <tr>
                             <th>ID</th>
+                            <th>Order ID</th>
                             <th>Name</th>
                             <th>Amount</th>
+                            <th>TrxID</th>
                             <th>Status</th>
-                            <th>Created At</th>
-                            <th>Details</th>
+                            <th>Refund</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -72,31 +73,23 @@ $res=mysqli_query($con,$sql);
                         ?>
                         <tr role="row" class="odd">
                             <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['total_amount']?></td>
-                            <td class="badge badge-pill badge-<?php if($row['status']=='1'){
-                                $status='success';
-                                echo $status;
-                                $status="Paid";
-                            }elseif($row['status']=='0'){
-                                $status='warning';
-                                echo $status;
-                                $status="Pending";
-                            }else{
-                                $status='danger';
-                                echo $status;
-                                $status="Failed";
-                            }?> d-block mg-t-8"><?php echo $status?></td>
-                            <td class="sorting_1 dtr-control"><?php echo date("d M Y h:i",$row['created_at'])?></td>
-                            <td>
-                                <div class="ui-btn-wrap">
-                                    <ul>
-                                        <li><a href="paymentDetails.php?id=<?php echo $row['id']?>"><button type="button"
-                                                class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Make Payment</button></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['tran_id']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['first_name']." ".$row['last_name']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['trxID']?></td>
+                            <?php if($row['status']=="Completed"){?>
+                                <td class="dtr-control badge badge-pill badge-success d-block mg-t-8"><?php echo $row['status']?></td>
+                            <?php }elseif($row['status']=="Failed"){?>
+                                <td class="badge badge-pill badge-danger d-block mg-t-8"><?php echo $row['status']?></td>
+                            <?php }else{?>
+                                <td class="badge badge-pill badge-warning d-block mg-t-8"><?php echo $row['status']?></td>
+                            <?php }?>
+                            <?php if($row['status']=="Completed"){?>
+                                <td class="dtr-control badge badge-pill badge-success d-block mg-t-8">Refund</td>
+                            <?php }else{?>
+                                <td class="badge badge-pill badge-warning d-block mg-t-8">Payment not completed Yet</td>
+                            <?php }?>
+                                
                         </tr>
                         <?php 
                            $i++;

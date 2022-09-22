@@ -197,169 +197,27 @@
          <div class="sidebar-menu-content">
             <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                <li class="nav-item">
-                  <a href="index.php" class="nav-link <?php // echo  $index_active?>">
+                  <a href="index" class="nav-link <?php // echo  $index_active?>">
                      <i class="flaticon-dashboard"></i>
-                     <!-- <img src="https://cdn-icons.flaticon.com/png/512/1991/premium/1991103.png?token=exp=1660534293~hmac=aeb4ee5cccf12d77eebb77e03a15741c" alt="dashboard-icon" srcset=""> -->
                      <span>Dashboard</span>
                   </a>
                </li>
                <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Students</span></a>
+                  <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Applicants</span></a>
                   <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                      <li class="nav-item">
-                        <a href="users.php"
+                        <a href="users"
                            class="nav-link <?php // echo  $application_sub_group_active?>"><i
                            class="fas fa-angle-right"></i>All
-                        Students</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageStudentProfile.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new student</a>
-                     </li>
-                  </ul>
-               </li>
-               <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Admin Users</span></a>
-                  <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                     <li class="nav-item">
-                        <a href="userRole.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Users</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageRole.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new admin users</a>
-                     </li>
-                  </ul>
-               </li>
-               <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-money text-red"></i><span>Expenses</span></a>
-                  <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                     <li class="nav-item">
-                        <a href="expense.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Expenses</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageExpense.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new Expenses</a>
+                        Applicants</a>
                      </li>
                   </ul>
                </li>
                <li class="nav-item">
-                  <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i
-                     class="flaticon-checklist"></i><span>Manage Payment</span></a>
-               </li>
-               <li class="nav-item">
-                  <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i
-                     class="flaticon-shopping-list"></i><span>Meal Maintanance</span></a>
-               </li>
-               <li class="nav-item">
-                  <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i
-                     class="flaticon-chat"></i><span>Meal Status</span></a>
-               </li>
-               <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-script"></i><span>Notices</span></a>
-                  <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                     <li class="nav-item">
-                        <a href="notices.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Notices</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manage_notice.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new notice</a>
-                     </li>
-                  </ul>
-               </li>
-               <li class="nav-item">
-                  <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
-                     class="flaticon-menu-1"></i><span>Meal On Off Requests</span></a>
-               </li>
-               <li class="nav-item">
-                  <a href="guestMealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
-                     class="flaticon-menu-1"></i><span>Guest Meal On Off Requests</span></a>
-               </li>
-               <li class="nav-item">
-                  <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Generate Payment</span></a>
-               </li>
-               <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Fees</span></a>
-                  <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                     <li class="nav-item">
-                        <a href="fees.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Fees</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageFees.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new Fees</a>
-                     </li>
-                  </ul>
-               </li>
-               <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Expense Category</span></a>
-                  <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                     <li class="nav-item">
-                        <a href="expenseCategory.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Expense Categories</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageExpenseCategory.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new Expense Category</a>
-                     </li>
-                  </ul>
-               </li>
-               <li class="nav-item sidebar-nav-item">
-                  <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Departments and
-                  Batches</span></a>
-                  <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
-                     <li class="nav-item">
-                        <a href="depts.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Departments</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageDepts.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new Department</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="batches.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>All
-                        Batches</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="manageBatches.php"
-                           class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>Add new Batch</a>
-                     </li>
-                     <li class="nav-item">
-                        <a href="role.php"
-                           class="nav-link <?php // echo  $application_sub_group_active?>"><i
-                           class="fas fa-angle-right"></i>
-                        Dining Maintance Committee</a>
-                     </li>
-                     <!-- <li class="nav-item">
-                        <a href="manageRoles.php"
-                            class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
-                                class="fas fa-angle-right"></i>Add new committee member</a>
-                        </li> -->
-                  </ul>
+                  <a href="payments" class="nav-link <?php // echo  $index_active?>">
+                     <i class="flaticon-dashboard"></i>
+                     <span>Payments</span>
+                  </a>
                </li>
             </ul>
          </div>

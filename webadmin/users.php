@@ -19,7 +19,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select * from users order by id desc";
+$sql="select * from applicants order by id desc";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
@@ -78,9 +78,9 @@ $res=mysqli_query($con,$sql);
                             <th>ID</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Student ID</th>
+                            <th>Roll</th>
                             <th>Father's Name</th>
-                            <th>Room</th>
+                            <th>Merit</th>
                             <th>Number</th>
                             <th>Email</th>
                             <th>Action</th>
@@ -97,10 +97,10 @@ $res=mysqli_query($con,$sql);
                             <a href="<?php echo STUDENT_IMAGE.$row['image']?>" target="_blank" style="text-decoration:none;"><img class="rounded-circle w-75" src="<?php echo STUDENT_IMAGE.$row['image']?>"
                                     alt="student">
                             </a></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['class_roll']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['first_name'].' '.$row['last_name']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['roll']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['fName']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['block'].'-'.$row['room_number']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['merit']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['phoneNumber']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['email']?></td>
                             <td>
