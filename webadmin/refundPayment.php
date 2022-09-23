@@ -10,14 +10,11 @@ $class="";
 $msg="";
 if(isset($_GET['payment_id']) && $_GET['payment_id']!=""){
 	$payment_id=get_safe_value($_GET['payment_id']);
-    $res=mysqli_query($con,"select * from `bkash_online_payment` where tran_id='$payment_id'");
+    $res=mysqli_query($con,"select * from `refund_payment` where tran_id='$payment_id'");
     if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
-        $trxID=$row['trxID'];
-        $bkash_payment_id=$row['bkash_payment_id'];
-        $user_id=$row['user_id'];
-        // $class="d-none";
-        // $msg="Refund already initiated";
+        $class="d-none";
+        $msg="Refund already initiated";
     }else{
         $_SESSION['PERMISSION_ERROR']=1;
         redirect("index");

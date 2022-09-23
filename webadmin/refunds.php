@@ -14,7 +14,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 		}
 		mysqli_query($con,"update payments set status='$status' where id='$id'");
         $_SESSION['UPDATE']=1;
-        redirect('./payments.php');
+        redirect('./payments');
 	}
 
 }

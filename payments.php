@@ -21,12 +21,17 @@ $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 if(isset($_POST['bkash'])){
    $amount=round($total_amount,2);
    $token=timeWiseTokenGeneartion();
+   // pr($token);
    $user_data=array(
        'tran_id'=>uniqid("admission_"),
        'amount'=>$amount,
    );
    if(isset($token['id_token'])){
       $createPayment=createPayment($token['id_token'],$user_data);
+      pr($createPayment);
+      if(isset($createPayment['message'])){
+         echo $createPayment['message'];
+      }
       if(isset($createPayment['statusCode']) && $createPayment['statusCode']==000){
          $statusMessage=$createPayment['statusMessage'];
          $paymentID=$createPayment['paymentID'];
@@ -36,13 +41,9 @@ if(isset($_POST['bkash'])){
          $sql="INSERT INTO `bkash_online_payment` ( `tran_id`,`user_id`, `bkash_payment_id`,`customerMsisdn`,`trxID`,`amount`,`statusMessage`, `added_on`,`updated_on`,`status`) VALUES 
                                        ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
          mysqli_query($con,$sql);
-         header("location:".$createPayment['bkashURL']);
+         // header("location:".$createPayment['bkashURL']);
          redirect($createPayment['bkashURL']);
          die;
-      }else{
-         if(isset($createPayment['message'])){
-            $msg=$createPayment['message'];
-         }
       }
    }else{
       $msg="Something Went Wrong";
@@ -118,7 +119,7 @@ if (isset($_POST['sslcommerz'])){
                               <?php 
                               $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
                               $res=mysqli_query($con,$sql);
-                              if(mysqli_num_rows($res)>0){}else{
+                              if(mysqli_num_rows($res)>1){}else{
                               ?>
                               <form  method="post">
                               <div class="go-dashboard text-center ">
