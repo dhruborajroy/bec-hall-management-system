@@ -18,7 +18,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select bkash_online_payment.*, applicants.first_name, applicants.last_name  from bkash_online_payment,applicants where bkash_online_payment.user_id=applicants.id";
+$sql="select refund_payment.*, applicants.first_name, applicants.last_name  from refund_payment,applicants where refund_payment.user_id=applicants.id";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
@@ -60,10 +60,10 @@ $res=mysqli_query($con,$sql);
                             <th>ID</th>
                             <th>Order ID</th>
                             <th>Name</th>
-                            <th>Amount</th>
-                            <th>TrxID</th>
+                            <th>Refund Amount</th>
+                            <th>Original TrxID</th>
+                            <th>Refund TrxID</th>
                             <th>Status</th>
-                            <th>Refund</th>
                         </tr>
                     </thead>
                     <tbody id="myTable">
@@ -76,20 +76,15 @@ $res=mysqli_query($con,$sql);
                             <td class="sorting_1 dtr-control"><?php echo $row['tran_id']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['first_name']." ".$row['last_name']?></td>
                             <td class="sorting_1 dtr-control"><?php echo $row['amount']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['trxID']?></td>
-                            <?php if($row['status']=="Completed"){?>
-                                <td class="dtr-control badge badge-pill badge-success d-block mg-t-8"><?php echo $row['status']?></td>
-                            <?php }elseif($row['status']=="Failed"){?>
-                                <td class="badge badge-pill badge-danger d-block mg-t-8"><?php echo $row['status']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['originalTrxID']?></td>
+                            <td class="sorting_1 dtr-control"><?php echo $row['refundTrxID']?></td>
+                            <?php if($row['statusMessage']=="Completed"){?>
+                                <td class="dtr-control badge badge-pill badge-success d-block mg-t-8"><?php echo $row['statusMessage']?></td>
+                            <?php }elseif($row['statusMessage']=="Failed"){?>
+                                <td class="badge badge-pill badge-danger d-block mg-t-8"><?php echo $row['statusMessage']?></td>
                             <?php }else{?>
-                                <td class="badge badge-pill badge-warning d-block mg-t-8"><?php echo $row['status']?></td>
+                                <td class="badge badge-pill badge-warning d-block mg-t-8"><?php echo $row['statusMessage']?></td>
                             <?php }?>
-                            <?php if($row['status']=="Completed"){?>
-                                <td class="dtr-control badge badge-pill badge-success d-block mg-t-8"><a href="refundPayment?payment_id=<?php echo $row['tran_id']?>" class="invoice-no">Refund</a></td>
-                            <?php }else{?>
-                                <td class="badge badge-pill badge-warning d-block mg-t-8">Payment not completed Yet</td>
-                            <?php }?>
-                                
                         </tr>
                         <?php 
                            $i++;

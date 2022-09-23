@@ -146,7 +146,7 @@ function getTotalPayments(){
 } 
 function gettotalstudent(){
 	global $con;
-	$sql="SELECT count(DISTINCT id) as student FROM users";
+	$sql="SELECT count(DISTINCT id) as student FROM applicants";
 	$res=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_assoc($res)){
 	  return $row['student'];
@@ -501,14 +501,14 @@ function queryPayment($paymentID,$id_token){
     return $data;
 }
 
-function refundPayment($paymentID,$id_token,$trxID){
+function refundPayment($id_token,$trxID,$data){
     $callbackURL='http://thewebdivers.com/';
     $requestbody = array(
-        'paymentID' => $paymentID,
-        'amount'=>'23',
+        'paymentID' => $data['paymentID'],
+        'amount'=>$data['amount'],
         'trxID'=>$trxID, //pass tran id
-        'sku'=>'Admission Payment',
-        'reason'=>'Dauble Payment',
+        'sku'=>$data['sku'],
+        'reason'=>$data['reason'],
     );
     $url = curl_init(BASE_URL.'/tokenized/checkout/payment/refund');
     $requestbodyJson = json_encode($requestbody);

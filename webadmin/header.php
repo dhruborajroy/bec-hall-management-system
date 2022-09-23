@@ -219,6 +219,28 @@
                      <span>Payments</span>
                   </a>
                </li>
+               <li class="nav-item">
+                  <a href="refunds" class="nav-link <?php // echo  $index_active?>">
+                     <i class="flaticon-dashboard"></i>
+                     <span>Refunds</span>
+                  </a>
+               </li>
+               <li class="nav-item sidebar-nav-item">
+                     <a href="#" class="nav-link"><i class="flaticon-script"></i><span>Notices</span></a>
+                     <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
+                        <li class="nav-item">
+                           <a href="notices.php"
+                                 class="nav-link <?php // echo  $application_sub_group_active?>"><i
+                                    class="fas fa-angle-right"></i>All
+                                 Notices</a>
+                        </li>
+                        <li class="nav-item">
+                           <a href="manage_notice.php"
+                                 class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                    class="fas fa-angle-right"></i>Add new notice</a>
+                        </li>
+                     </ul>
+               </li>
             </ul>
          </div>
       </div>
