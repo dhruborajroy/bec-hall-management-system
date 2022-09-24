@@ -1,4 +1,5 @@
-<?php include("header.php"); 
+<?php 
+include("header.php"); 
 $val_id="";
 $amount="";
 $card_type="";
@@ -17,11 +18,23 @@ $user_id=$_SESSION['APPLICANT_ID'];
 $sql="select * from `applicants` where id='".$_SESSION['APPLICANT_ID']."'";
 $total_amount=122;
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
-
 if(isset($_GET['status'])){
    $status=get_safe_value($_GET['status']);
-   $error='<script>swal("'.$_GET['status'].'", "'.$_GET['status'].'", "error")</script>';
-
+   if($status=='cancel'){
+      $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "Payment has been cancelled by User.", "error")</script>';
+   }
+   if($status=='failure'){
+      $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "OTP not valid", "error")</script>';
+   }
+   if($status=='success'){
+      $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "Payment completed", "success")</script>';
+   }
+   if($status=='2029' && isset($_GET['statusMessage'])){
+      $status="Duplicate transection";
+      $statusMessage=" Please try after sometime.";
+      $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($status).'", "'.$statusMessage.'", "error")</script>';
+   }
+   redirect("payments");
 }
    if(isset($_POST['bkash'])){
    $amount=round($total_amount,2);
@@ -33,7 +46,7 @@ if(isset($_GET['status'])){
    );
    if(isset($token['id_token'])){
       $createPayment=createPayment($token['id_token'],$user_data);
-      pr($createPayment);
+      // pr($createPayment);
       if(isset($createPayment['message'])){
          echo $createPayment['message'];
       }
@@ -46,64 +59,11 @@ if(isset($_GET['status'])){
          $sql="INSERT INTO `bkash_online_payment` ( `tran_id`,`user_id`, `bkash_payment_id`,`customerMsisdn`,`trxID`,`amount`,`statusMessage`, `added_on`,`updated_on`,`status`) VALUES 
                                        ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
          mysqli_query($con,$sql);
-         // header("location:".$createPayment['bkashURL']);
          redirect($createPayment['bkashURL']);
          die;
       }
    }else{
       $msg="Something Went Wrong";
-   }
-}
-if (isset($_POST['sslcommerz'])){
-   $ch = curl_init();
-   $tran_id="admission_".uniqid();
-   curl_setopt($ch, CURLOPT_URL, 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php');
-   curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-   curl_setopt($ch, CURLOPT_POST, 1);
-   curl_setopt($ch, CURLOPT_POSTFIELDS, "store_id=".STORE_ID."
-                                          &store_passwd=".STORE_PASSWORD."
-                                          &total_amount=".urlencode(round($total_amount,2))."&currency=BDT
-                                          &tran_id=".$tran_id."
-                                          &success_url=".FRONT_SITE_PATH."/success"."
-                                          &fail_url=".FRONT_SITE_PATH."/failure"."
-                                          &cancel_url=".FRONT_SITE_PATH."/cancel"."
-                                          &cus_name=".$row['first_name']." ".$row['last_name']."
-                                          &cus_email=".$row['email']."
-                                          &cus_add1=".$row['presentAddress']."
-                                          &cus_city=".$row['permanentAddress']."
-                                          &cus_country=Bangladesh
-                                          &ship_country=Bangladesh
-                                          &shipping_method=air
-                                          &ship_add1=".$row['presentAddress']."
-                                          &product_name=Admission Payment
-                                          &product_category=Admission payment
-                                          &cus_phone=".$row['phoneNumber']."
-                                          &ship_name=".$row['first_name']."
-                                          &ship_add1 =".$row['presentAddress']."
-                                          &ship_city=".$row['permanentAddress']."
-                                          &ship_state=".$row['permanentAddress']."
-                                          &ship_postcode=1000
-                                          &product_profile=c"
-                                 );
-   $headers = array();
-   $headers[] = 'Content-Type: application/x-www-form-urlencoded';
-   curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-   $result = curl_exec($ch);
-   if (curl_errno($ch)) {
-      $msg='Error: No internet connection'; // . curl_error($ch); 
-   }
-   curl_close($ch);
-   $result=json_decode($result,TRUE);
-   // pr($result);
-   if(isset($result['status']) && $result['status']=="SUCCESS"){
-      $id=uniqid("admission_");
-      $time=time();
-      $sql="INSERT INTO `online_payment`(`id`,`tran_id`,`user_id`, `val_id`, `amount`, `card_type`, `tran_date`, `card_issuer`, `card_no`, `error`, `added_on`, `updated_on`, `status`) VALUES 
-                                          ('$id','$tran_id','$user_id','$val_id','$amount','$card_type','$tran_date','$card_issuer','$card_no','$error','$time','','$status')";
-      mysqli_query($con,$sql);
-      redirect($result['GatewayPageURL']);
-   }else{
-      $msg="Something Went wrong. Please your internet connection";
    }
 }
 ?>
@@ -188,3 +148,9 @@ if (isset($_POST['sslcommerz'])){
             </div>
          </div>
 <?php include("footer.php")?>
+<?php 
+if(isset($_SESSION['PAYMENT_ERROR'])){
+   echo $_SESSION['PAYMENT_ERROR'];
+   unset($_SESSION['PAYMENT_ERROR']);
+}
+?>

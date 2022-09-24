@@ -329,7 +329,7 @@ function form_csrf(){
 
 function timeWiseTokenGeneartion(){
     global $con;
-    $sql="select * from bkash_credentials where id='1' limit 1";
+    $sql="select time from bkash_credentials where id='1' limit 1";
     $res=mysqli_query($con,$sql);
     if(mysqli_num_rows($res)>0){
         $row=mysqli_fetch_assoc($res);
@@ -345,6 +345,9 @@ function timeWiseTokenGeneartion(){
             $sql="update bkash_credentials set id_token='$id_token', refresh_token='$refresh_token',  time='$time'  where id='1'";
             $res=mysqli_query($con,$sql);
         }
+        $sql="select * from bkash_credentials where id='1' limit 1";
+        $res=mysqli_query($con,$sql);
+        $row=mysqli_fetch_assoc($res);
         $data=array(
             'id_token'=>$row['id_token'],
             'refresh_token'=>$row['refresh_token'],
