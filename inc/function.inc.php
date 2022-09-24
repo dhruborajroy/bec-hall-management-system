@@ -477,7 +477,7 @@ function queryPayment($paymentID,$id_token){
     $header=array(
         'Content-Type:application/json',
         'authorization:'.$id_token,
-        'x-app-key:4f6o0cjiki2rfm34kfdadl1eqq'
+        'x-app-key:'.APP_KEY
     );    
     curl_setopt($url,CURLOPT_HTTPHEADER, $header);
     curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
@@ -517,5 +517,25 @@ function refundPayment($id_token,$trxID,$data){
     $data = json_decode($data,true);
     return $data;
 }
-
+function searchTransection($tran_id,$id_token){
+    $requestbody = array(
+        'trxID' => $tran_id
+    );
+    $requestbodyJson = json_encode($requestbody);
+    $url=curl_init(BASE_URL.'/tokenized/checkout/general/searchTransaction');
+    $header=array(
+        'Content-Type:application/json',
+        'authorization:'.$id_token,
+        'x-app-key:'.APP_KEY
+    );    
+    curl_setopt($url,CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url,CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url, CURLOPT_POSTFIELDS, $requestbodyJson);
+    curl_setopt($url,CURLOPT_FOLLOWLOCATION, 1);
+    $result=curl_exec($url);
+    curl_close($url);
+    $result = json_decode($result,true);
+    return $result;  
+}
 ?>

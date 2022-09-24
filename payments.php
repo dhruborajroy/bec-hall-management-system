@@ -29,9 +29,14 @@ if(isset($_GET['status'])){
    if($status=='success'){
       $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "Payment completed", "success")</script>';
    }
-   if($status=='2029' && isset($_GET['statusMessage'])){
+   if(isset($_GET['statusMessage'])){
       $status="Duplicate transection";
       $statusMessage=" Please try after sometime.";
+      $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($status).'", "'.$statusMessage.'", "error")</script>';
+   }
+   if(isset($_GET['statusMessage']) && isset($_GET['status'])){
+      $status=$_GET['status'];
+      $statusMessage=$_GET['statusMessage'];
       $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($status).'", "'.$statusMessage.'", "error")</script>';
    }
    redirect("payments");
@@ -46,9 +51,8 @@ if(isset($_GET['status'])){
    );
    if(isset($token['id_token'])){
       $createPayment=createPayment($token['id_token'],$user_data);
-      // pr($createPayment);
       if(isset($createPayment['message'])){
-         echo $createPayment['message'];
+         $msg= $createPayment['message'];
       }
       if(isset($createPayment['statusCode']) && $createPayment['statusCode']==000){
          $statusMessage=$createPayment['statusMessage'];
@@ -58,9 +62,12 @@ if(isset($_GET['status'])){
          $merchantInvoiceNumber=$createPayment['merchantInvoiceNumber'];
          $sql="INSERT INTO `bkash_online_payment` ( `tran_id`,`user_id`, `bkash_payment_id`,`customerMsisdn`,`trxID`,`amount`,`statusMessage`, `added_on`,`updated_on`,`status`) VALUES 
                                        ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
-         mysqli_query($con,$sql);
-         redirect($createPayment['bkashURL']);
-         die;
+         if(mysqli_query($con,$sql)){
+            redirect($createPayment['bkashURL']);
+            // die;
+         }else{
+            $msg="Something Went Wrong";
+         }
       }
    }else{
       $msg="Something Went Wrong";
@@ -74,16 +81,11 @@ if(isset($_GET['status'])){
                      <div class="col-xl-9 col-md-8">
                      <div class="settings-widget profile-details">
                         <div class="settings-inner-blk p-0">
-                           <!-- <div class="profile-heading row">
-                              <div class="row">
-                                 <h3>Payments</h3>
-                              </div>
-                               <p>You can find all of your order Invoices.</p> 
-                           </div> -->
                            <div class="comman-space pb-0">
                               <?php 
                               $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
                               $res=mysqli_query($con,$sql);
+                              if(mysqli_num_rows($res)>!0){
                               ?>
                               <form  method="post">
                               <div class="go-dashboard text-center ">
@@ -95,7 +97,7 @@ if(isset($_GET['status'])){
                                     <!-- <button type="submit" name="sslcommerz" class="btn btn-primary">Pay Using Online Payment</button> -->
                               </div>
                               </form>
-                              <?php //}?>
+                              <?php }?>
                               <div class="settings-invoice-blk table-responsive comman-space pb-0">
                                  <h4 align="center">Payments</h4>
                                  <table class="table table-borderless mb-0">
@@ -105,6 +107,7 @@ if(isset($_GET['status'])){
                                           <th>TrxID</th>
                                           <th>amount</th>
                                           <th>Date</th>
+                                          <th>Payment Details</th>
                                           <th>status</th>
                                           <!-- <th>&nbsp;</th> -->
                                        </tr>
@@ -121,11 +124,12 @@ if(isset($_GET['status'])){
                                           <td><a href="invoice?invoice=<?php echo $row['tran_id']?>" class="invoice-no">#<?php echo $row['tran_id']?></a></td>
                                           <td><?php echo $row['trxID']?></td>
                                           <td><?php echo $row['amount']?></td>
-                                          <td><?php echo date("d M Y h:i",$row['updated_on'])?></td>
+                                          <td><?php echo date("d M Y h:i A",$row['updated_on'])?></td>
+                                          <td><?php echo $row['statusMessage']?></td>
                                           <?php if($row['status']=='Completed'){?>
-                                             <td><span class="badge status-completed">Completed</span></td>
+                                             <td><span class="badge status-completed"><?php echo $row['status']?></span></td>
                                           <?php }else{?>
-                                             <td><span class="badge status-due">Due</span></td>
+                                             <td><span class="badge status-due"><?php echo ucfirst($row['status'])?></span></td>
                                           <?php }?>
                                           <!-- <td><a href="javascript:;" class="btn-style"><i class="feather-download"></i></a></td> -->
                                        </tr>
