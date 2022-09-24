@@ -68,8 +68,8 @@ if(isset($_POST['submit'])){
                      $roll=date('y').rand(1111,9999);
                      $image=time().'.jpg';
                      move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                     $sql="INSERT INTO `applicants`(`id`, `first_name`,`last_name`, `roll`, `class_roll`, `fName`, `mName`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`, `quota`, `bloodGroup`, `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `password`, `email`, `code`, `image`, `last_notification`, `status`) 
-                     VALUES ('$id','$first_name','$last_name','$roll','','$f_name','$m_name','$phone_number','$present_address','$permanent_address','$dob','$gender','$religion','','$quota','$blood_group','$roll','','','','$password','$email','$code','$image','','0')";
+                     $sql="INSERT INTO `applicants`(`id`, `first_name`,`last_name`, `roll`, `class_roll`, `fName`, `mName`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`, `quota`, `bloodGroup`, `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `password`, `email`, `code`, `image`, `last_notification`,`final_submit`, `status`) 
+                     VALUES ('$id','$first_name','$last_name','$roll','','$f_name','$m_name','$phone_number','$present_address','$permanent_address','$dob','$gender','$religion','','$quota','$blood_group','$roll','','','','$password','$email','$code','$image','','0','0')";
                      send_email($email,'Your account has been created. <a href="'.FRONT_SITE_PATH.'/verify?email='.$email.'&code='.$code.'">Verify Email</a>','Account Created');
                      mysqli_query($con,$sql);
                      $display='style="display:none;"';

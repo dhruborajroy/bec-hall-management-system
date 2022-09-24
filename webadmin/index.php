@@ -24,7 +24,7 @@
             </div>
             <div class="col-6">
                <div class="item-content">
-                  <div class="item-title">Students</div>
+                  <div class="item-title">Applicants</div>
                   <div class="item-number"><span class="counter" data-num="<?php echo $students=gettotalstudent()?>"><?php echo $students?></span></div>
                </div>
             </div>

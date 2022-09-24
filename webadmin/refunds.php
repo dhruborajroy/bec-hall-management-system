@@ -18,7 +18,7 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select refund_payment.*, applicants.first_name, applicants.last_name  from refund_payment,applicants where refund_payment.user_id=applicants.id";
+$sql="select refund_payment.*, applicants.first_name, applicants.last_name  from refund_payment,applicants ";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->

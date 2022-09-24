@@ -37,13 +37,13 @@
                            </div>
                            <ul>
                               <li class="nav-item">
-                                 <a href="payments" class="nav-link  <?php echo $payments_active?>">
-                                 <i class="feather-dollar-sign"></i> Payment
+                                 <a href="profile" class="nav-link  <?php echo $profile_active?>">
+                                 <i class="feather-settings"></i> Apply
                                  </a>
                               </li>
                               <li class="nav-item">
-                                 <a href="profile" class="nav-link  <?php echo $profile_active?>">
-                                 <i class="feather-settings"></i> Edit Profile
+                                 <a href="payments" class="nav-link  <?php echo $payments_active?>">
+                                 <i class="feather-dollar-sign"></i> Payment
                                  </a>
                               </li>
                               <li class="nav-item">

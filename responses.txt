@@ -1,0 +1,26 @@
+Array
+(
+    [statusCode] => 0000
+    [statusMessage] => Successful
+    [paymentID] => TR0011YX1663991866785
+    [payerReference] => 01770618575
+    [customerMsisdn] => 01770618575
+    [trxID] => 9IO707V0GD
+    [amount] => 122
+    [transactionStatus] => Completed
+    [paymentExecuteTime] => 2022-09-24T09:59:46:041 GMT+0600
+    [currency] => BDT
+    [intent] => sale
+    [merchantInvoiceNumber] => admission_632e80460b075
+)
+Array
+(
+    [statusCode] => 2029
+    [statusMessage] => Duplicate for All Transactions
+)
+Array
+(
+    [paymentID] => TR0011XJ1663992968067
+    [status] => failure
+    [apiVersion] => 1.2.0-beta
+)

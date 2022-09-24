@@ -18,7 +18,12 @@ $sql="select * from `applicants` where id='".$_SESSION['APPLICANT_ID']."'";
 $total_amount=122;
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 
-if(isset($_POST['bkash'])){
+if(isset($_GET['status'])){
+   $status=get_safe_value($_GET['status']);
+   $error='<script>swal("'.$_GET['status'].'", "'.$_GET['status'].'", "error")</script>';
+
+}
+   if(isset($_POST['bkash'])){
    $amount=round($total_amount,2);
    $token=timeWiseTokenGeneartion();
    // pr($token);
@@ -119,7 +124,6 @@ if (isset($_POST['sslcommerz'])){
                               <?php 
                               $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
                               $res=mysqli_query($con,$sql);
-                              if(mysqli_num_rows($res)>1){}else{
                               ?>
                               <form  method="post">
                               <div class="go-dashboard text-center ">
@@ -131,7 +135,7 @@ if (isset($_POST['sslcommerz'])){
                                     <!-- <button type="submit" name="sslcommerz" class="btn btn-primary">Pay Using Online Payment</button> -->
                               </div>
                               </form>
-                              <?php }?>
+                              <?php //}?>
                               <div class="settings-invoice-blk table-responsive comman-space pb-0">
                                  <h4 align="center">Payments</h4>
                                  <table class="table table-borderless mb-0">

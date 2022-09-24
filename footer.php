@@ -89,6 +89,7 @@
       </div>
       <script src="assets/js/jquery-3.6.0.min.js"></script>
       <script src="assets/js/bootstrap.bundle.min.js"></script>
+      <!-- <script src="assets/plugins/select2/js/select2.min.js"></script> -->
       <script src="assets/plugins/feather/feather.min.js"></script>
       <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
       <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>

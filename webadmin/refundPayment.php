@@ -7,17 +7,16 @@ $sku="";
 $id="";
 $amount="";
 $class="";
+$alert_class="";
 $msg="";
 if(isset($_GET['payment_id']) && $_GET['payment_id']!=""){
 	$payment_id=get_safe_value($_GET['payment_id']);
     $res=mysqli_query($con,"select * from `refund_payment` where tran_id='$payment_id'");
     if(mysqli_num_rows($res)>0){
-        $row=mysqli_fetch_assoc($res);
+        // $row=mysqli_fetch_assoc($res);
         $class="d-none";
+        $alert_class="danger";
         $msg="Refund already initiated";
-    }else{
-        $_SESSION['PERMISSION_ERROR']=1;
-        redirect("index");
     }
 }else{
     $_SESSION['PERMISSION_ERROR']=1;
@@ -34,7 +33,6 @@ if(isset($_POST['submit'])){
         $reason=get_safe_value($_POST['reason']);
         $time=time();
         $token=timeWiseTokenGeneartion();
-        // pr($token);
         $sql="select bkash_credentials.id_token,bkash_online_payment.bkash_payment_id,bkash_online_payment.trxID from bkash_credentials,bkash_online_payment  where bkash_credentials.id='1' and bkash_online_payment.tran_id='$payment_id' limit 1";
         $rows=mysqli_fetch_assoc(mysqli_query($con,$sql));
         $refundData=array(
@@ -63,6 +61,7 @@ if(isset($_POST['submit'])){
             }
             if ($data['transactionStatus']=="Completed") {
                 $msg="Refund Completed";
+                $alert_class="success";
             }
         }else{
             pr($data);   
@@ -77,7 +76,7 @@ if(isset($_POST['submit'])){
         <h3>Refund Dashboard</h3>
         <ul>
             <li>
-                <a href="index.php">Home</a>
+                <a href="index">Home</a>
             </li>
             <li>Refund Payment </li>
         </ul>
@@ -91,7 +90,9 @@ if(isset($_POST['submit'])){
                     <div class="heading-layout1">
                         <div class="item-title">
                             <h3>Create A Refund</h3>
-                            <?php echo $msg?>
+                            <div align="center" class="alert alert-<?php echo $alert_class?> justify-content-center" role="alert">
+                                <?php echo $msg?>
+                            </div>
                         </div>
                     </div>
                     <form id="validate" class="new-added-form <?php echo $class?>" method="post">
