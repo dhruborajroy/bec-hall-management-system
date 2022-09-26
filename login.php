@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
                $msg="You are aleady registered. Please login";
                $_SESSION['APPLICANT_LOGIN']=true;
                $_SESSION['APPLICANT_ID']=$row['id'];
-               $_SESSION['APPLICANT_NAME']=$row['name'];
+               $_SESSION['APPLICANT_NAME']=$row['first_name']." ".$row['last_name'];
                // sendLoginEmail($row['email']);
                redirect('dashboard');
                die();
