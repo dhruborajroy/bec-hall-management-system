@@ -15,26 +15,11 @@
                      </div>
                      <div class="col-lg-2 col-md-6">
                         <div class="footer-widget footer-menu">
-                           <h2 class="footer-title">For Instructor</h2>
-                           <ul>
-                              <li><a href="instructor-profile.html">Profile</a></li>
-                              <li><a href="login.html">Login</a></li>
-                              <li><a href="register.html">Register</a></li>
-                              <li><a href="instructor-list.html">Instructor</a></li>
-                              <li><a href="deposit-instructor-dashboard.html"> Dashboard</a></li>
                            </ul>
                         </div>
                      </div>
                      <div class="col-lg-2 col-md-6">
                         <div class="footer-widget footer-menu">
-                           <h2 class="footer-title">For Student</h2>
-                           <ul>
-                              <li><a href="student-profile.html">Profile</a></li>
-                              <li><a href="login.html">Login</a></li>
-                              <li><a href="register.html">Register</a></li>
-                              <li><a href="students-list.html">Student</a></li>
-                              <li><a href="deposit-student-dashboard.html"> Dashboard</a></li>
-                           </ul>
                         </div>
                      </div>
                      <div class="col-lg-4 col-md-6">
@@ -99,6 +84,30 @@
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <script src="assets/js/script.js"></script>
       <script>
+         //info
+         //warning
+         //success
+         //error
+         function toastrMsg(msgType,title,body){
+            toastr.options = {
+               "closeButton": true,
+               "debug": false,
+               "newestOnTop": true,
+               "progressBar": true,
+               "positionClass": "toast-top-right",
+               "preventDuplicates": false,
+               "onclick": null,
+               "showDuration": "30",
+               "hideDuration": "1000",
+               "timeOut": "30000",
+               "extendedTimeOut": "1000",
+               "showEasing": "swing",
+               "hideEasing": "linear",
+               "showMethod": "fadeIn",
+               "hideMethod": "fadeOut"
+            }
+            toastr["warning"]("Message", "Dhrubo");
+         }
       </script>
    </body>
 </html>

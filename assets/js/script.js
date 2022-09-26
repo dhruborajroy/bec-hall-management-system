@@ -351,8 +351,5 @@
             console.error(err.stack);
         });
     }
-})(jQuery);
 
-function showMessage(messageType,title,message){
-    toastr[messageType](title, message);
-}
+})(jQuery);

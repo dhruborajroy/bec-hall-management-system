@@ -159,5 +159,5 @@ if(isset($_SESSION['PAYMENT_ERROR'])){
 }
 ?>
 <script>
-   showMessage('messageType','title','message');
+   toastrMsg('warning',"Ss","sd");
 </script>
