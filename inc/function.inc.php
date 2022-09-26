@@ -15,7 +15,6 @@ function get_safe_value($str){
 	$str=mysqli_real_escape_string($con,$str);
 	return $str;
 }
-
 function redirect($link){
 	?>
 <script>

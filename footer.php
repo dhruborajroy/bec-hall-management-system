@@ -106,7 +106,7 @@
                "showMethod": "fadeIn",
                "hideMethod": "fadeOut"
             }
-            toastr["warning"]("Message", "Dhrubo");
+            toastr[msgType](body, title);
          }
       </script>
    </body>

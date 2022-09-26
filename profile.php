@@ -15,7 +15,13 @@ if(isset($_POST['submit'])){
    $legalGuardianName=get_safe_value($_POST['legalGuardianName']);
    $legalGuardianRelation=get_safe_value($_POST['legalGuardianRelation']);
    if(mysqli_query($con,"Update applicants set `first_name`='$first_name',`last_name`='$last_name', `presentAddress`='$presentAdddress',`permanentAddress`='$permanentAdddress' ,`legalGuardianName`='$legalGuardianName' ,`legalGuardianRelation`='$legalGuardianRelation' where id='$uid'")){
-      $msg="Updated";
+      // $msg="Updated";
+      // splash_msg('success','Data updated','Updated');
+      $_SESSION['TOASTR_MSG']=array(
+         'type'=>'success',
+         'body'=>'Data Updated',
+         'title'=>'Updated',
+      );
    }
 }
 ?>
@@ -194,23 +200,30 @@ if(isset($_POST['submit'])){
                                     </div>
                                  </div>
                               </div>
-                              <div class="row">
-                                 <div class="cart-head">
-                                    <h4>Local Gardian Details</h4>
-                                 </div>
-                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                       <label class="form-control-label">Local Guardian's Name</label>
-                                       <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
-                                    </div>
-                                 </div>
-                                 <div class="col-lg-6">
-                                    <div class="form-group">
-                                       <label class="form-control-label">Local Guardian Relation</label>
-                                       <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
-                                    </div>
-                                 </div>
+                        </div>
+                     </div>
+
+
+                     <div class="col-md-12">
+                     <div class="settings-widget">
+                        <div class="settings-inner-blk p-0">
+                           <div class="sell-course-head comman-space">
+                              <h3>Local Gardian Details</h3>
                                  <div class="col-lg-12 row">
+                                 <div class="row">
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian's Name</label>
+                                          <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian Relation</label>
+                                          <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                       </div>
+                                    </div>
+                                 </div>
                                     <div class="col-lg-4">
                                     </div>
                                     <div class="col-lg-2">
@@ -224,7 +237,155 @@ if(isset($_POST['submit'])){
                                     <div class="col-lg-4">
                                     </div>
                                  </div>
-                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="settings-widget">
+                        <div class="settings-inner-blk p-0">
+                           <div class="sell-course-head comman-space">
+                              <h3>Local Gardian Details</h3>
+                                 <div class="col-lg-12 row">
+                                 <div class="row">
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian's Name</label>
+                                          <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian Relation</label>
+                                          <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                       </div>
+                                    </div>
+                                 </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                    <div class="col-lg-2">
+                                          <button type="submit" name="submit"  class="btn btn-primary">Save & Exit</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                       <a href="#" data-bs-toggle="modal" data-bs-target="#finalSubmit">
+                                          <button type="submit" name="finalSubmit"  class="btn btn-primary">Final Submit</button>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                 </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="settings-widget">
+                        <div class="settings-inner-blk p-0">
+                           <div class="sell-course-head comman-space">
+                              <h3>Local Gardian Details</h3>
+                                 <div class="col-lg-12 row">
+                                 <div class="row">
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian's Name</label>
+                                          <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian Relation</label>
+                                          <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                       </div>
+                                    </div>
+                                 </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                    <div class="col-lg-2">
+                                          <button type="submit" name="submit"  class="btn btn-primary">Save & Exit</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                       <a href="#" data-bs-toggle="modal" data-bs-target="#finalSubmit">
+                                          <button type="submit" name="finalSubmit"  class="btn btn-primary">Final Submit</button>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                 </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="settings-widget">
+                        <div class="settings-inner-blk p-0">
+                           <div class="sell-course-head comman-space">
+                              <h3>Local Gardian Details</h3>
+                                 <div class="col-lg-12 row">
+                                 <div class="row">
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian's Name</label>
+                                          <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian Relation</label>
+                                          <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                       </div>
+                                    </div>
+                                 </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                    <div class="col-lg-2">
+                                          <button type="submit" name="submit"  class="btn btn-primary">Save & Exit</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                       <a href="#" data-bs-toggle="modal" data-bs-target="#finalSubmit">
+                                          <button type="submit" name="finalSubmit"  class="btn btn-primary">Final Submit</button>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                 </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-md-12">
+                     <div class="settings-widget">
+                        <div class="settings-inner-blk p-0">
+                           <div class="sell-course-head comman-space">
+                              <h3>Local Gardian Details</h3>
+                                 <div class="col-lg-12 row">
+                                 <div class="row">
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian's Name</label>
+                                          <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                       <div class="form-group">
+                                          <label class="form-control-label">Local Guardian Relation</label>
+                                          <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                       </div>
+                                    </div>
+                                 </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                    <div class="col-lg-2">
+                                          <button type="submit" name="submit"  class="btn btn-primary">Save & Exit</button>
+                                    </div>
+                                    <div class="col-lg-2">
+                                       <a href="#" data-bs-toggle="modal" data-bs-target="#finalSubmit">
+                                          <button type="submit" name="finalSubmit"  class="btn btn-primary">Final Submit</button>
+                                       </a>
+                                    </div>
+                                    <div class="col-lg-4">
+                                    </div>
+                                 </div>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -250,6 +411,14 @@ if(isset($_POST['submit'])){
             </div>
          </div>
       </div>
-
-      </form>
-<?php include("footer.php")?>
+   </form>
+<?php 
+include("footer.php");
+if(isset($_SESSION['TOASTR_MSG'])){?>
+   <script>
+      toastrMsg('<?php echo $_SESSION['TOASTR_MSG']['type']?>',"<?php echo $_SESSION['TOASTR_MSG']['body']?>","<?php echo $_SESSION['TOASTR_MSG']['title']?>");
+   </script>
+<?php 
+unset($_SESSION['TOASTR_MSG']);
+}
+?>

@@ -151,13 +151,17 @@ if(isset($_GET['status'])){
                </div>
             </div>
          </div>
-<?php include("footer.php")?>
 <?php 
+include("footer.php");
+if(isset($_SESSION['TOASTR_MSG'])){?>
+   <script>
+      toastrMsg('<?php echo $_SESSION['TOASTR_MSG']['type']?>',"<?php echo $_SESSION['TOASTR_MSG']['body']?>","<?php echo $_SESSION['TOASTR_MSG']['title']?>");
+   </script>
+<?php 
+unset($_SESSION['TOASTR_MSG']);
+}
 if(isset($_SESSION['PAYMENT_ERROR'])){
    echo $_SESSION['PAYMENT_ERROR'];
    unset($_SESSION['PAYMENT_ERROR']);
 }
 ?>
-<script>
-   toastrMsg('warning',"Ss","sd");
-</script>
