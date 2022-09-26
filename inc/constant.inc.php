@@ -13,6 +13,7 @@ define("APP_SECRET","2is7hdktrekvrbljjh44ll3d9l1dtjo4pasmjvs5vl5qr3fug4b");
 define("USERNAME","sandboxTokenizedUser02");
 define("PASSWORD","sandboxTokenizedUser02@12345");
 define("BASE_URL",'https://tokenized.sandbox.bka.sh/v1.2.0-beta');
+define("FORM_AMOUNT",100);
 
 $curStr=$_SERVER['REQUEST_URI'];
 $curArr=explode('/',$curStr);

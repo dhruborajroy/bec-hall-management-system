@@ -499,13 +499,15 @@ function refundPayment($id_token,$trxID,$data){
         'sku'=>$data['sku'],
         'reason'=>$data['reason'],
     );
-    $url = curl_init(BASE_URL.'/tokenized/checkout/payment/refund');
     $requestbodyJson = json_encode($requestbody);
+    // die;
+    $url = curl_init(BASE_URL.'/tokenized/checkout/payment/refund');
     $header = array(
         'Content-Type:application/json',
         'Authorization: ' . $id_token,
         'X-APP-Key:'.APP_KEY
     );
+    // die;
     curl_setopt($url, CURLOPT_HTTPHEADER, $header);
     curl_setopt($url, CURLOPT_CUSTOMREQUEST, "POST");
     curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
@@ -517,6 +519,31 @@ function refundPayment($id_token,$trxID,$data){
     $data = json_decode($data,true);
     return $data;
 }
+
+function refundStatus($id_token,$trxID,$data){
+    $header = array(
+        'Content-Type:application/json',
+        'Authorization: ' . $id_token,
+        'X-APP-Key:'.APP_KEY
+    );
+    $requestbody = array(
+        'paymentID' => $data['paymentID'],
+        'trxID'=>$trxID, //pass tran id
+    );
+    $requestbodyJson = json_encode($requestbody);
+    $url = curl_init(BASE_URL.'/tokenized/checkout/payment/refund');
+    curl_setopt($url, CURLOPT_HTTPHEADER, $header);
+    curl_setopt($url, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($url, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($url, CURLOPT_POSTFIELDS, $requestbodyJson);
+    curl_setopt($url, CURLOPT_FOLLOWLOCATION, 1);
+    curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+    $data = curl_exec($url);
+    curl_close($url);
+    $data = json_decode($data,true);
+    return $data;
+}
+
 function searchTransection($tran_id,$id_token){
     $requestbody = array(
         'trxID' => $tran_id

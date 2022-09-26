@@ -352,3 +352,7 @@
         });
     }
 })(jQuery);
+
+function showMessage(messageType,title,message){
+    toastr[messageType](title, message);
+}

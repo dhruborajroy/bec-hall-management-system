@@ -95,7 +95,10 @@
       <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
       <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
       <script src="assets/plugins/apexchart/chart-data.js"></script>
+      <script src="assets/js/toastr.min.js"></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <script src="assets/js/script.js"></script>
+      <script>
+      </script>
    </body>
 </html>

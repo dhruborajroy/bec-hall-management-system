@@ -200,5 +200,6 @@ $mpdf=new \Mpdf\Mpdf([
 $mpdf->SetTitle('Admit Card');
 $mpdf->SetFooter('|| Developed By The Web Divers');
 $mpdf->WriteHTML($html);
+$mpdf->Image('../assets/img/du_logo.png', 130, 67, 30, 30, 'png', '', true, true);
 $file="Admit_".time().'.pdf';
 $mpdf->output($file,'I');

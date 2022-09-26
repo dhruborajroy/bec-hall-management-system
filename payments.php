@@ -16,7 +16,7 @@ if(!isset($_SESSION['APPLICANT_LOGIN'])){
 }
 $user_id=$_SESSION['APPLICANT_ID'];
 $sql="select * from `applicants` where id='".$_SESSION['APPLICANT_ID']."'";
-$total_amount=122;
+$total_amount=round(intval(FORM_AMOUNT)*1.24,2);
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 if(isset($_GET['status'])){
    $status=get_safe_value($_GET['status']);
@@ -64,7 +64,7 @@ if(isset($_GET['status'])){
                                        ( '$merchantInvoiceNumber', '$user_id','$paymentID',  '',   '', '$amount', '','$paymentCreateTime', '', 'pending')";
          if(mysqli_query($con,$sql)){
             redirect($createPayment['bkashURL']);
-            // die;
+            die;
          }else{
             $msg="Something Went Wrong";
          }
@@ -82,14 +82,14 @@ if(isset($_GET['status'])){
                      <div class="settings-widget profile-details">
                         <div class="settings-inner-blk p-0">
                            <div class="comman-space pb-0">
+                              <?php echo $msg?>
                               <?php 
                               $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
                               $res=mysqli_query($con,$sql);
-                              if(mysqli_num_rows($res)>!0){
+                              if(mysqli_num_rows($res)>!0){}else{
                               ?>
                               <form  method="post">
                               <div class="go-dashboard text-center ">
-                                    <?php echo $msg?>
                                     <br>
                                     <button type="submit" name="bkash" >
                                        <img src="./assets/img/bkash.png" weight="100px" height="70px" alt="Bkash Payment" >
@@ -104,17 +104,17 @@ if(isset($_GET['status'])){
                                     <thead>
                                        <tr>
                                           <th>Order id</th>
-                                          <th>TrxID</th>
                                           <th>amount</th>
                                           <th>Date</th>
+                                          <th>TrxID</th>
                                           <th>Payment Details</th>
                                           <th>status</th>
-                                          <!-- <th>&nbsp;</th> -->
+                                          <th>Download</th>
                                        </tr>
                                     </thead>
                                     <tbody>
                                        <?php
-                                       $sql="select * from bkash_online_payment where user_id='".$_SESSION['APPLICANT_ID']."' and status!='pending'";
+                                       $sql="select * from bkash_online_payment where user_id='".$_SESSION['APPLICANT_ID']."' and status!='pending' order by updated_on desc";
                                        $res=mysqli_query($con,$sql);
                                        if(mysqli_num_rows($res)>0){
                                        $i=1;
@@ -122,16 +122,16 @@ if(isset($_GET['status'])){
                                        ?>
                                        <tr>
                                           <td><a href="invoice?invoice=<?php echo $row['tran_id']?>" class="invoice-no">#<?php echo $row['tran_id']?></a></td>
-                                          <td><?php echo $row['trxID']?></td>
                                           <td><?php echo $row['amount']?></td>
                                           <td><?php echo date("d M Y h:i A",$row['updated_on'])?></td>
-                                          <td><?php echo $row['statusMessage']?></td>
+                                          <td><?php echo $row['trxID']?></td>
                                           <?php if($row['status']=='Completed'){?>
                                              <td><span class="badge status-completed"><?php echo $row['status']?></span></td>
                                           <?php }else{?>
                                              <td><span class="badge status-due"><?php echo ucfirst($row['status'])?></span></td>
                                           <?php }?>
-                                          <!-- <td><a href="javascript:;" class="btn-style"><i class="feather-download"></i></a></td> -->
+                                          <td><?php echo $row['statusMessage']?></td>
+                                          <td><a href="pdfreports/invoice" class="btn-style"><i class="feather-download"></i></a></td>
                                        </tr>
                                        <?php 
                                           $i++;
@@ -158,3 +158,6 @@ if(isset($_SESSION['PAYMENT_ERROR'])){
    unset($_SESSION['PAYMENT_ERROR']);
 }
 ?>
+<script>
+   showMessage('messageType','title','message');
+</script>
