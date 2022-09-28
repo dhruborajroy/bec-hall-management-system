@@ -367,8 +367,8 @@ function grandToken(){
     $request_data_json=json_encode($request_data);
     $header = array(
         'Content-Type:application/json',
-        'username:sandboxTokenizedUser02',               
-        'password:sandboxTokenizedUser02@12345'
+        'username:'.USERNAME,               
+        'password:'.PASSWORD
     );
     curl_setopt($url,CURLOPT_HTTPHEADER, $header);
     curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");

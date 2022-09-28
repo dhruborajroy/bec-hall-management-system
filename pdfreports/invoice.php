@@ -146,6 +146,27 @@ $html.='
     </tr>';
 $html.="</table>";
 
+$html.='<table class="table" width="100%" style="margin-top:20px;border: 0px solid black;border-collapse: collapse;">';
+$html.='
+    <tr>
+        <td style="font-size:12px" align="left">                    
+            Generated On: '.date("d M Y h:i A").'
+        </td>
+    </tr>';
+$html.="</table>";
+
+$html.='<table class="table" width="100%" style="margin-top:50px;border: 1px solid black;border-collapse: collapse;">';
+$html.='
+    <tr>
+        <td style="font-size:12px" align="left">                    
+            <span align="left">This is computer generated invoice. No signature is required</span>
+        </td>
+        <td align="right" style="font-size:12px">              
+            <span >Developed by The Web Divers</span>
+        </td>
+    </tr>';
+$html.="</table>";
+
 // echo $html;
 $mpdf=new \Mpdf\Mpdf([
     'tempDir' => __DIR__ . '/custom/temp/dir/path',

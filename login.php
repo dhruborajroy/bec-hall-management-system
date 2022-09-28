@@ -18,8 +18,13 @@ if(isset($_POST['submit'])){
 	if(mysqli_num_rows($res)>0){
 		$row=mysqli_fetch_assoc($res);
 		if($row['status']!=1){
+         $_SESSION['TOASTR_MSG']=array(
+            'type'=>'warning',
+            'body'=>'You haven\'t verified your email yet. Please verify the email',
+            'title'=>'Email Error',
+         );
          $class='class="alert alert-danger"'; 
-			$msg="You haven't verified your email yet. Please verify the email";
+			// $msg="You haven't verified your email yet. Please verify the email";
 		}else{
             $verify=password_verify($password,$row['password']);
             if($verify==1){
@@ -31,8 +36,14 @@ if(isset($_POST['submit'])){
                redirect('dashboard');
                die();
             }else{
-               $class='class="alert alert-danger" style="padding:10px;margin:100px"';  
-		         $msg="Please Enter correct Login details";
+               $_SESSION['TOASTR_MSG']=array(
+                  'type'=>'error',
+                  'body'=>'Please Enter correct Login details',
+                  'title'=>'Error',
+               );
+         
+               // $class='class="alert alert-danger" style="padding:10px;margin:100px"';  
+		         // $msg="Please Enter correct Login details";
             }
 		}
       // echo $sql;
@@ -55,6 +66,7 @@ if(isset($_POST['submit'])){
       <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
       <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
       <link rel="stylesheet" href="assets/plugins/feather/feather.css">
+      <link rel="stylesheet" href="assets/css/toastr.min.css">
       <link rel="stylesheet" href="assets/css/style.css">
    </head>
    <body>
@@ -140,6 +152,43 @@ if(isset($_POST['submit'])){
       <script src="assets/js/jquery-3.6.0.min.js"></script>
       <script src="assets/js/bootstrap.bundle.min.js"></script>
       <script src="assets/js/owl.carousel.min.js"></script>
+      <script src="assets/js/toastr.min.js"></script>
       <script src="assets/js/script.js"></script>
+      <script>
+         //info
+         //warning
+         //success
+         //error
+         function toastrMsg(msgType,title,body){
+            toastr.options = {
+               "closeButton": true,
+               "debug": false,
+               "newestOnTop": true,
+               "progressBar": true,
+               "positionClass": "toast-top-right",
+               "preventDuplicates": false,
+               "onclick": null,
+               "showDuration": "30",
+               "hideDuration": "1000",
+               "timeOut": "30000",
+               "extendedTimeOut": "1000",
+               "showEasing": "swing",
+               "hideEasing": "linear",
+               "showMethod": "fadeIn",
+               "hideMethod": "fadeOut"
+            }
+            toastr[msgType](body, title);
+         }
+      </script>
    </body>
 </html>
+
+<?php 
+if(isset($_SESSION['TOASTR_MSG'])){?>
+   <script>
+      toastrMsg('<?php echo $_SESSION['TOASTR_MSG']['type']?>',"<?php echo $_SESSION['TOASTR_MSG']['body']?>","<?php echo $_SESSION['TOASTR_MSG']['title']?>");
+   </script>
+<?php 
+unset($_SESSION['TOASTR_MSG']);
+}
+?>

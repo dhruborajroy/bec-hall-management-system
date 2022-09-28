@@ -37,10 +37,19 @@ if(isset($_POST['submit'])){
 	$religion=get_safe_value($_POST['religion']);
    if(mysqli_num_rows(mysqli_query($con,"select id from applicants where phoneNumber='$phone_number'"))>0){
       $class='class="alert alert-danger"';
-         $msg="Phone number is already added";
+      $_SESSION['TOASTR_MSG']=array(
+         'type'=>'error',
+         'body'=>'Phone number is already added',
+         'title'=>'Error',
+      ); 
    }elseif(mysqli_num_rows(mysqli_query($con,"select id from applicants where email='$email'"))>0){
-      $class='class="alert alert-danger"';  
-      $msg="Email is already added";
+      $class='class="alert alert-danger"'; 
+      $_SESSION['TOASTR_MSG']=array(
+         'type'=>'error',
+         'body'=>'Email is already added',
+         'title'=>'Error',
+      ); 
+    //   $msg="Email is already added";
    }else{
       if($id==''){
          $info=getimagesize($_FILES['image']['tmp_name']);
@@ -52,16 +61,24 @@ if(isset($_POST['submit'])){
              }elseif($info['mime']=="image/png"){
                  $img=imagecreatefrompng($_FILES['image']['tmp_name']);
              }else{
-                  $class='class="alert alert-danger"';  
-                  $msg= "Only select jpg or png image";
+                  $_SESSION['TOASTR_MSG']=array(
+                     'type'=>'error',
+                     'body'=>'Only select jpg or png image',
+                     'title'=>'Error',
+                  );
              }
              if(isset($img)){
                  // if ($width > "300" || $height > "200"){
                  //     echo "Image dimension should be within 300X200";
                  // }
                  // else
-                 if (($_FILES["image"]["size"] > 300000000)) {//2000000 = 2Mb
-                     $msg= "Image size exceeds 300 MB";
+                 if (($_FILES["image"]["size"] > 1000000)) {//2000000 = 2Mb
+                     // $msg= "Image size exceeds 300 MB";
+                     $_SESSION['TOASTR_MSG']=array(
+                        'type'=>'error',
+                        'body'=>'Image size exceeds 1 MB',
+                        'title'=>'Error',
+                     );
                  }else{
                      $id=uniqid();
                      $code=rand(111111,999999);
@@ -71,18 +88,26 @@ if(isset($_POST['submit'])){
                      $sql="INSERT INTO `applicants`(`id`, `first_name`,`last_name`, `roll`, `class_roll`, `fName`, `mName`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`, `quota`, `bloodGroup`, `examRoll`, `merit`, `legalGuardianName`, `legalGuardianRelation`, `password`, `email`, `code`, `image`, `last_notification`,`final_submit`, `status`) 
                      VALUES ('$id','$first_name','$last_name','$roll','','$f_name','$m_name','$phone_number','$present_address','$permanent_address','$dob','$gender','$religion','','$quota','$blood_group','$roll','','','','$password','$email','$code','$image','','0','0')";
                      send_email($email,'Your account has been created. <a href="'.FRONT_SITE_PATH.'/verify?email='.$email.'&code='.$code.'">Verify Email</a>','Account Created');
-                     mysqli_query($con,$sql);
-                     $display='style="display:none;"';
-                     $class='class="alert alert-success"';
-                     $msg="An Email has been sent to your $email account. Please Verify your email & login.";
-                     // echo $sql;
-                     $_SESSION['INSERT']=1;
+                     if(mysqli_query($con,$sql)){
+                        $_SESSION['TOASTR_MSG']=array(
+                           'type'=>'success',
+                           'body'=>'An Email has been sent to your '.$email.' account. Please Verify your email & login.',
+                           'title'=>'Error',
+                        );
+                        $display='style="display:none;"';
+                        // $class='class="alert alert-success"';
+                        // $msg="An Email has been sent to your $email account. Please Verify your email & login.";
+                        $_SESSION['INSERT']=1;
+                     }
                      // redirect("users.php");
                  }
              }
          }else{
-            $class='class="alert alert-danger"';  
-             $msg= "Only select jpg or png image";
+             $_SESSION['TOASTR_MSG']=array(
+                'type'=>'success',
+                'body'=>'Only select jpg or png image',
+                'title'=>'Error',
+             );
          }
       }
    }
@@ -114,7 +139,7 @@ if(isset($_POST['submit'])){
                               <div class="cart-head">
                                     <h4>Applicant Form</h4>
                                  <center>
-                                    <span <?php echo $class?>><?php echo $msg?></span>
+                                    <!-- <span <?php //echo $class?>><?php //echo $msg?></span> -->
                                  </center>
                               </div>
                               <div class="checkout-form" <?php echo $display?>>
@@ -135,7 +160,7 @@ if(isset($_POST['submit'])){
                                        <div class="col-lg-12">
                                           <div class="form-group">
                                              <label class="form-control-label">Photo</label>
-                                             <input type="file" name="image"  value="<?php echo $image?>"  id="file_ip_1" accept="image/*" onchange="showPreview(event);" required="" value="">   
+                                             <input type="file" name="image"  accept="image/jpg" >   
                                           </div>
                                        </div>
                                        <div class="col-lg-6">
@@ -298,7 +323,7 @@ if(isset($_POST['submit'])){
                                        <div class="col-lg-6">
                                           <div class="form-group">
                                              <label class="form-control-label">Confirm Password</label>
-                                             <input type="password" name="password" value="<?php echo $password?>" id="password" class="form-control" placeholder="Confirm password">
+                                             <input type="password" name="cpassword"  id="cpassword" class="form-control" placeholder="Confirm password">
                                           </div>
                                        </div>
                                        <div class="payment-btn" style="text-align:center;">
@@ -315,4 +340,13 @@ if(isset($_POST['submit'])){
                   </div>
             </div>
          </section>
-<?php include("footer.php");?>
+<?php 
+include("footer.php");
+if(isset($_SESSION['TOASTR_MSG'])){?>
+   <script>
+      toastrMsg('<?php echo $_SESSION['TOASTR_MSG']['type']?>',"<?php echo $_SESSION['TOASTR_MSG']['body']?>","<?php echo $_SESSION['TOASTR_MSG']['title']?>");
+   </script>
+<?php 
+unset($_SESSION['TOASTR_MSG']);
+}
+?>

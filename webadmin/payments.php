@@ -85,9 +85,9 @@ $res=mysqli_query($con,$sql);
                                 <td class="badge badge-pill badge-warning d-block mg-t-8"><?php echo $row['status']?></td>
                             <?php }?>
                             <?php if($row['status']=="Completed"){?>
-                                <td class="dtr-control badge badge-pill badge-success d-block mg-t-8"><a href="refundPayment?payment_id=<?php echo $row['tran_id']?>" class="invoice-no">Refund</a></td>
+                                <td ><a class="dtr-control badge badge-pill badge-success d-block mg-t-8" href="refundPayment?payment_id=<?php echo $row['tran_id']?>" class="invoice-no">Refund</a></td>
                             <?php }else{?>
-                                <td class="badge badge-pill badge-warning d-block mg-t-8">Payment not completed Yet</td>
+                                <td><span  class="badge badge-pill badge-warning d-block mg-t-8"><?php echo $row['statusMessage']?></span></td>
                             <?php }?>
                                 
                         </tr>
