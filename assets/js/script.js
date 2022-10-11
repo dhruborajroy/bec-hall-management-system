@@ -75,8 +75,8 @@
         $('.sidebar-overlay').removeClass('opened');
         $('main-wrapper').removeClass('slide-nav');
     });
-    if ($('.select').length > 0) {
-        $('.select').select2({
+    if ($('.select2').length > 0) {
+        $('.select2').select2({
             minimumResultsForSearch: -1,
             width: '100%'
         });

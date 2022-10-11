@@ -416,7 +416,7 @@ function createPayment($id_token,$user_data){
         'amount' => $user_data['amount'],
         'currency' => 'BDT',
         'intent' => 'sale',
-        'payerReference' => '01770618575',
+        'payerReference' => '0',
         'merchantInvoiceNumber' => $user_data['tran_id'],
         'callbackURL' => $callbackURL
     );

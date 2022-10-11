@@ -16,7 +16,7 @@ if(!isset($_SESSION['APPLICANT_LOGIN'])){
 }
 $user_id=$_SESSION['APPLICANT_ID'];
 $sql="select * from `applicants` where id='".$_SESSION['APPLICANT_ID']."'";
-$total_amount=round(intval(FORM_AMOUNT)*1.24,2);
+$total_amount=round(intval(FORM_AMOUNT)*(1+SERVICE_CHARGE),2);
 $row=mysqli_fetch_assoc(mysqli_query($con,$sql));
 if(isset($_GET['status'])){
    $status=get_safe_value($_GET['status']);
@@ -106,6 +106,7 @@ if(isset($_GET['status'])){
                                           <th>Order id</th>
                                           <th>amount</th>
                                           <th>Date</th>
+                                          <th>Payment ID</th>
                                           <th>TrxID</th>
                                           <th>Payment Details</th>
                                           <th>status</th>
@@ -121,9 +122,10 @@ if(isset($_GET['status'])){
                                        while($row=mysqli_fetch_assoc($res)){
                                        ?>
                                        <tr>
-                                          <td><a href="invoice?invoice=<?php echo $row['tran_id']?>" class="invoice-no">#<?php echo $row['tran_id']?></a></td>
+                                          <td><a href="pdfreports/invoice?invoice_id=<?php echo $row['tran_id']?>" class="invoice-no">#<?php echo $row['tran_id']?></a></td>
                                           <td><?php echo $row['amount']?></td>
                                           <td><?php echo date("d M Y h:i A",$row['updated_on'])?></td>
+                                          <td><?php echo $row['bkash_payment_id']?></td>
                                           <td><?php echo $row['trxID']?></td>
                                           <?php if($row['status']=='Completed'){?>
                                              <td><span class="badge status-completed"><?php echo $row['status']?></span></td>
@@ -131,7 +133,7 @@ if(isset($_GET['status'])){
                                              <td><span class="badge status-due"><?php echo ucfirst($row['status'])?></span></td>
                                           <?php }?>
                                           <td><?php echo $row['statusMessage']?></td>
-                                          <td><a href="pdfreports/invoice" class="btn-style"><i class="feather-download"></i></a></td>
+                                          <td><a href="pdfreports/invoice?invoice_id=<?php echo $row['tran_id']?>" class="btn-style"><i class="feather-download"></i></a></td>
                                        </tr>
                                        <?php 
                                           $i++;

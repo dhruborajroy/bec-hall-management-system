@@ -74,7 +74,7 @@
       </div>
       <script src="assets/js/jquery-3.6.0.min.js"></script>
       <script src="assets/js/bootstrap.bundle.min.js"></script>
-      <!-- <script src="assets/plugins/select2/js/select2.min.js"></script> -->
+      <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
       <script src="assets/plugins/feather/feather.min.js"></script>
       <script src="assets/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
       <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
@@ -108,6 +108,38 @@
             }
             toastr[msgType](body, title);
          }
+
+         var x=1;
+         function validateImage(event){
+            document.getElementById('result').innerHTML='';
+            if(x==2){
+               document.getElementById('result').innerHTML="";
+               x=1;
+            }
+            var image=document.getElementById('image');
+            var filename=image.value;
+            if(filename!=''){
+               var extdot=filename.lastIndexOf(".")+1;
+               var ext=filename.substr(extdot,filename.lenght).toLowerCase();
+               if(ext=="jpg" || ext=="png" || ext=="jpeg"){
+                  x=2;
+                  var src=URL.createObjectURL(event.target.files[0]);
+                  // image.after(output);
+                  document.getElementById('result').innerHTML='<img class="image-preview"  src="'+src+'" height="300px" weight="300px"/>';
+               }else{
+                  document.getElementById('result').innerHTML='Please select only jpg and png file';
+               }
+            }
+         }
       </script>
    </body>
 </html>
+<?php
+if(isset($_SESSION['TOASTR_MSG'])){?>
+   <script>
+      toastrMsg('<?php echo $_SESSION['TOASTR_MSG']['type']?>',"<?php echo $_SESSION['TOASTR_MSG']['body']?>","<?php echo $_SESSION['TOASTR_MSG']['title']?>");
+   </script>
+<?php 
+unset($_SESSION['TOASTR_MSG']);
+}
+?>
