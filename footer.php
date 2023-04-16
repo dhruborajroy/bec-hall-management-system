@@ -80,57 +80,68 @@
       <script src="assets/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
       <script src="assets/plugins/apexchart/apexcharts.min.js"></script>
       <script src="assets/plugins/apexchart/chart-data.js"></script>
+      <script src="assets/js/datepicker.min.js"></script>
       <script src="assets/js/toastr.min.js"></script>
       <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
       <script src="assets/js/script.js"></script>
       <script>
+         var x=1;
+         function validateImage(event){
+            // alert();
+            console.log(event.target.files[0]);
+            if((event.target.files[0].size)/1024>=155){
+               $("#submit").prop("disabled", true);
+               toastr["error"]("Please select the photo size less than 150kb","Error");
+               return false;
+            }else{
+               document.getElementById('result').innerHTML='';
+               if(x==2){
+                  document.getElementById('result').innerHTML="";
+                  x=1;
+               }
+               var image=document.getElementById('image');
+               var filename=image.value;
+               if(filename!=''){
+                  var extdot=filename.lastIndexOf(".")+1;
+                  var ext=filename.substr(extdot,filename.lenght).toLowerCase();
+                  if(ext=="jpg" || ext=="png" || ext=="jpeg"){
+                     x=2;
+                     var src=URL.createObjectURL(event.target.files[0]);
+                     // image.after(output);
+                     $("#submit").prop("disabled", false);
+                     document.getElementById('result').innerHTML='<img class="image-preview"  src="'+src+'" height="300px" weight="300px"/>';
+                  }else{
+                     $("#submit").prop("disabled", false);
+                     document.getElementById('result').innerHTML='Please select only jpg and png file';
+                  }
+               }
+            }
+         }
+
          //info
          //warning
          //success
          //error
          function toastrMsg(msgType,title,body){
             toastr.options = {
-               "closeButton": true,
-               "debug": false,
-               "newestOnTop": true,
-               "progressBar": true,
-               "positionClass": "toast-top-right",
-               "preventDuplicates": false,
-               "onclick": null,
-               "showDuration": "30",
-               "hideDuration": "1000",
-               "timeOut": "30000",
-               "extendedTimeOut": "1000",
-               "showEasing": "swing",
-               "hideEasing": "linear",
-               "showMethod": "fadeIn",
-               "hideMethod": "fadeOut"
+                  "closeButton": true,
+                  "debug": false,
+                  "newestOnTop": true,
+                  "progressBar": true,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "onclick": null,
+                  "showDuration": "30",
+                  "hideDuration": "1000",
+                  "timeOut": "30000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
             }
             toastr[msgType](body, title);
-         }
-
-         var x=1;
-         function validateImage(event){
-            document.getElementById('result').innerHTML='';
-            if(x==2){
-               document.getElementById('result').innerHTML="";
-               x=1;
             }
-            var image=document.getElementById('image');
-            var filename=image.value;
-            if(filename!=''){
-               var extdot=filename.lastIndexOf(".")+1;
-               var ext=filename.substr(extdot,filename.lenght).toLowerCase();
-               if(ext=="jpg" || ext=="png" || ext=="jpeg"){
-                  x=2;
-                  var src=URL.createObjectURL(event.target.files[0]);
-                  // image.after(output);
-                  document.getElementById('result').innerHTML='<img class="image-preview"  src="'+src+'" height="300px" weight="300px"/>';
-               }else{
-                  document.getElementById('result').innerHTML='Please select only jpg and png file';
-               }
-            }
-         }
       </script>
    </body>
 </html>

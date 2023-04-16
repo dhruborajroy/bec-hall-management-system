@@ -75,7 +75,7 @@
         $('.sidebar-overlay').removeClass('opened');
         $('main-wrapper').removeClass('slide-nav');
     });
-    if ($('.select2').length > 0) {
+    if($('.select2').length > 0) {
         $('.select2').select2({
             minimumResultsForSearch: -1,
             width: '100%'
@@ -351,5 +351,20 @@
             console.error(err.stack);
         });
     }
-
+    if ($.fn.datepicker !== undefined) {
+        $('.air-datepicker').datepicker({
+            language: {
+                days: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                daysShort: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+                daysMin: ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
+                months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                today: 'Today',
+                clear: 'Clear',
+                dateFormat: 'dd/mm/yyyy',
+                firstDay: 0
+            }
+        });
+    }
 })(jQuery);
+

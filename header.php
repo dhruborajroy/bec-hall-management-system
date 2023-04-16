@@ -5,6 +5,9 @@ require("./inc/connection.inc.php");
 require("./inc/constant.inc.php");
 require("./inc/function.inc.php");
 require_once("./inc/smtp/class.phpmailer.php");
+// if(!isset($_SESSION['APPLICANT_LOGIN'])){
+//     redirect('login');
+// }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +22,7 @@ require_once("./inc/smtp/class.phpmailer.php");
       <link rel="stylesheet" href="assets/css/feather.css">
       <link rel="stylesheet" href="assets/plugins/select2/css/select2.min.css">
       <link rel="stylesheet" href="assets/css/toastr.min.css">
+      <link rel="stylesheet" href="assets/css/datepicker.min.css">
       <link rel="stylesheet" href="assets/css/style.css">
    </head>
    <body class="pop-modal">

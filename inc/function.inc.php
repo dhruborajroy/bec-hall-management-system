@@ -95,6 +95,9 @@ function vailidatePayment($tran_id){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_URL, "https://sandbox.sslcommerz.com/validator/api/merchantTransIDvalidationAPI.php?tran_id='$tran_id'&store_id=".STORE_ID."&store_passwd=".STORE_PASSWORD."&format=json");
 	$data = curl_exec($ch);
+    if (curl_errno($ch)) {
+        echo 'Error:' . curl_error($ch);
+    }
 	curl_close($ch);
 	$data=json_decode($data,1);
 	return $data;
@@ -226,6 +229,19 @@ function getMealRate($month_id){
 		return "0";
 	}
 }
+
+function addOrdinalNumberSuffix($num) {
+    if (!in_array(($num % 100),array(11,12,13))){
+      switch ($num % 10) {
+        // Handle 1st, 2nd, 3rd
+        case 1:  return $num.'<sup>st</sup>';
+        case 2:  return $num.'<sup>nd</sup>';
+        case 3:  return $num.'<sup>rd</sup>';
+      }
+    }
+    return $num.'<sup>th</sup>';
+}
+
 function numberTowords($num){
     $ones = array(
         0 => "ZERO",
@@ -324,8 +340,22 @@ function form_csrf(){
 	value="'.$csrf_token.'">';
 	return $html;
 }
-// Bkash Functions Starts here
 
+/*
+"Numbers": {
+        "Numbers": " 01770618575",
+        "Number1": " 01929918378",
+        "Number2": " 01770618576",
+        "Number3": " 01877722345",
+        "Number4": " 01619777282",
+        "Number5": " 01619777283",
+        "Insufficient": "01823074817",
+        "Debit Block": "01823074818"
+    },
+    "otp":"123456",
+    "pin":"12121"
+*/
+// Bkash Functions Starts here
 function timeWiseTokenGeneartion(){
     global $con;
     $sql="select time from bkash_credentials where id='1' limit 1";
@@ -377,6 +407,9 @@ function grandToken(){
     curl_setopt($url,CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     $data=curl_exec($url);
+    if (curl_errno($url)) {
+        echo 'Error:' . curl_error($url);
+    }
     curl_close($url);
     $data=json_decode($data,true);
     // echo "<pre>";
@@ -404,13 +437,16 @@ function refreshToken($refresh_token){
     curl_setopt($url,CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($url, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
     $data=curl_exec($url);
+    if (curl_errno($url)) {
+        echo 'Error:' . curl_error($url);
+    }
     curl_close($url);
     $data=json_decode($data,true);
     return $data;
 }
 
 function createPayment($id_token,$user_data){
-    $callbackURL='http://localhost/admission/executePayment.php';
+    $callbackURL=FRONT_SITE_PATH.'/executePayment.php';
     $requestbody = array(
         'mode' => '0011',
         'amount' => $user_data['amount'],
@@ -464,9 +500,6 @@ function executePayment($paymentID,$id_token){
     $data = json_decode($data,true);
     return $data;
 }
-
-
-
 function queryPayment($paymentID,$id_token){
     $requestbody = array(
         'paymentID' => $paymentID

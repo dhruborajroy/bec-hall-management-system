@@ -1,6 +1,7 @@
-<?php include("header.php"); 
+<?php 
+include("header.php"); 
 if(!isset($_SESSION['APPLICANT_LOGIN'])){
-   redirect('index.php');
+   // redirect('index.php');
 }?>
          <div class="page-content instructor-page-content">
             <div class="container">
@@ -12,8 +13,8 @@ if(!isset($_SESSION['APPLICANT_LOGIN'])){
                            <div class="card instructor-card w-100">
                               <div class="card-body">
                                  <div class="instructor-inner">
-                                    <h6>Result</h6>
-                                    <h4 class="instructor-text-success">27<sup>th</sup></h4>
+                                    <h6>Merit</h6>
+                                    <h4 class="instructor-text-success"><?php echo addOrdinalNumberSuffix(7175)?></h4>
                                     <!-- <p>Earning this month</p> -->
                                  </div>
                               </div>

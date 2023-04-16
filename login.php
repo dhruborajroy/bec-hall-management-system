@@ -29,7 +29,7 @@ if(isset($_POST['submit'])){
             $verify=password_verify($password,$row['password']);
             if($verify==1){
                $msg="You are aleady registered. Please login";
-               $_SESSION['APPLICANT_LOGIN']=true;
+               $_SESSION['APPLICANT_LOGIN']="1";
                $_SESSION['APPLICANT_ID']=$row['id'];
                $_SESSION['APPLICANT_NAME']=$row['first_name']." ".$row['last_name'];
                // sendLoginEmail($row['email']);

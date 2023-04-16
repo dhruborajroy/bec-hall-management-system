@@ -201,43 +201,43 @@ if(isset($_POST['submit'])){
                               </div>
                         </div>
                      </div>
-                  <div class="col-md-12">
-                     <div class="settings-widget">
-                        <div class="settings-inner-blk p-0">
-                           <div class="sell-course-head comman-space">
-                              <h3>Local Gardian Details</h3>
-                                 <div class="col-lg-12 row">
-                                 <div class="row">
-                                    <div class="col-lg-6">
-                                       <div class="form-group">
-                                          <label class="form-control-label">Local Guardian's Name</label>
-                                          <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                     <div class="col-md-12">
+                        <div class="settings-widget">
+                           <div class="settings-inner-blk p-0">
+                              <div class="sell-course-head comman-space">
+                                 <h3>Local Gardian Details</h3>
+                                    <div class="col-lg-12 row">
+                                    <div class="row">
+                                       <div class="col-lg-6">
+                                          <div class="form-group">
+                                             <label class="form-control-label">Local Guardian's Name</label>
+                                             <input type="text" class="form-control"  required name="legalGuardianName" value="<?php echo $row['legalGuardianName'];?>"  placeholder="legalGuardianName"  value="<?php echo $row['legalGuardianName'];?>">
+                                          </div>
+                                       </div>
+                                       <div class="col-lg-6">
+                                          <div class="form-group">
+                                             <label class="form-control-label">Local Guardian Relation</label>
+                                             <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                          </div>
                                        </div>
                                     </div>
-                                    <div class="col-lg-6">
-                                       <div class="form-group">
-                                          <label class="form-control-label">Local Guardian Relation</label>
-                                          <input type="text" class="form-control" required name="legalGuardianRelation" value="<?php echo $row['legalGuardianRelation'];?>" placeholder="legalGuardianRelation"  value="<?php echo $row['legalGuardianRelation'];?>">
+                                       <div class="col-lg-4">
+                                       </div>
+                                       <div class="col-lg-2">
+                                             <button type="submit" name="submit"  class="btn btn-primary">Save & Exit</button>
+                                       </div>
+                                       <div class="col-lg-2">
+                                          <a href="#" data-bs-toggle="modal" data-bs-target="#finalSubmit">
+                                             <button type="submit" name="finalSubmit"  class="btn btn-primary">Final Submit</button>
+                                          </a>
+                                       </div>
+                                       <div class="col-lg-4">
                                        </div>
                                     </div>
-                                 </div>
-                                    <div class="col-lg-4">
-                                    </div>
-                                    <div class="col-lg-2">
-                                          <button type="submit" name="submit"  class="btn btn-primary">Save & Exit</button>
-                                    </div>
-                                    <div class="col-lg-2">
-                                       <a href="#" data-bs-toggle="modal" data-bs-target="#finalSubmit">
-                                          <button type="submit" name="finalSubmit"  class="btn btn-primary">Final Submit</button>
-                                       </a>
-                                    </div>
-                                    <div class="col-lg-4">
-                                    </div>
-                                 </div>
+                              </div>
                            </div>
                         </div>
                      </div>
-                  </div>
                </div>
                <!-- page content ended -->
             </div>
