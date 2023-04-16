@@ -84,20 +84,20 @@ if(isset($_GET['status'])){
                            <div class="comman-space pb-0">
                               <?php echo $msg?>
                               <?php 
-                              $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
-                              $res=mysqli_query($con,$sql);
-                              if(mysqli_num_rows($res)>!0){}else{
+                              // $sql="select tran_id from bkash_online_payment where user_id='".$user_id."'";
+                              // $res=mysqli_query($con,$sql);
+                              // if(mysqli_num_rows($res)>!0){}else{
                               ?>
-                              <form  method="post">
+                              <!-- <form  method="post">
                               <div class="go-dashboard text-center ">
                                     <br>
                                     <button type="submit" name="bkash" >
                                        <img src="./assets/img/bkash.png" weight="100px" height="70px" alt="Bkash Payment" >
                                     </button>
-                                    <!-- <button type="submit" name="sslcommerz" class="btn btn-primary">Pay Using Online Payment</button> -->
+                                    <!-- <button type="submit" name="sslcommerz" class="btn btn-primary">Pay Using Online Payment</button> 
                               </div>
-                              </form>
-                              <?php }?>
+                              </form> -->
+                              <?php //}?>
                               <div class="settings-invoice-blk table-responsive comman-space pb-0">
                                  <h4 align="center">Payments</h4>
                                  <table class="table table-borderless mb-0">

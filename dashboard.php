@@ -1,7 +1,7 @@
 <?php 
 include("header.php"); 
 if(!isset($_SESSION['APPLICANT_LOGIN'])){
-   // redirect('index.php');
+   redirect('index');
 }?>
          <div class="page-content instructor-page-content">
             <div class="container">

@@ -2,7 +2,7 @@
 include("header.php");
 if(isset($_GET['application_id']) && $_GET['application_id']!=""){
    $application_id=get_safe_value($_GET['application_id']);
-   $sql="SELECT * FROM `applicants` where id='$application_id'";
+   $sql="SELECT * FROM `applicants` where id='$application_id' and final_submit!=1";
    $res=mysqli_query($con,$sql);
    if(mysqli_num_rows($res)>0){
       $row=mysqli_fetch_assoc($res);
@@ -42,6 +42,7 @@ if(isset($_GET['application_id']) && $_GET['application_id']!=""){
    );
    redirect("index");
 }
+
 //Bkash Payment started
 $val_id="";
 $amount="";
