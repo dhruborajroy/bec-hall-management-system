@@ -8,14 +8,18 @@ $link="";
 if(isset($_GET['email']) && $_GET['email']!='' && isset($_GET['code']) && $_GET['code']!=''){
 	$email=get_safe_value($_GET['email']);
 	$code=get_safe_value($_GET['code']);
-   $sql="select id,status from applicants where email='$email' and code='$code'";
+   $sql="select id,status from applicants where email='$email' and md5(code)='$code'";
    $res=mysqli_query($con,$sql);
    if(mysqli_num_rows($res)>0){
          $row=mysqli_fetch_assoc($res);
-         // pr($row);
          if ($row['status']==1) {
             $class='class="alert alert-danger"';
             $msg="Email Already verified";
+            $_SESSION['TOASTR_MSG']=array(
+               'type'=>'warning',
+               'body'=>'Email Already verified.',
+               'title'=>'Error',
+            );
          }else{
             if(mysqli_num_rows($res)>0){
                $sql="update applicants set status='1' where email='$email'";
@@ -23,15 +27,28 @@ if(isset($_GET['email']) && $_GET['email']!='' && isset($_GET['code']) && $_GET[
                $class='class="alert alert-success"';
                $msg='Email has been verified. Please Login.';
                $link='<a class="nav-item nav-link header-sign" href="login">Login</a>';
-               $_SESSION['INSERT']=1;
+               $_SESSION['TOASTR_MSG']=array(
+                  'type'=>'success',
+                  'body'=>'Email is not registered or the verification code is not correct. Plese register & try again.',
+                  'title'=>'Success',
+               );
             }
          }
    }else{
       $class='class="alert alert-danger"';
+      $_SESSION['TOASTR_MSG']=array(
+         'type'=>'warning',
+         'body'=>'Email is not registered or the verification code is not correct. Plese register & try again.',
+         'title'=>'Error',
+      );
       $msg="Email is not registered or the verification code is not correct. Plese register & try again.";
    }
 }else{
-   $_SESSION['PERMISSION_ERROR']="You don't have permission to access this page.";
+   $_SESSION['TOASTR_MSG']=array(
+     'type'=>'warning',
+     'body'=>'You don\'t have permission to access this page.',
+     'title'=>'Error',
+   );
    redirect("index");
 }?>
 <div class="breadcrumb-bar">

@@ -3,6 +3,14 @@ session_start();
 include("../inc/connection.inc.php");
 include("../inc/constant.inc.php");
 include("../inc/function.inc.php");
+if(!isset($_SESSION['APPLICANT_ID'])){
+    $_SESSION['TOASTR_MSG']=array(
+        'type'=>'error',
+        'body'=>'You don\'t have the permission to access the location!',
+        'title'=>'Error',
+    );
+    redirect("../index");
+}
 require_once("../inc/smtp/class.phpmailer.php");
 require('../inc/vendor/autoload.php');
 $html="";

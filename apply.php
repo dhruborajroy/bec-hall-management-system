@@ -94,12 +94,12 @@
                      imagejpeg($img,UPLOAD_APPLICANT_IMAGE.$image,100);
                      $sql="INSERT INTO `applicants`(`id`, `first_name`,`last_name`,  `class_roll`, `roll`, `fName`, `mName`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`, `quota`, `bloodGroup`, `examRoll`, `merit`, `localGuardianName`, `localGuardianNid`, `password`, `email`, `code`, `image`, `last_notification`,`class`,`fNid`,`mNid`,`final_submit`, `status`) 
                            VALUES ('$id','$first_name','$last_name','','$roll','$f_name','$m_name','$phone_number','$present_address','$permanent_address','$dob','$gender','$religion','$birthID','$quota','$blood_group','$roll','','','','$password','$email','$code','$image','','$class','$f_nid','$m_nid','0','0')";
-                     //send_email($email,'Your account has been created. <a href="'.FRONT_SITE_PATH.'/verify?email='.$email.'&code='.$code.'">Verify Email</a>','Account Created');
+                     // send_email($email,'Your account has been created. <a href="'.FRONT_SITE_PATH.'/verify?email='.$email.'&code='.md5($code).'">Verify Email</a>','Account Created');
                      if(mysqli_query($con,$sql)){
                         $_SESSION['TOASTR_MSG']=array(
                            'type'=>'success',
                            'body'=>'An Email has been sent to your '.$email.' account. Please Verify your email & login.',
-                           'title'=>'Error',
+                           'title'=>'Success',
                         );
                         redirect("preview.php?application_id=".$insert_id);
                      }else{
@@ -415,7 +415,7 @@
                      <div class="row">
                         <div class="col-lg-6 error" id="result" align="center">
                            <p >Image Preview</p>
-                           <img class="image-preview" src="https://dummyimage.com/300x300/fff&text=300x300" <?php echo $image?> alt="" srcset="">
+                           <img class="image-preview" src="<?php if(isset($img)){echo $img;}else{echo 'https://dummyimage.com/300x300/fff&text=300x300';}?>" <?php echo $image?> alt="" srcset="">
                         </div>
                         <div class="col-lg-6">
                            <div class="form-group">

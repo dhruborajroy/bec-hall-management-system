@@ -40,19 +40,15 @@ if(isset($_GET['bkash_payment_id']) && $_GET['bkash_payment_id']!==""){
       $status=get_safe_value($_GET['status']);
       if($status=='cancel'){
          $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "Payment has been cancelled by User.", "error")</script>';
-      }
-      if($status=='failure'){
+      }elseif($status=='failure'){
          $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "OTP not valid", "error")</script>';
-      }
-      if($status=='success'){
+      }elseif($status=='success'){
          $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($_GET['status']).'", "Payment completed", "success")</script>';
-      }
-      if(isset($_GET['statusMessage'])){
+      }elseif(isset($_GET['statusMessage'])){
          $status="Duplicate transection";
          $statusMessage=" Please try after sometime.";
          $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($status).'", "'.$statusMessage.'", "error")</script>';
-      }
-      if(isset($_GET['statusMessage']) && isset($_GET['status'])){
+      }elseif(isset($_GET['statusMessage']) && isset($_GET['status'])){
          $status=$_GET['status'];
          $statusMessage=$_GET['statusMessage'];
          $_SESSION['PAYMENT_ERROR']='<script>swal("'.ucfirst($status).'", "'.$statusMessage.'", "error")</script>';
@@ -65,7 +61,7 @@ if(isset($_GET['bkash_payment_id']) && $_GET['bkash_payment_id']!==""){
          'body'=>'You don\'t have the permission to access the location!',
          'title'=>'Error',
       );
-      // redirect("index");
+      redirect("index");
    }
 }else{
    $_SESSION['TOASTR_MSG']=array(

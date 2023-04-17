@@ -25,6 +25,7 @@ if(isset($_GET['application_id']) && $_GET['application_id']!=""){
       $localGuardianNid=$row['localGuardianNid'];
       $email=$row['email'];
       $image=$row['image'];
+      // $password=$row['password'];
       $class=$row['class'];
    }else{
       $_SESSION['TOASTR_MSG']=array(
@@ -132,11 +133,14 @@ if(isset($_GET['status'])){
             <div class="settings-inner-blk p-0">
                <div class="sell-course-head comman-space">
                   <h3 align="center">Basic Informations</h3>
+                  <table>
+                  <tr>
+                     <td></td>
+                     <td><img src="./media/users/<?php echo $image?>" alt="preview image" width="300px" height="300px" align="right"></td>
+                  </tr>
+                  </table>
                   <table id="preview">
                      <tbody>
-                        <tr>
-                           <td colspan="2"><img src="https://dummyimage.com/300x300/fff&text=300x300" alt="preview image" width="300px" height="300px" align="right"></td>
-                        </tr>
                         <tr>
                            <td>First Name: </td>
                            <td><?php echo $first_name?></td>
@@ -150,8 +154,12 @@ if(isset($_GET['status'])){
                            <td><?php echo $dob?></td>
                         </tr>
                         <tr>
-                           <td>Gender</td>
-                           <td> <?php echo $gender?></td>
+                           <td>Application Id: </td>
+                           <td><?php echo $application_id?></td>
+                        </tr>
+                        <tr>
+                           <td>Password: </td>
+                           <td>Has been sent to your number</td>
                         </tr>
                         <tr>
                            <td>Email: </td>
@@ -202,17 +210,8 @@ if(isset($_GET['status'])){
             <div class="settings-inner-blk p-0">
                <div class="sell-course-head comman-space">
                   <h3 align="center"> Gardian Details</h3>
-
                   <table id="preview">
                      <tbody>
-                        <tr>
-                           <td>Mother's Name: </td>
-                           <td>  <?php echo $m_name?></td>
-                        </tr>
-                        <tr>
-                           <td>Mother's NID: </td>
-                           <td>  <?php echo $mNid?></td>
-                        </tr>
                         <tr>
                            <td>Father's Name: </td>
                            <td>  <?php echo $f_name?></td>
@@ -220,6 +219,14 @@ if(isset($_GET['status'])){
                         <tr>
                            <td>Father's NID: </td>
                            <td>  <?php echo $fNid?></td>
+                        </tr>
+                        <tr>
+                           <td>Mother's Name: </td>
+                           <td>  <?php echo $m_name?></td>
+                        </tr>
+                        <tr>
+                           <td>Mother's NID: </td>
+                           <td>  <?php echo $mNid?></td>
                         </tr>
                         <tr>
                         <tr>
@@ -244,12 +251,12 @@ if(isset($_GET['status'])){
                   <table id="preview">
                      <tbody>
                         <tr>
-                           <td>Present Address: Dhrubo</td>
-                           <td>Adarsopara</td>
+                           <td width="50%">Present Address: </td>
+                           <td width="50%"><?php echo $presentAddress ?></td>
                         </tr>
                         <tr>
-                           <td>Permanent Address: Dhrubo</td>
-                           <td>Adarsopara</td>
+                           <td>Permanent Address: </td>
+                           <td><?php echo $permanentAddress ?></td>
                         </tr>
                      </tbody>
                   </table>
@@ -265,8 +272,10 @@ if(isset($_GET['status'])){
                         <div class="payment-btn" style="text-align:center;">
                            <form  method="post">
                               <div class="go-dashboard text-center ">
+                                    <div class="alert alert-warning">Without payment the application will not submitted properly.</div>
                                     <br>
-                                    <button type="submit" name="bkash" >
+                                    <button type="submit" name="bkash" class="btn btn-success">
+                                       Pay & Submit Your application
                                        <img src="./assets/img/bkash.png" weight="100px" height="70px" alt="Bkash Payment" >
                                     </button>
                               </div>

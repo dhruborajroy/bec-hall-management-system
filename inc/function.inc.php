@@ -32,7 +32,7 @@ function send_email($email,$html,$subject,$attachment=""){
 	$mail->SMTPSecure="tls";
 	$mail->SMTPAuth=true;
 	$mail->Username="hackerdhrubo99@gmail.com";
-	$mail->Password="ndajzzubicqfbcih";
+	$mail->Password="dxnhfotcvjcozaex";
     $mail->setFrom('hackerdhrubo99@gmail.com', 'Dhrubo');
 	$mail->addAddress($email);
 	$mail->IsHTML(true);

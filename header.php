@@ -64,6 +64,9 @@ require_once("./inc/smtp/class.phpmailer.php");
                            <li>
                               <a href="apply">Apply</a>
                            </li>
+                           <li>
+                              <a href="complete_payment">Complete Payment</a>
+                           </li>
                            <li >
                               <a href="login">Login</a>
                            </li>

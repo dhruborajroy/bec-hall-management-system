@@ -24,7 +24,7 @@ if(isset($_POST['submit'])){
             'title'=>'Email Error',
          );
          $class='class="alert alert-danger"'; 
-			// $msg="You haven't verified your email yet. Please verify the email";
+			$msg="You haven't verified your email yet. Please verify the email";
 		}else{
             $verify=password_verify($password,$row['password']);
             if($verify==1){
@@ -41,9 +41,7 @@ if(isset($_POST['submit'])){
                   'body'=>'Please Enter correct Login details',
                   'title'=>'Error',
                );
-         
-               // $class='class="alert alert-danger" style="padding:10px;margin:100px"';  
-		         // $msg="Please Enter correct Login details";
+		         $msg="Please Enter correct Login details";
             }
 		}
       // echo $sql;
