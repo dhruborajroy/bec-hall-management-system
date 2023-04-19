@@ -434,7 +434,29 @@
                   <div class="sell-course-head comman-space row">
                      <h3 align="center">Submission</h3>
                         <div class="payment-btn" style="text-align:center;">
-                           <button name="submit" id="submit" class="btn btn-primary" type="submit">Submit</button>
+                        <!-- Button trigger modal -->
+                           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                           Launch demo modal
+                           </button>
+                           <!-- Modal -->
+                           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    ...
+                                    </div>
+                                    <div class="modal-footer">
+                                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                       <button type="submit" name="submit" class="btn btn-success" >Save</button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                           <!-- end modal -->
                         </div>
                   </div>
                </div>
@@ -443,5 +465,10 @@
       </div>
    </div>
 </section>
-      </form>
+</form>
 <?php include("footer.php");?>
+<script>
+   $('#exampleModal').on('click', function () {
+      $('#exampleModal').modal('show')
+   })
+</script>

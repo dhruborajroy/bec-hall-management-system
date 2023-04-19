@@ -1,10 +1,10 @@
 <?php 
 session_start();
 session_regenerate_id();
-include('./inc/function.inc.php');
-include('./inc/connection.inc.php');
-include('./inc/constant.inc.php');
-require_once("./inc/smtp/class.phpmailer.php");
+include('../inc/function.inc.php');
+include('../inc/connection.inc.php');
+include('../inc/constant.inc.php');
+require_once("../inc/smtp/class.phpmailer.php");
 $msg="";
 if(isset($_SESSION['ADMIN_LOGIN'])){
     redirect('index.php');
@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
                 $_SESSION['ADMIN_LOGIN']=true;
                 $_SESSION['ADMIN_ID']=$row['id'];
                 $_SESSION['ADMIN_NAME']=$row['name'];
-                sendLoginEmail($row['email']);
+                // sendLoginEmail($row['email']);
                 // sendLoginEmail("orinkarmaker03@gmail.com");
                 redirect('./index.php');
                 die();
@@ -44,7 +44,7 @@ if(isset($_POST['submit'])){
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>BEC Hall Management System | Login</title>
+    <title>Get Admitted Online | Dashboard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Favicon -->

@@ -18,20 +18,20 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
 	}
 
 }
-$sql="select refund_payment.*, applicants.first_name, applicants.last_name  from refund_payment,applicants ";
+$sql="select refund_payment.*, applicants.first_name, applicants.last_name  from refund_payment,applicants where refund_payment.user_id=applicants.id";
 $res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
 <div class="dashboard-content-one">
     <!-- Breadcubs Area Start Here -->
     <div class="breadcrumbs-area">
-        <!-- <h3>Parents</h3>
+        <h3>Refund</h3>
             <ul>
                 <li>
                     <a href="index.php">Home</a>
                 </li>
-                <li>All Buses</li>
-            </ul> -->
+                <li>All Refunds</li>
+            </ul>
     </div>
     <!-- Breadcubs Area End Here -->
     <!-- Teacher Table Area Start Here -->

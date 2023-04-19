@@ -225,6 +225,12 @@
                      <span>Refunds</span>
                   </a>
                </li>
+               <li class="nav-item">
+                  <a href="markEntry" class="nav-link <?php // echo  $index_active?>">
+                     <i class="flaticon-dashboard"></i>
+                     <span>Marks Entry</span>
+                  </a>
+               </li>
                <li class="nav-item sidebar-nav-item">
                      <a href="#" class="nav-link"><i class="flaticon-script"></i><span>Notices</span></a>
                      <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">

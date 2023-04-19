@@ -82,6 +82,18 @@ function rand_str(){
 	
 }
 
+function maskEmail($email, $minLength =1, $maxLength = 10, $mask = "***") {
+    $atPos = strrpos($email, "@");
+    $name = substr($email, 0, $atPos);
+    $len = strlen($name);
+    $domain = substr($email, $atPos);
+
+    if (($len / 2) < $maxLength) $maxLength = ($len / 2);
+
+    $shortenedEmail = (($len > $minLength) ? substr($name, 0, $maxLength) : "");
+    return  "{$shortenedEmail}{$mask}{$domain}";
+}
+
 function get_content($URL){
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
@@ -200,12 +212,12 @@ function get_time_ago($time){
     }
 }
 
-function getTotalExpense($month_id){
+function getTotalMarks($exam_roll){
 	global $con;
-	$sql="SELECT SUM(amount) as total_expense FROM expense WHERE month='$month_id'";
+	$sql="SELECT SUM(mark) as total_marks FROM mark  where exam_roll='$exam_roll'";
 	$res=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_assoc($res)){
-	  return $row['total_expense'];
+	  return $row['total_marks'];
 	}
 }
 function getTotalMeal($month_id,$roll=""){
@@ -427,8 +439,8 @@ function refreshToken($refresh_token){
     $request_data_json = json_encode($request_data);
     $header = array(
         'Content-Type:application/json',
-        'username:sandboxTokenizedUser02',               
-        'password:sandboxTokenizedUser02@12345'
+        'username:'.USERNAME,               
+        'password:'.PASSWORD
     );
     curl_setopt($url,CURLOPT_HTTPHEADER, $header);
     curl_setopt($url,CURLOPT_CUSTOMREQUEST, "POST");
@@ -452,7 +464,7 @@ function createPayment($id_token,$user_data){
         'amount' => $user_data['amount'],
         'currency' => 'BDT',
         'intent' => 'sale',
-        'payerReference' => '0',
+        'payerReference' => '01770618575',
         'merchantInvoiceNumber' => $user_data['tran_id'],
         'callbackURL' => $callbackURL
     );
