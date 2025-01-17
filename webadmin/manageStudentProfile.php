@@ -15,7 +15,7 @@ $paymentStatus='';
 $dob='';
 $gender='';
 $religion='';
-$birthId='';
+$birthId='0';
 $bloodGroup='';
 $examRoll='';
 $legalGuardianName='';
@@ -44,7 +44,6 @@ if(isset($_GET['id']) && $_GET['id']!=""){
         $dob=$row['dob'];
         $gender=$row['gender'];
         $religion=$row['religion'];
-        $birthId=$row['birthId'];
         $ffQuata=$row['ffQuata'];
         $bloodGroup=$row['bloodGroup'];
         $merit=$row['merit'];
@@ -76,7 +75,6 @@ if(isset($_POST['submit'])){
 	$dob=get_safe_value($_POST['dob']);
 	$gender=get_safe_value($_POST['gender']);
 	$religion=get_safe_value($_POST['religion']);
-	$birthId=get_safe_value($_POST['birthId']);
 	$bloodGroup=get_safe_value($_POST['bloodGroup']);
 	$examRoll=get_safe_value($_POST['examRoll']);
 	$merit=get_safe_value($_POST['merit']);
@@ -89,9 +87,9 @@ if(isset($_POST['submit'])){
     $dept_id=get_safe_value($_POST['dept_id']);
     $batch=get_safe_value($_POST['batch']);
     $time=time();
-    if(mysqli_num_rows(mysqli_query($con,"select id from users where phoneNumber='$phoneNumber'"))){
+    if(mysqli_num_rows(mysqli_query($con,"select id from users where phoneNumber='$phoneNumber'"))>0){
         $msg="Phone number is already added";
-    }elseif(mysqli_num_rows(mysqli_query($con,"select id from users where email='$email'"))){
+    }elseif(mysqli_num_rows(mysqli_query($con,"select id from users where email='$email'"))>0){
         $msg="Email is already added";
     }else{
         if($id==''){
@@ -119,7 +117,7 @@ if(isset($_POST['submit'])){
                         $image=time().'.jpg';
                         move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
                         $sql="INSERT INTO `users` (`name`, `roll`, `class_roll`,`fName`, `fOccupation`, `mName`, `mOccupation`, `phoneNumber`, `presentAddress`, `permanentAddress`, `dob`, `gender`, `religion`, `birthId`,`ffQuata`, `bloodGroup`,  `examRoll`, `merit`,`block`,`room_number`, `legalGuardianName`, `legalGuardianRelation`, `image`,`email`,`dept_id`,`batch`,`password`, `last_notification`,`meal_status`,`full_month_on`,`guest_meal`,`meal_request_status`,`meal_request_pending`,`guest_meal_request_status`,`guest_meal_request_pending`,`role`,`status`)
-                                                VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit','$block', '$room_number','$legalGuardianName','$legalGuardianRelation','$image','$email','$dept_id','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
+                                                VALUES ( '$name', '$roll','$class_roll','$fName', '$fOccupation', '$mName', '$mOccupation', '$phoneNumber','$presentAddress','$permanentAddress','$dob','$gender','$religion','$birthId','$ffQuata','$bloodGroup','$examRoll','$merit','$block', '$room_number','$legalGuardianName','$legalGuardianRelation','$image','$email','','$batch','$password','$time',0,1, 0,0,0,0,0,1, 1)";
                         send_email($email,"Your account has been created. Your password is <b>12345678 </b>. Please login and change your password <br> http://localhost/hall/students/ ","Account Created");
                         mysqli_query($con,$sql);
                         $_SESSION['INSERT']=1;
@@ -153,7 +151,7 @@ if(isset($_POST['submit'])){
                                 $image=time().'.jpg';
                                 // $image=imagejpeg($img,$image,40);
                                 move_uploaded_file($_FILES['image']['tmp_name'],UPLOAD_STUDENT_IMAGE.$image);
-                                $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id', `room_number`='$room_number', `block`='$block',`meal_request_status`='0'  where md5(id)='$id'";
+                                $sql="update `users` set  `name`='$name',`class_roll`='$class_roll', `fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email', `dept_id`='$dept_id', `room_number`='$room_number', `block`='$block',`meal_request_status`='0'  where md5(id)='$id'";
                                 mysqli_query($con,$sql);
                                 $_SESSION['UPDATE']=1;
                                 redirect("users.php");
@@ -163,7 +161,7 @@ if(isset($_POST['submit'])){
                         $msg= "Only select jpg or png image";
                     }
                 }else{
-                    $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`birthId`='$birthId',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0', `room_number`='$room_number', `block`='$block' where  md5(id)='$id'";
+                    $sql="update `users` set  `name`='$name', `class_roll`='$class_roll',`fName`='$fName',`fOccupation`='$fOccupation',`mName`='$mName',`mOccupation`='$mOccupation',`phoneNumber`='$phoneNumber',`permanentAddress`='$permanentAddress',`dob`='$dob',`gender`='$gender',`religion`='$religion',`batch`='$batch',`ffQuata`='$ffQuata',`bloodGroup`='$bloodGroup',`examRoll`='$examRoll',`merit`='$merit',`legalGuardianName`='$legalGuardianName',`legalGuardianRelation`='$legalGuardianRelation',`image`='$image', `email`='$email' , `dept_id`='$dept_id' ,`meal_request_status`='0', `room_number`='$room_number', `block`='$block' where  md5(id)='$id'";
                     mysqli_query($con,$sql);
                     $_SESSION['UPDATE']=1;
                     // redirect("users.php");
@@ -213,9 +211,9 @@ if(isset($_POST['submit'])){
                             value="<?php echo $fname?>" id="fName" type="text" required>
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Father's Occupation *</label>
+                        <label>Father's Occupation </label>
                         <input class="form-control" placeholder="Father's Occupation" autocomplete="off"
-                            name="fOccupation" value="<?php echo $fOccupation?>" type="text" required id="fOccupation">
+                            name="fOccupation" value="<?php echo $fOccupation?>" type="text" id="fOccupation">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Mother's Name *</label>
@@ -223,9 +221,9 @@ if(isset($_POST['submit'])){
                             type="text" required value="<?php echo $mname?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Mother's Occupation *</label>
+                        <label>Mother's Occupation </label>
                         <input class="form-control" placeholder="Mother's Occupation" autocomplete="off"
-                            name="mOccupation" type="text" required value="<?php echo $mOccupation?>">
+                            name="mOccupation" type="text"  value="<?php echo $mOccupation?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Phone Number *</label>
@@ -270,11 +268,6 @@ if(isset($_POST['submit'])){
                         <label>Date of Birth *</label>
                         <input name="dob" value="<?php echo $dob?>" type="text" placeholder="dd/mm/yyyy"
                             class="form-control air-datepicker" data-position="bottom right" required>
-                    </div>
-                    <div class="col-xl-3 col-lg-6 col-12 form-group">
-                        <label>Birth certificate Id number *</label>
-                        <input class="form-control" placeholder="Birth certificate Id number" autocomplete="off"
-                            name="birthId" type="number" required value="<?php echo $birthId?>">
                     </div>
                     <div class="col-xl-3 col-lg-6 col-12 form-group">
                         <label>Block *</label>

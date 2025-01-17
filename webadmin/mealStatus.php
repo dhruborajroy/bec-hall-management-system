@@ -49,7 +49,12 @@ if(isset($_GET['month']) && isset($_GET['year'])) {
                             <div class="col-xl-3 col-lg-6 col-12 form-group">
                                 <label>Select year</label>
                                 <select class="select2" name="year" required>
-                                    <option value="2022">2022</option>
+                                    <?php
+                                    $currentYear = date("Y"); // Get the current year
+                                    for ($year = $currentYear; $year >= 2022; $year--) {
+                                        echo "<option value=\"$year\">$year</option>";
+                                    }
+                                    ?>
                                 </select>
                             </div>
                             <div class="col-12 form-group mg-t-8">

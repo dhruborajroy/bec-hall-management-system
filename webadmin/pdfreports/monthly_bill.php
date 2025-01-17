@@ -5,13 +5,14 @@ include("../inc/connection.inc.php");
 include("../inc/function.inc.php");
 require_once("../inc/smtp/class.phpmailer.php");
 require('../vendor/autoload.php');
-if (isset($_GET['month_id']) && $_GET['month_id']!="") {
+if (isset($_GET['month_id']) && $_GET['month_id']!="" && isset($_GET['year']) && $_GET['year']!="") {
     $month_id=get_safe_value($_GET['month_id']);
+    $year=get_safe_value($_GET['year']);
 }else{
     $_SESSION['PERMISSION_ERROR']=1;
     // redirect("index.php");
 }
-$sql="select amount from monthly_bill where month_id='$month_id'";
+$sql="select amount from monthly_bill where month_id='$month_id' and year='$year'";
 $res=mysqli_query($con,$sql);
 $html="";
 if(mysqli_num_rows($res)>0){
@@ -32,14 +33,14 @@ if(mysqli_num_rows($res)>0){
             </td>
         </tr>';
 	    $html.='<tr><td colspan="3"><hr></td></tr>';
-	    $html.='<tr><td colspan="3" align="center">Monthly Bill chart for July-22</td></tr>';
+	    $html.='<tr><td colspan="3" align="center">Monthly Bill chart for '.$month_name=date('F',mktime(0, 0, 0, $month_id, 10)).'-'.$year.'</td></tr>';
 	    $html.='<tr><td colspan="3"><hr></td></tr>';
         $html.='<tr>
                 <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Id</td>
                 <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Fee details</td>
                 <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Amount</td>
             </tr>';
-            $sql="select monthly_bill.*,users.name from monthly_bill,users where monthly_bill.user_id=users.id and monthly_bill.month_id='$month_id'";
+            $sql="select monthly_bill.*,users.name from monthly_bill,users where monthly_bill.user_id=users.id and monthly_bill.month_id='$month_id' and year='$year'";
             $res=mysqli_query($con,$sql);
             if(mysqli_num_rows($res)>0){
                 $i=1;

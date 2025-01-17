@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
     $_SESSION['UPDATE']=true;
     send_email($email,"Password Updated","Password Changed");
     unset($_SESSION['FORGOT_PASSWORD']);
-    redirect("index.php");
+    // redirect("index.php");
 }
 ?>
 

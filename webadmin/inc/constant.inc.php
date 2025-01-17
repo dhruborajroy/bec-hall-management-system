@@ -11,6 +11,7 @@ define('STORE_PASSWORD',"thewe630883975551e@ssl");
 define('STUDENT_IMAGE',FRONT_SITE_PATH."webadmin/media/users/");
 // define('UPLOAD_STUDENT_IMAGE',$_SERVER['DOCUMENT_ROOT']."/hall/media/users/");/Users/dhrubo/Desktop
 define('UPLOAD_STUDENT_IMAGE',"/Users/dhrubo/Desktop");
+define('QR_CODE_ADDRESS',"http://localhost/hall/webadmin/");
 
 // $manage_class='';
 // $manage_class_menu_active='';

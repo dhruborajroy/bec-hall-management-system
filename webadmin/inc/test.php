@@ -1,8 +1,11 @@
 <?php
+echo strtotime("today 00:00");
+echo date("Y M D h:i:s","1724388558");
+die;
 include("./constant.inc.php");
 include("./connection.inc.php");
 include("./function.inc.php");
-require_once("./smtp/class.phpmailer.php");<?php
+require_once("./smtp/class.phpmailer.php");
 include("../inc/constant.inc.php");
 include("../inc/connection.inc.php");
 include("../inc/function.inc.php");

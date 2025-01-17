@@ -20,44 +20,65 @@ include("header.php");
       redirect('index.php');
    }
    if(isset($_POST['submit']) ){
+      pr($_POST);
       $user_id=get_safe_value($_GET['id']);
-      $month_id=$_POST['month_id'];
       $total_amount=$_POST['total_amount'];
       $time=time();
       $payment_type='cash';
       $tran_id="becHall_".uniqid();
-       $sql="INSERT INTO `payments` ( `user_id`,`payment_type`,`tran_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES 
-                                    ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '1', '1')";
-       mysqli_query($con,$sql);
-       $payment_id=mysqli_insert_id($con);
-       if(isset($_POST['monthly_amount'])){
+      $sql="INSERT INTO `payments` ( `user_id`,`payment_type`,`tran_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES 
+                                 ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '1', '1')";
+      mysqli_query($con,$sql);
+      $payment_id=mysqli_insert_id($con);
+      if(isset($_POST['monthly_amount'])){
+         $month_id=$_POST['month_id'];
          $monthly_amount_count=count($_POST['monthly_amount']);
          for($i=0;$i<=($monthly_amount_count)-1;$i++){
             $month_id_counter=count($_POST['month_id']);
-             for($i=0;$i<=($month_id_counter)-1;$i++){
+               for($i=0;$i<=($month_id_counter)-1;$i++){
                   $monthly_amount=get_safe_value($_POST['monthly_amount'][$i]);
                   $month_id=get_safe_value($_POST['month_id'][$i]);
-                  $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
-                                                                 ('$user_id', '$payment_id', '$month_id', '$monthly_amount', '1')";
-                  mysqli_query($con,$swl);
+                  $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,`added_on`,  `status`) VALUES 
+                                                                  ('$user_id', '$payment_id', '$month_id', '$monthly_amount', $time,'1')";
+                  if(mysqli_query($con,$swl)){
+                     echo $swl;
+                  }
                   mysqli_query($con,"update monthly_bill set paid_status='1' where user_id='$user_id' and month_id='$month_id' ");
-             }
+               }
          }
-       }
-       $_SESSION['INSERT']=1;
-       if(isset($_POST['fee_amount'])){
-         for($i=0;$i<=count($_POST['fee_amount'])-1;$i++){
-            for($i=0;$i<=count($_POST['fee_id'])-1;$i++){
-                  $fee_id=get_safe_value($_POST['fee_id'][$i]);
-                  $fee_amount=get_safe_value($_POST['fee_amount'][$i]);;
-                  $swl="INSERT INTO `fee_details` ( `user_id`, `payment_id`, `fee_id`, `fee_amount`,  `status`) VALUES 
-                                                                  ('$user_id','$payment_id', '$fee_id', '$fee_amount', '1')";
-                  mysqli_query($con,$swl);
-            }
+      }
+
+      if(isset($_POST['monthly_fee_amount'])){
+         $fee_month_id=$_POST['fee_month_id'];
+         $monthly_amount_count=count($_POST['monthly_fee_amount']);
+         for($i=0;$i<=($monthly_amount_count)-1;$i++){
+            $fee_month_id_counter=count($_POST['fee_month_id']);
+               for($i=0;$i<=($fee_month_id_counter)-1;$i++){
+                  $monthly_fee_amount=get_safe_value($_POST['monthly_fee_amount'][$i]);
+                  $fee_month_id=get_safe_value($_POST['fee_month_id'][$i]);
+                  $swl="INSERT INTO `monthly_fee_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,`added_on`,  `status`) VALUES 
+                                                                  ('$user_id', '$payment_id', '$fee_month_id', '$monthly_fee_amount', $time,'1')";
+                  if(mysqli_query($con,$swl)){
+                     echo $swl;
+                  }
+                  mysqli_query($con,"update monthly_fee set paid_status='1' where user_id='$user_id' and month_id='$fee_month_id' ");
+               }
          }
+      }
+      $_SESSION['INSERT']=1;
+
+      if(isset($_POST['fee_amount'])){
+      for($i=0;$i<=count($_POST['fee_amount'])-1;$i++){
+         for($i=0;$i<=count($_POST['fee_id'])-1;$i++){
+               $fee_id=get_safe_value($_POST['fee_id'][$i]);
+               $fee_amount=get_safe_value($_POST['fee_amount'][$i]);;
+               $swl="INSERT INTO `fee_details` ( `user_id`, `payment_id`, `fee_id`, `fee_amount`,`added_on`,  `status`) VALUES 
+                                                               ('$user_id','$payment_id', '$fee_id', '$fee_amount','$time', '1')";
+               mysqli_query($con,$swl);
+         }
+      }
+      redirect("./invoice.php?id=".md5($payment_id));
       } 
-      redirect("./invoice.php?id=".$payment_id);
-      die;
    }
    ?>
 <div class="dashboard-content-one">
@@ -125,12 +146,53 @@ include("header.php");
                            ?>
                         <tr>
                            <td>
-                              <input class="form-control" type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
+                              <input class="form-control" type="checkbox"  value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
                            </td>
                            <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
                            <td >
                               <input disabled type="hidden" id="month_<?php echo $i?>" name="month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
                               <input disabled type="hidden" name="monthly_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
+                              <?php echo  $roww['amount']?>
+                           </td>
+                           <td>
+                              <button  type="button" style="padding: 3px 5px;" class="btn-fill-lmd radius-30 text-light shadow-dodger-blue bg-red">Unpaid</button>
+                           </td>
+                        </tr>
+                        <?php 
+                           $i++;
+                           } } else { ?>
+                        <tr colspan="5">
+                           <td  class="d-flex justify-content-center">No due found</td>
+                        </tr>
+                        <?php } ?>
+                     </tbody>
+                  </table>
+                  <hr>
+                  <table class="table table-hover" style="width: 100%;">
+                     <thead class="thead-dark">
+                        <tr>
+                           <th scope="col">#</th>
+                           <th scope="col">Month</th>
+                           <th scope="col">Due</th>
+                           <th scope="col">Status</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <?php 
+                           $sqll="select * from monthly_fee where user_id='$id' and paid_status!=1";
+                           $ress=mysqli_query($con,$sqll);
+                           if(mysqli_num_rows($ress)>0){
+                              $i=1;
+                              while($roww=mysqli_fetch_assoc($ress)){
+                           ?>
+                        <tr>
+                           <td>
+                              <input class="form-control" type="checkbox"  value="<?php echo $i?>"  id="monthly_fee_checkbox_<?php echo $i?>"  onchange="get_montly_fee_total(this.value)">
+                           </td>
+                           <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
+                           <td >
+                              <input disabled type="hidden" id="fee_month_<?php echo $i?>" name="fee_month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
+                              <input disabled type="hidden" name="monthly_fee_amount[]" value="<?php echo  $roww['amount']?>" class="amount" id="monthly_fee_amount_<?php echo $i?>"> 
                               <?php echo  $roww['amount']?>
                            </td>
                            <td>
@@ -273,15 +335,6 @@ include("header.php");
       jQuery('#fee_amount_'+id).val(price);
       get_fee_total(id);
    }
-   // function plus(id){
-      // var value=jQuery('#qty_'+id).val();
-      // value=parseInt(value)+1;
-      // jQuery('#qty_'+id).val(value);
-      // var amount=jQuery('#fee_amount_'+id).val();
-      // var final_amount=parseInt(value)*parseFloat(amount);
-      // var amount=jQuery('#fee_amount_'+id).val(final_amount);
-      // get_fee_total(id);
-   // }
    function get_total(id) {
       if(document.getElementById("checkbox_"+id).checked==true){
          jQuery('#amount_'+id).addClass('active_amount');
@@ -292,6 +345,26 @@ include("header.php");
          jQuery('#amount_'+id).removeClass('active_amount');
          jQuery( '#amount_'+id ).prop( "disabled", true );
          jQuery( '#month_'+id ).prop( "disabled", true );
+      }
+   	var total = 0;
+   	var amount = document.getElementsByClassName("active_amount");
+   	for (let i = 0; i < amount.length; i++) {
+   		var total = total + parseFloat(amount[i].value);
+   	}
+      console.log(total);
+      var grant_total=total;
+      document.getElementById("grant_total").value = grant_total;
+   }
+   function get_montly_fee_total(id) {
+      if(document.getElementById("monthly_fee_checkbox_"+id).checked==true){
+         jQuery('#monthly_fee_amount_'+id).addClass('active_amount');
+         jQuery( '#monthly_fee_amount_'+id ).prop( "disabled", false );
+         jQuery( '#submit' ).prop( "disabled", false );
+         jQuery( '#fee_month_'+id ).prop( "disabled", false );
+      }else if(document.getElementById("monthly_fee_checkbox_"+id).checked==false){
+         jQuery('#monthly_fee_amount_'+id).removeClass('active_amount');
+         jQuery( '#monthly_fee_amount_'+id ).prop( "disabled", true );
+         jQuery( '#fee_month_'+id ).prop( "disabled", true );
       }
    	var total = 0;
    	var amount = document.getElementsByClassName("active_amount");

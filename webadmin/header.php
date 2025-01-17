@@ -1,6 +1,5 @@
 <?php 
    session_start();
-   session_regenerate_id();
    require('./inc/constant.inc.php');
    require('./inc/connection.inc.php');
    require('./inc/function.inc.php');
@@ -253,7 +252,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item sidebar-nav-item">
+                        <!-- <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-classmates"></i><span>Admin Users</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
@@ -268,8 +267,8 @@
                                             class="fas fa-angle-right"></i>Add new admin users</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li class="nav-item sidebar-nav-item">
+                        </li> -->
+                        <!-- <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-money text-red"></i><span>Expenses</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
@@ -284,6 +283,9 @@
                                             class="fas fa-angle-right"></i>Add new Expenses</a>
                                 </li>
                             </ul>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="manage_total_amount.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Input Monthly Bill</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i
@@ -292,6 +294,9 @@
                         <li class="nav-item">
                             <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i
                                     class="flaticon-shopping-list"></i><span>Meal Maintanance</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="reports.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Reports</span></a>
                         </li>
                         <li class="nav-item">
                             <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i
@@ -321,9 +326,9 @@
                             <a href="guestMealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
                                     class="flaticon-menu-1"></i><span>Guest Meal On Off Requests</span></a>
                         </li>
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Generate Payment</span></a>
-                        </li>
+                        </li> -->
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Fees</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
@@ -340,7 +345,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item sidebar-nav-item">
+                        <!-- <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Expense Category</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
@@ -351,11 +356,11 @@
                                 </li>
                                 <li class="nav-item">
                                     <a href="manageExpenseCategory.php"
-                                        class="nav-link <?php // echo  $manage_application_sub_group_active?>"><i
+                                        class="nav-link <?php ?>"><i
                                             class="fas fa-angle-right"></i>Add new Expense Category</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-open-book"></i><span>Departments and
                                     Batches</span></a>

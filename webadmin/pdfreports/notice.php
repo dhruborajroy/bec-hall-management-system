@@ -31,35 +31,37 @@ if(mysqli_num_rows($res)>0){
             '.WEBSITE.'
             </td>
         </tr>';
+        $html='</table>';
+        $html='<table class="table" width="100%">';
         $html.='
             <tr>
                 <td align="left" colspan="3" style="height:4">                    
                     <hr>
                 </td>
             </tr>';
+        $html.='
+            <tr>
+                <td align="left">                    
+                    স্মারক নং: '.$row['reference'].'
+                </td>
+                <td  align="center">
+                </td>
+                <td  align="center">
+                    তারিখ: '.date("d M Y ",($row['added_on'])).'
+                </td>
+            </tr>';
             $html.='
                 <tr>
-                    <td align="left">                    
-                        স্মারক নং: '.$row['reference'].'
-                    </td>
-                    <td  align="center">
-                    </td>
-                    <td  align="center">
-                        তারিখ: '.date("d M Y ",($row['added_on'])).'
+                    <td align="left" colspan="3" align="center" style="padding-top:30px">                    
+                    <u style="font-size:35px">'.$row['title'].'</u>
                     </td>
                 </tr>';
                 $html.='
-                    <tr>
-                        <td align="left" colspan="3" align="center" style="padding-top:30px">                    
-                        <u style="font-size:35px">'.$row['title'].'</u>
+                    <tr >
+                        <td align="left" colspan="3" align="center" style="padding-top:10px">                    
+                            <p>'.$row['details'].'</p>
                         </td>
                     </tr>';
-                    $html.='
-                        <tr >
-                            <td align="left" colspan="3" align="center" style="padding-top:10px">                    
-                                <p>'.$row['details'].'</p>
-                            </td>
-                        </tr>';
             $html.='
             <tr>
                 <td align="left">                    
@@ -78,8 +80,7 @@ if(mysqli_num_rows($res)>0){
                     বরিশাল ইঞ্জিনিয়ারিং কলেজ
                 </span>
                 </td>
-            </tr>';
-                        
+            </tr>';     
 	    $html.='</table>';
 }else{
     $html.="";

@@ -45,7 +45,7 @@ $html.='<tr>
         <td style="border: 1px solid black;border-collapse: collapse;background-color: #b7b4b4;text-align:center;">Batch</td>
     </tr>';
     $additional_sql="";
-    if($batch_id!=""){
+    if( $batch_id!="all" and $batch_id!="" ){
         $additional_sql=" and batch.id='$batch_id'";
     }
     $sql="select users.*, batch.name as batch_name from users,batch where users.batch=batch.id $additional_sql order by  class_roll asc,room_number asc,  batch asc";
@@ -58,9 +58,9 @@ $html.='<tr>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$i.'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;"><img src="'.STUDENT_IMAGE.$row['image'].'" style="border-radius:60px" height="100px" weight="100px"></td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['class_roll'].'</td>
-            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['name'].'</td>
-            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['fName'].'</td>
-            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['mName'].'</td>
+            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.ucfirst(strtolower($row['name'])).'</td>
+            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.ucfirst(strtolower($row['fName'])).'</td>
+            <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.ucfirst(strtolower($row['mName'])).'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['block'].'-'.$row['room_number'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['phoneNumber'].'</td>
             <td style="border: 1px solid black;border-collapse: collapse;text-align:center;">'.$row['batch_name'].'</td>

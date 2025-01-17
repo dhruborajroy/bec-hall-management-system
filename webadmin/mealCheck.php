@@ -45,13 +45,14 @@
                $roll= get_safe_value($_POST['roll'][$i]);
                $swl="INSERT INTO `meal_table` (   `roll`, `meal_value`, `date_id`, `month_id`, `year`,  `added_on`,`updated_on`, `status`) VALUES 
                                              ( '$roll', '$meal_value', '$date', '$month','$year','$time','$time', '1')";
-               mysqli_query($con,$swl);
+               if(mysqli_query($con,$swl)){
+                  //  redirect('mealCheck.php');
+               }
             }
          }
          $_SESSION['INSERT']=1;
       }
-      echo $swl;
-      //  redirect('mealCheck.php');
+      // echo $swl;
    }
    
    
@@ -78,20 +79,24 @@
          <form action="./pdfreports/meal_status.php">
             <div class="row">
                <select name="month" class="select2">
-                  <option value="01">January</option>
-                  <option value="02">February</option>
-                  <option value="03">March</option>
-                  <option value="04">April</option>
-                  <option value="05">May</option>
-                  <option value="07">July</option>
-                  <option value="08">August</option>
-                  <option value="09">September</option>
-                  <option value="10">October</option>
-                  <option value="11">November</option>
-                  <option value="12">December</option>
+                  <?php
+                  for ($month_id = 1; $month_id <= 12; $month_id++) {
+                     $monthName = date("F", mktime(0, 0, 0, $month_id, 1)); // Get the month name
+                     $formattedMonthId = sprintf("%02d", $month_id);
+                     $currentMonth = date("m"); // Get the current month number
+                     // Check if the current month matches the looped month
+                     $selected = ($formattedMonthId == $currentMonth) ? "selected" : "";
+                     echo "<option value=\"$formattedMonthId\" $selected>$monthName</option>";
+                 }  
+                  ?>
                </select>
                <select name="year" class="select2">
-                  <option value="2022">2022</option>
+                  <?php
+                  $currentYear = date("Y"); // Get the current year
+                  for ($option_year = $currentYear; $option_year >= 2022; $option_year--) {
+                     echo "<option value=\"$option_year\">$option_year</option>";
+                  }
+                  ?>               
                </select>
                <input type="submit" value="Generate report">
             </div>

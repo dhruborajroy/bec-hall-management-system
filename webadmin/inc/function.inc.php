@@ -33,7 +33,7 @@ function send_email($email,$html,$subject,$attachment=""){
 	$mail->SMTPSecure="tls";
 	$mail->SMTPAuth=true;
 	$mail->Username="hackerdhrubo99@gmail.com";
-	$mail->Password="ndajzzubicqfbcih";
+	$mail->Password="tximmqdsawlljymb";
     $mail->setFrom('hackerdhrubo99@gmail.com', 'Dhrubo');
 	$mail->addAddress($email);
 	$mail->IsHTML(true);
@@ -136,12 +136,24 @@ function getPayments(){
 	  return $row['number'];
 	}
 } 
-function getTotalPayments(){
+function getTotalPaymentsToday($start="",$end=""){
 	global $con;
-	$sql="SELECT sum(amount) as number FROM payment";
+	$add_sql="";
+	if($start!="" && $end!=""){
+		$add_sql=" WHERE monthly_payment_details.added_on and fee_details.added_on  between $start and $end";
+	}else{
+		$start=strtotime("first day of this month 00:00:00");
+		$end=strtotime("last day of this month 23:59:59");
+		$add_sql=" WHERE monthly_payment_details.added_on and fee_details.added_on  between $start and $end";
+	}
+	$sql="SELECT SUM(monthly_payment_details.monthly_amount + fee_details.fee_amount) AS number FROM monthly_payment_details JOIN fee_details ON fee_details.payment_id = monthly_payment_details.id $add_sql";
 	$res=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_assoc($res)){
-	  return $row['number'];
+	  if($row['number']!=""){
+		return $row['number'];
+	  }else{
+		return 0;
+	  }
 	}
 } 
 function gettotalstudent(){

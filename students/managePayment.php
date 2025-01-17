@@ -105,7 +105,7 @@ include("header.php");
                                             ('$tran_id','$user_id','$val_id','$amount','$card_type','$tran_date','$card_issuer','$card_no','$error','$status')";
       mysqli_query($con,$sql);
       $result=json_decode($result,TRUE);
-      pr($result);
+      // pr($result);
       if(isset($result['status']) && $result['status']=="SUCCESS"){
          redirect($result['GatewayPageURL']);
       } 

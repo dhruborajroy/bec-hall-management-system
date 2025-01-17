@@ -43,8 +43,27 @@
             </div>
             <div class="col-6">
                <div class="item-content">
-                  <div class="item-title">Expense</div>
-                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalExpense=getTotalExpense(date("m",time()));?>"><?php echo $getTotalExpense?></span></div>
+                  <div class="item-title">Full Month's Collection</div>
+                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalPaymentsToday=getTotalPaymentsToday();?>"><?php echo $getTotalPaymentsToday?></span></div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-xl-3 col-sm-6 col-12">
+      <div class="dashboard-summery-one mg-b-20">
+         <div class="row align-items-center">
+            <div class="col-6">
+               <div class="item-icon bg-light-yellow">
+                  <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/6172/6172509.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+                     <source src="https://cdn-icons-mp4.flaticon.com/512/6172/6172509.mp4" type="video/mp4">
+                  </video>
+               </div>
+            </div>
+            <div class="col-6">
+               <div class="item-content">
+                  <div class="item-title">Today's Collection</div>
+                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalPaymentsToday=getTotalPaymentsToday(strtotime("today 00:00"),strtotime("tomorrow 00:00") - 1);?>"><?php echo $getTotalPaymentsToday?></span></div>
                </div>
             </div>
          </div>

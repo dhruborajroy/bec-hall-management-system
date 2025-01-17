@@ -16,8 +16,6 @@ if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id
         redirect('./makePayments.php');
 	}
 }
-$sql="select * from users order by id desc";
-$res=mysqli_query($con,$sql);
 ?>
 <!-- Page Area Start Here -->
 <div class="dashboard-content-one">
@@ -40,34 +38,40 @@ $res=mysqli_query($con,$sql);
                     <h3>All Students' Data</h3>
                 </div>
                 <div class="item-title">
-                    <form action="./pdfreports/collection.php">
+                    <a href="./pdfreports/user_bill.php">Generate Bill</a>
+                    <form action="./pdfreports/monthly_bill.php">
                     <div class="row">
-                        <select name="month_id" class="">
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
-                        </select>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Select Month</label>
+                                <select class="form-control select2" name="month_id">
+                                    <?php
+                                        for ($month_id = 1; $month_id <= 12; $month_id++) {
+                                            $monthName = date("F", mktime(0, 0, 0, $month_id, 1)); // Get the month name
+                                            $formattedMonthId = sprintf("%02d", $month_id);
+                                            $currentMonth = date("m"); // Get the current month number
+                                            // Check if the current month matches the looped month
+                                            $selected = ($formattedMonthId == $currentMonth) ? "selected" : "";
+                                            echo "<option value=\"$formattedMonthId\" $selected>$monthName</option>";
+                                        }  
+                                        ?>
+                                </select>
+                            </div>
+                            <div class="col-xl-3 col-lg-6 col-12 form-group">
+                                <label>Select year</label>
+                                <select class="select2" name="year" required>
+                                    <?php
+                                    $currentYear = date("Y"); // Get the current year
+                                    for ($option_year = $currentYear; $option_year >= 2022; $option_year--) {
+                                        echo "<option value=\"$option_year\">$option_year</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                         <input type="submit" value="Generate report">
                     </div>
                     </form>
                 </div>
             </div>
-            <form class="mg-b-20">
-                <div class="row gutters-8">
-                    <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                        <input type="text" placeholder="Search by ID/ Name/ Number ..." class="form-control"
-                            id="myInput">
-                    </div>
-                </div>
-            </form>
             <div class="table-responsive">
                 <table class="table display data-table text-nowrap">
                     <thead>
@@ -80,7 +84,10 @@ $res=mysqli_query($con,$sql);
                         </tr>
                     </thead>
                     <tbody id="myTable">
-                        <?php if(mysqli_num_rows($res)>0){
+                        <?php   
+                        $sql="select * from users order by id desc";
+                        $res=mysqli_query($con,$sql);
+                        if(mysqli_num_rows($res)>0){
                         $i=1;
                         while($row=mysqli_fetch_assoc($res)){
                         ?>
