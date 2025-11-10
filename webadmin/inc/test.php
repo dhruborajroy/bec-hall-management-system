@@ -1,6 +1,20 @@
 <?php
-echo strtotime("today 00:00");
-echo date("Y M D h:i:s","1724388558");
+
+
+echo "<pre>";
+$result = bd_bulk_sms_send("01705927257","message");
+
+
+if ($result['success']) {
+    echo "OK ({$result['status']}): {$result['response']}";
+} else {
+    echo "Failed".($result['status'] ? " ({$result['status']})" : '').": ".($result['error'] ?? $result['response']);
+}
+
+// print_r($sms_response[]);
+
+
+
 die;
 include("./constant.inc.php");
 include("./connection.inc.php");
@@ -18,6 +32,9 @@ require('../vendor/autoload.php');
 //     $_SESSION['PERMISSION_ERROR']=1;
 //     redirect("index.php");
 // }
+
+
+die;
 $sql="SELECT * from users";
 $res=mysqli_query($con,$sql);
         $html='<table  width="100%">';

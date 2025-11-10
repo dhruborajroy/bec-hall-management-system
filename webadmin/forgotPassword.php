@@ -135,6 +135,7 @@
         }
 
     }
+    
     function verifyOTP(){
         jQuery('#otp_error').html("");
         var otp=jQuery('#otp').val();

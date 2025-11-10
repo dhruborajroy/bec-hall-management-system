@@ -53,6 +53,65 @@ function send_email($email,$html,$subject,$attachment=""){
 		return "error";
 	}
 }
+
+function send_sms($to, string $message): array{
+    //$token="513900504017582214400b569e316a2c126d7990b1a24eecc435"; //real
+    $token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; //sandbox
+    // Normalize recipients
+    if (is_array($to)) {
+        $to = implode(',', array_map('trim', $to));
+    } else {
+        $to = implode(',', array_filter(array_map('trim', explode(',', (string)$to))));
+    }
+
+    if ($to === '' || $message === '' || $token === '') {
+        return [
+            'success'  => false,
+            'status'   => null,
+            'response' => null,
+            'error'    => 'Missing to/message/token'
+        ];
+    }
+
+    $data = [
+        'to'      => $to,
+        'message' => $message,
+        'token'   => $token,
+    ];
+    $timeout = 15;
+    $verifyTls = true;
+    $ch = curl_init();
+    curl_setopt_array($ch, [
+        CURLOPT_URL            => "https://api.bdbulksms.net/api.php?json",
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => http_build_query($data),
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING       => '',
+        CURLOPT_CONNECTTIMEOUT => $timeout,
+        CURLOPT_TIMEOUT        => $timeout,
+        CURLOPT_SSL_VERIFYHOST => $verifyTls ? 2 : 0,
+        CURLOPT_SSL_VERIFYPEER => $verifyTls ? 1 : 0,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/x-www-form-urlencoded; charset=UTF-8',
+            'Accept: application/json',
+        ],
+    ]);
+
+    $response = curl_exec($ch);
+    $error    = curl_error($ch);
+    $status   = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    return [
+        'success'  => ($error === '' && $status >= 200 && $status < 300),
+        'status'   => $status ?: null,
+        'response' => $response ?: null,
+        'error'    => $error ?: null,
+    ];
+}
+
+
+
 function sendLoginEmail($email){
 	$html="";	
 	$ch=curl_init();
@@ -136,6 +195,7 @@ function getPayments(){
 	  return $row['number'];
 	}
 } 
+
 function getTotalPaymentsToday($start="",$end=""){
 	global $con;
 	$add_sql="";
@@ -146,7 +206,7 @@ function getTotalPaymentsToday($start="",$end=""){
 		$end=strtotime("last day of this month 23:59:59");
 		$add_sql=" WHERE monthly_payment_details.added_on and fee_details.added_on  between $start and $end";
 	}
-	$sql="SELECT SUM(monthly_payment_details.monthly_amount + fee_details.fee_amount) AS number FROM monthly_payment_details JOIN fee_details ON fee_details.payment_id = monthly_payment_details.id $add_sql";
+	echo $sql="SELECT SUM(monthly_payment_details.monthly_amount + fee_details.fee_amount) AS number FROM monthly_payment_details JOIN fee_details ON fee_details.payment_id = monthly_payment_details.id $add_sql";
 	$res=mysqli_query($con,$sql);
 	while($row=mysqli_fetch_assoc($res)){
 	  if($row['number']!=""){
@@ -156,6 +216,51 @@ function getTotalPaymentsToday($start="",$end=""){
 	  }
 	}
 } 
+
+function getTotalFromPaymentDetails($start = null, $end = null) {
+    global $con;
+    if (!$start || !$end) {
+        $start = strtotime("first day of this month 00:00:00");
+        $end   = strtotime("last day of this month 23:59:59");
+    }
+    $start = (int)$start; $end = (int)$end;
+
+    // Sum monthly due
+    $due = [];
+    $q = "SELECT payment_id, COALESCE(SUM(monthly_amount),0) AS s
+          FROM monthly_payment_details
+          WHERE added_on BETWEEN {$start} AND {$end}
+          GROUP BY payment_id";
+    $r = mysqli_query($con, $q);
+    while ($r && $row = mysqli_fetch_assoc($r)) $due[(int)$row['payment_id']] = (float)$row['s'];
+
+    // Sum monthly fees (hall, electricity)
+    $mfees = [];
+    $q = "SELECT payment_id, COALESCE(SUM(monthly_amount),0) AS s
+          FROM monthly_fee_details
+          WHERE added_on BETWEEN {$start} AND {$end}
+          GROUP BY payment_id";
+    $r = mysqli_query($con, $q);
+    while ($r && $row = mysqli_fetch_assoc($r)) $mfees[(int)$row['payment_id']] = (float)$row['s'];
+
+    // Sum contingency
+    $cont = [];
+    $q = "SELECT payment_id, COALESCE(SUM(contingency_amount),0) AS s
+          FROM contingency_fee_details
+          WHERE added_on BETWEEN {$start} AND {$end}
+          GROUP BY payment_id";
+    $r = mysqli_query($con, $q);
+    while ($r && $row = mysqli_fetch_assoc($r)) $cont[(int)$row['payment_id']] = (float)$row['s'];
+
+    // Union payment ids and add components per payment
+    $ids = array_unique(array_merge(array_keys($due), array_keys($mfees), array_keys($cont)));
+    $total = 0.0;
+    foreach ($ids as $pid) {
+        $total += ($due[$pid] ?? 0) + ($mfees[$pid] ?? 0) + ($cont[$pid] ?? 0);
+    }
+    return $total;
+}
+
 function gettotalstudent(){
 	global $con;
 	$sql="SELECT count(DISTINCT id) as student FROM users";

@@ -28,6 +28,28 @@ function drawChart() {
     var chart = new google.visualization.PieChart(document.getElementById('piechart'));
     chart.draw(data, options);
 }
+
+<?php
+$last_date = cal_days_in_month(CAL_GREGORIAN, date('m'), date('Y'));
+$dailyCollection = [];
+for ($i=1; $i <= $last_date; $i++) {
+    $a = ($i < 10) ? "0" : "";
+    // Day window (epoch)
+    $dayStart = strtotime(date('Y-m-').$a.$i.' 00:00:00');
+    $dayEnd   = strtotime(date('Y-m-').$a.$i.' 23:59:59');
+
+    // Sum paid collections from payments (authoritative)
+    $sql = "SELECT COALESCE(SUM(COALESCE(total_amount,totalamount)),0) AS amt
+            FROM payments
+            WHERE COALESCE(paid_status,paidstatus,1)=1
+              AND COALESCE(created_at,createdat,0) BETWEEN {$dayStart} AND {$dayEnd}";
+    $res = mysqli_query($con, $sql);
+    $row = $res ? mysqli_fetch_assoc($res) : ['amt'=>0];
+    $dailyCollection[] = (float)$row['amt'];
+}
+?>
+
+
 (function ($) {
 	/*-------------------------------------
 		  Bar Chart 
@@ -46,25 +68,34 @@ function drawChart() {
         ],
         datasets: [{
         backgroundColor: ["#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01","#40dfcd", "#417dfc", "#ffaa01",],
-        data: [
-            <?php
-            for ($i=1; $i <= $last_date; $i++) {
-                $a="";
-                if($i<10){
-                    $a="0";
-                }
-                $sql="SELECT sum(amount) as amount FROM `expense` WHERE month='".date('m')."' AND date_id='$a$i' and year='".date('Y')."' order by date_id desc";
-                $res=mysqli_query($con,$sql);
-                while($row=mysqli_fetch_assoc($res)){
-                    if($row['amount']>=0){
-                        echo $row['amount'].',';
-                    }else{
-                        echo '0,';                                        
-                    }
-                }
-            }
-            ?>
-        ],
+        datasets: [
+  {
+    backgroundColor: [/* your color array */],
+    data: [
+      <?php
+        for ($i=1; $i <= $last_date; $i++) {
+            $a = ($i<10) ? "0" : "";
+            $sql="SELECT SUM(amount) AS amount FROM expense WHERE month='".date('m')."' AND date_id='$a$i' AND year='".date('Y')."'";
+            $res=mysqli_query($con,$sql);
+            $row=mysqli_fetch_assoc($res);
+            echo ($row && $row['amount']>=0) ? (float)$row['amount'].',' : '0,';
+        }
+      ?>
+    ],
+    label: "Expenses (Daily)"
+  },
+  {
+    type: 'line', // overlay line for contrast; change to 'bar' for grouped bars
+    label: "Collections (Daily)",
+    borderColor: "#2e7d32",
+    backgroundColor: "rgba(46,125,50,0.12)",
+    borderWidth: 2,
+    pointRadius: 3,
+    fill: true,
+    data: [<?php echo implode(',', array_map('floatval', $dailyCollection)); ?>]
+  }
+]
+
         label: "Expenses (Daily)"
         }, ]
     };

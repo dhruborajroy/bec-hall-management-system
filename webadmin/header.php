@@ -231,7 +231,7 @@
                 <div class="sidebar-menu-content">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link <?php // echo  $index_active?>">
+                            <a href="index.php" class="nav-link ">
                             <i class="flaticon-dashboard"></i>
                             <!-- <img src="https://cdn-icons.flaticon.com/png/512/1991/premium/1991103.png?token=exp=1660534293~hmac=aeb4ee5cccf12d77eebb77e03a15741c" alt="dashboard-icon" srcset=""> -->
                             <span>Dashboard</span></a>
@@ -285,23 +285,35 @@
                             </ul>
                         </li> -->
                         <li class="nav-item">
-                            <a href="manage_total_amount.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Input Monthly Bill</span></a>
+                            <a href="manage_total_amount.php" class="nav-link "><i class="flaticon-planet-earth"></i><span>Input Monthly Bill</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="makePayment.php" class="nav-link <?php // echo  $index_active?>"><i
+                            <a href="payment_details.php" class="nav-link" target="_blank"><i
+                                    class="flaticon-chat"></i><span>Daily Collection</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="makePayment.php" class="nav-link "><i
                                     class="flaticon-checklist"></i><span>Manage Payment</span></a>
                         </li>
-                        <li class="nav-item">
-                            <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i
+                        <!-- <li class="nav-item">
+                            <a href="mealCheck.php" class="nav-link "><i
                                     class="flaticon-shopping-list"></i><span>Meal Maintanance</span></a>
+                        </li> -->
+                        <li class="nav-item">
+                            <a href="unpaid_list.php" class="nav-link "  target="_blank"><i
+                                    class="flaticon-shopping-list"></i><span>Unpaid List</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="reports.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Reports</span></a>
+                            <a href="paid_list.php" class="nav-link "  target="_blank"><i
+                                    class="flaticon-shopping-list"></i><span>Paid List</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i
+                            <a href="reports.php" class="nav-link "><i class="flaticon-planet-earth"></i><span>Reports</span></a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="mealStatus.php" class="nav-link "><i
                                     class="flaticon-chat"></i><span>Meal Status</span></a>
-                        </li>
+                        </li> -->
                         <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-script"></i><span>Notices</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
@@ -318,18 +330,18 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-menu-1"></i><span>Meal On Off Requests</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="guestMealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i
-                                    class="flaticon-menu-1"></i><span>Guest Meal On Off Requests</span></a>
-                        </li>
                         <!-- <li class="nav-item">
-                            <a href="monthlyPayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-planet-earth"></i><span>Generate Payment</span></a>
+                            <a href="mealOnOffRequests.php" class="nav-link "><i
+                                    class="flaticon-menu-1"></i><span>Meal On Off Requests</span></a>
                         </li> -->
-                        <li class="nav-item sidebar-nav-item">
+                        <!-- <li class="nav-item">
+                            <a href="guestMealOnOffRequests.php" class="nav-link "><i
+                                    class="flaticon-menu-1"></i><span>Guest Meal On Off Requests</span></a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a href="monthlyPayment.php" class="nav-link "><i class="flaticon-planet-earth"></i><span>Generate Payment</span></a>
+                        </li> -->
+                        <!-- <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-books"></i><span>Fees</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">
                                 <li class="nav-item">
@@ -344,7 +356,7 @@
                                             class="fas fa-angle-right"></i>Add new Fees</a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
                         <!-- <li class="nav-item sidebar-nav-item">
                             <a href="#" class="nav-link"><i class="flaticon-technological"></i><span>Expense Category</span></a>
                             <ul class="nav sub-group-menu <?php // echo  $application_group_active?>">

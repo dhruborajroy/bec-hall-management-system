@@ -31,8 +31,6 @@ if(mysqli_num_rows($res)>0){
             '.WEBSITE.'
             </td>
         </tr>';
-        $html='</table>';
-        $html='<table class="table" width="100%">';
         $html.='
             <tr>
                 <td align="left" colspan="3" style="height:4">                    
@@ -62,41 +60,47 @@ if(mysqli_num_rows($res)>0){
                             <p>'.$row['details'].'</p>
                         </td>
                     </tr>';
-            $html.='
-            <tr>
-                <td align="left">                    
-                    
-                </td>
-                <td  align="center">
-                </td>
-                <td  align="center" style="padding-top:100px">
-                <img  src="../img/signature.svg" width="100" height="50" />
-                <span style="font-style:30px">
-                    <br>
-                        <span style="font-size:20px">এম. রহমান </span>
-                    <br>
-                    হল প্রভোস্ট, অপরাজেয় একাত্তর হল
-                    <br>
-                    বরিশাল ইঞ্জিনিয়ারিং কলেজ
-                </span>
-                </td>
-            </tr>';     
+                    $html.='
+                    <tr>
+                        <td align="left" colspan="6">
+                            অত্র কলেজের সিভিল/ইইই বিভাগের ছাত্র/ছাত্রী ধ্রুবরাজ রায়, ঢাবি রেজিঃ ৮৬২, শিক্ষাবর্ষ ২০২০-২০২১ এর সকল একাডেমিক কার্যক্রম শেষ হওয়া 
+                        </td>
+                    </tr>';     
+                    $html.='
+                    <tr>
+                        <td align="left">                    
+                            
+                        </td>
+                        <td  align="center">
+                        </td>
+                        <td  align="center" style="padding-top:100px">
+                        <img  src="../img/signature.svg" width="100" height="50" />
+                        <span style="font-style:30px">
+                            <br>
+                                <span style="font-size:20px">এম. রহমান </span>
+                            <br>
+                            হল প্রভোস্ট, অপরাজেয় একাত্তর হল
+                            <br>
+                            বরিশাল ইঞ্জিনিয়ারিং কলেজ
+                        </span>
+                        </td>
+                    </tr>';     
 	    $html.='</table>';
 }else{
     $html.="";
 }
-
-$mpdf=new \Mpdf\Mpdf([
-    'tempDir' => __DIR__ . '/custom/temp/dir/path',
-    'default_font_size' => 12,
-    'default_font' => 'FreeSerif',
-	'margin_left' => 20,
-	'margin_right' => 20,
-	'margin_top' => 2,
-	'margin_bottom' => 10,
-]);
-$mpdf->SetTitle('Notice Barisal Engineering College Hall');
-$mpdf->SetFooter('Developed By The Web divers');
-$mpdf->WriteHTML($html);
-$file=time().'.pdf';
-$mpdf->output($file,'I');
+echo $html;
+// $mpdf=new \Mpdf\Mpdf([
+//     'tempDir' => __DIR__ . '/custom/temp/dir/path',
+//     'default_font_size' => 12,
+//     'default_font' => 'FreeSerif',
+// 	'margin_left' => 20,
+// 	'margin_right' => 20,
+// 	'margin_top' => 2,
+// 	'margin_bottom' => 10,
+// ]);
+// $mpdf->SetTitle('Notice Barisal Engineering College Hall');
+// $mpdf->SetFooter('Developed By The Web divers');
+// $mpdf->WriteHTML($html);
+// $file=time().'.pdf';
+// $mpdf->output($file,'I');

@@ -121,7 +121,7 @@ if(isset($_POST['submit']) ){
                               </thead>
                               <tbody id="myTable">
                                  <?php
-                                    $sql="select * from users where status='1' order by id desc";
+                                    $sql="SELECT u.*, b.name AS batch_name FROM users u LEFT JOIN batch b ON b.id = u.batch WHERE u.status = '1' ORDER BY u.id DESC;";
                                     $res=mysqli_query($con,$sql);
                                     if(mysqli_num_rows($res)>0){
                                     $i=1;
@@ -132,7 +132,7 @@ if(isset($_POST['submit']) ){
                                     <input type="hidden" name="roll[]" value="<?php echo $row['roll']?>">
                                     <input type="hidden" name="user_id[]" value="<?php echo $row['id']?>">
                                     <td><?php echo $row['name']?></td>
-                                    <td><?php echo $row['batch']?> batch</td>
+                                    <td><?php echo $row['batch_name']?> batch</td>
                                     <td>CE</td>
                                     <td><input type="number" name="total_amount[]" class="number" value="<?php
                                        $meal_sql="select * from `monthly_bill` where month_id='$month' and year='$year' and `monthly_bill`.user_id=".$row['id'];

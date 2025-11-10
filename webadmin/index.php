@@ -42,9 +42,9 @@
                </div>
             </div>
             <div class="col-6">
-               <div class="item-content">
+               <div class="item-content"> 
                   <div class="item-title">Full Month's Collection</div>
-                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalPaymentsToday=getTotalPaymentsToday();?>"><?php echo $getTotalPaymentsToday?></span></div>
+                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalPaymentsToday=getTotalFromPaymentDetails();?>"><?php echo $getTotalPaymentsToday?></span></div>
                </div>
             </div>
          </div>
@@ -63,13 +63,13 @@
             <div class="col-6">
                <div class="item-content">
                   <div class="item-title">Today's Collection</div>
-                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalPaymentsToday=getTotalPaymentsToday(strtotime("today 00:00"),strtotime("tomorrow 00:00") - 1);?>"><?php echo $getTotalPaymentsToday?></span></div>
+                  <div class="item-number"><span class="counter" data-num="<?php echo $getTotalPaymentsToday=getTotalFromPaymentDetails(strtotime("today 00:00"),strtotime("tomorrow 00:00") - 1);?>"><?php echo $getTotalPaymentsToday?></span></div>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <div class="col-xl-3 col-sm-6 col-12">
+   <!-- <div class="col-xl-3 col-sm-6 col-12">
       <div class="dashboard-summery-one mg-b-20">
          <div class="row align-items-center">
             <div class="col-6">
@@ -88,16 +88,16 @@
             </div>
          </div>
       </div>
-   </div>
-   <div class="col-xl-3 col-sm-6 col-12">
+   </div> -->
+   <!-- <div class="col-xl-3 col-sm-6 col-12">
       <div class="dashboard-summery-one mg-b-20">
          <div class="row align-items-center">
             <div class="col-6">
                <div class="item-icon bg-light-blue">
-                  <!-- <img src="https://cdn-icons-png.flaticon.com/512/7532/7532806.png" alt=""> -->
-                  <!-- <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/7994/7994401.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+                  <img src="https://cdn-icons-png.flaticon.com/512/7532/7532806.png" alt="">
+                  <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/7994/7994401.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
                      <source src="https://cdn-icons-mp4.flaticon.com/512/7994/7994401.mp4" type="video/mp4">
-                     </video> -->
+                     </video>
                   <video width="100" height="100" preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/8112/8112939.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
                      <source src="https://cdn-icons-mp4.flaticon.com/512/8112/8112939.mp4" type="video/mp4">
                   </video>
@@ -111,7 +111,7 @@
             </div>
          </div>
       </div>
-   </div>
+   </div> -->
 </div>
 <!-- Dashboard summery End Here -->
 <!-- Dashboard Content Start Here -->

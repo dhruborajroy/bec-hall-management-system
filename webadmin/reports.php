@@ -16,6 +16,68 @@ include("header.php");
                 <!-- Class Routine Area Start Here -->
                 <div class="row">
                     <div class="col-4-xxxl col-12">
+                    <div class="card height-auto">
+                        <div class="card-body">
+                        <div class="heading-layout1">
+                            <div class="item-title">
+                            <h3>Generate Monthly Bill</h3>
+                            </div>
+                        </div>
+
+                        <?php
+                            // Limits based on your existing year range (2022 .. current)
+                            $minMonth = "2022-01";
+                            $maxMonth = date("Y-m");
+                            // Defaults (current year-to-date)
+                            $defaultStartMonth = date("Y") . "-01";
+                            $defaultEndMonth = $maxMonth;
+                        ?>
+
+                        <form class="new-added-form" action="pdfreports/user_bill.php" method="get">
+                            <div class="row">
+                            <div class="col-12-xxxl col-lg-3 col-12 form-group">
+                                <label>Start month</label>
+                                <input
+                                type="month"
+                                class="form-control"
+                                name="start_date"
+                                min="<?php echo $minMonth; ?>"
+                                max="<?php echo $maxMonth; ?>"
+                                value="<?php echo $defaultStartMonth; ?>"
+                                pattern="[0-9]{4}-[0-9]{2}"
+                                inputmode="numeric"
+                                placeholder="YYYY-MM"
+                                required
+                                >
+                            </div>
+
+                            <div class="col-12-xxxl col-lg-3 col-12 form-group">
+                                <label>End month</label>
+                                <input
+                                type="month"
+                                class="form-control"
+                                name="end_date"
+                                min="<?php echo $minMonth; ?>"
+                                max="<?php echo $maxMonth; ?>"
+                                value="<?php echo $defaultEndMonth; ?>"
+                                pattern="[0-9]{4}-[0-9]{2}"
+                                inputmode="numeric"
+                                placeholder="YYYY-MM"
+                                required
+                                >
+                            </div>
+
+                            <div class="col-6 form-group mg-t-8">
+                                <label></label>
+                                <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Generate</button>
+                                <a href="pdfreports/user_bill.php" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Generate For This Year Bill</a>
+                            </div>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-4-xxxl col-12">
                         <div class="card height-auto">
                             <div class="card-body">
                                 <div class="heading-layout1">
@@ -54,7 +116,6 @@ include("header.php");
                                         <div class="col-6 form-group mg-t-8">
                                             <label></label>
                                             <button type="submit" class="btn-fill-lg btn-gradient-yellow btn-hover-bluedark">Generate</button>
-                                            <a href="pdfreports/user_bill.php" class="btn-fill-lg bg-blue-dark btn-hover-yellow">Generate Full Bill</a>
                                         </div>
                                     </div>
                                 </form>
@@ -97,7 +158,7 @@ include("header.php");
                             </div>
                         </div>
                     </div>
-                    <div class="col-4-xxxl col-12">
+                    <!-- <div class="col-4-xxxl col-12">
                         <div class="card height-auto">
                             <div class="card-body">
                                 <div class="heading-layout1">
@@ -141,7 +202,7 @@ include("header.php");
                                 </form>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Class Routine Area End Here -->
 <?php include("footer.php")?>
