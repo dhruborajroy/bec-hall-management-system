@@ -27,89 +27,55 @@ include("header.php");
             redirect('index.php');
        }
    }
-   if(isset($_POST['submit']) ){
-      $user_id=get_safe_value($_GET['id']);
-      $month_id=$_POST['month_id'];
-      $total_amount=$_POST['total_amount'];
-      $time=time();
-      $payment_type='sslcommerz';
-      $tran_id="becHall_".uniqid();
-       $sql="INSERT INTO `payments` ( `user_id`,`payment_type`,`tran_id`,`total_amount`, `updated_at`, `created_at`,`paid_status`, `status`) VALUES 
-                                    ( '$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '0', '0')";
-       mysqli_query($con,$sql);
-       $payment_id=mysqli_insert_id($con);
-       if(isset($_POST['monthly_amount'])){
-         $monthly_amount_count=count($_POST['monthly_amount']);
-         for($i=0;$i<=($monthly_amount_count)-1;$i++){
-            $month_id_counter=count($_POST['month_id']);
-             for($i=0;$i<=($month_id_counter)-1;$i++){
-                  $monthly_amount=get_safe_value($_POST['monthly_amount'][$i]);
-                  $month_id=get_safe_value($_POST['month_id'][$i]);
-                  $swl="INSERT INTO `monthly_payment_details` ( `user_id`, `payment_id`, `month_id`, `monthly_amount`,  `status`) VALUES 
-                                                                 ('$user_id', '$payment_id', '$month_id', '$monthly_amount', '1')";
-                  mysqli_query($con,$swl);
-                  mysqli_query($con,"update monthly_bill set paid_status='0' where user_id='$user_id' and month_id='$month_id' ");
-             }
-         }
+   if (isset($_POST['submit'])) {
+       $user_id = get_safe_value($_GET['id']);
+       $total_amount = $_POST['total_amount'];
+       $time = time();
+       $payment_type = 'cash';
+       $tran_id = "becHall_" . uniqid();
+   
+       // Updated fixed fees
+       $contingency_fee_per_month = CONTINGENCY_FEE; 
+       $hall_fee_per_month = HALL_FEE; 
+       $electricity_fee_per_month = ELECTRICITY_FEE; 
+   
+       // Insert into payments
+       $sql = "INSERT INTO `payments` (`user_id`,`payment_type`,`tran_id`,`total_amount`,`updated_at`,`created_at`,`paid_status`,`status`) 
+               VALUES ('$user_id', '$payment_type','$tran_id','$total_amount', '', '$time', '1', '1')";
+       mysqli_query($con, $sql);
+       $payment_id = mysqli_insert_id($con);
+   
+       // Insert monthly payments + all additional fees
+       if (isset($_POST['monthly_amount'])) {
+           $count = count($_POST['monthly_amount']);
+           for ($i = 0; $i < $count; $i++) {
+               $month_id = get_safe_value($_POST['month_id'][$i]);
+               $monthly_amount = get_safe_value($_POST['monthly_amount'][$i]);
+   
+               // main monthly bill
+               mysqli_query($con, "INSERT INTO `monthly_payment_details` (`user_id`,`payment_id`,`month_id`,`monthly_amount`,`added_on`,`status`) 
+                                   VALUES ('$user_id','$payment_id','$month_id','$monthly_amount','$time','1')");
+   
+               // contingency
+               mysqli_query($con, "INSERT INTO `contingency_fee_details` (`user_id`,`payment_id`,`month_id`,`contingency_amount`,`added_on`,`status`) 
+                                   VALUES ('$user_id','$payment_id','$month_id','$contingency_fee_per_month','$time','1')");
+   
+               // hall fee
+               mysqli_query($con, "INSERT INTO `monthly_fee_details` (`user_id`,`payment_id`,`month_id`,`monthly_amount`,`fee_type`,`added_on`,`status`) 
+                                   VALUES ('$user_id','$payment_id','$month_id','$hall_fee_per_month','hall_fee','$time','1')");
+   
+               // electricity fee
+               mysqli_query($con, "INSERT INTO `monthly_fee_details` (`user_id`,`payment_id`,`month_id`,`monthly_amount`,`fee_type`,`added_on`,`status`) 
+                                   VALUES ('$user_id','$payment_id','$month_id','$electricity_fee_per_month','electricity_fee','$time','1')");
+   
+               // mark as paid
+               mysqli_query($con, "UPDATE monthly_bill SET paid_status='1' WHERE user_id='$user_id' AND month_id='$month_id'");
+
+           }
        }
-       $_SESSION['INSERT']=1;
-       if(isset($_POST['fee_amount'])){
-         for($i=0;$i<=count($_POST['fee_amount'])-1;$i++){
-            for($i=0;$i<=count($_POST['fee_id'])-1;$i++){
-                  $fee_id=get_safe_value($_POST['fee_id'][$i]);
-                  $fee_amount=get_safe_value($_POST['fee_amount'][$i]);;
-                  $swl="INSERT INTO `fee_details` ( `user_id`, `payment_id`, `fee_id`, `fee_amount`,  `status`) VALUES 
-                                                                  ('$user_id','$payment_id', '$fee_id', '$fee_amount', '1')";
-                  mysqli_query($con,$swl);
-            }
-         }
-      }
-      $ch = curl_init();
-      curl_setopt($ch, CURLOPT_URL, 'https://sandbox.sslcommerz.com/gwprocess/v4/api.php');
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-      curl_setopt($ch, CURLOPT_POST, 1);
-      curl_setopt($ch, CURLOPT_POSTFIELDS, "store_id=".STORE_ID."
-                                             &store_passwd=".STORE_PASSWORD."
-                                             &total_amount=".urlencode(round($total_amount,2))."&currency=BDT
-                                             &tran_id=".$tran_id."
-                                             &success_url=".FRONT_SITE_PATH."/students/success.php"."
-                                             &fail_url=".FRONT_SITE_PATH."/students/failure.php"."
-                                             &cancel_url=".FRONT_SITE_PATH."/students/cancel.php"."
-                                             &cus_name=".$name."
-                                             &cus_email=".$email."
-                                             &cus_add1=".$presentAddress."
-                                             &cus_city=".$permanentAddress."
-                                             &cus_country=Bangladesh
-                                             &ship_country=Bangladesh
-                                             &shipping_method=air
-                                             &ship_add1=".$presentAddress."
-                                             &product_name=Payment of Barishal Engineering College
-                                             &product_category=Monthly payment
-                                             &cus_phone=".$phoneNumber."
-                                             &ship_name=".$name."
-                                             &ship_add1 =".$presentAddress."
-                                             &ship_city=".$permanentAddress."
-                                             &ship_state=".$permanentAddress."
-                                             &ship_postcode=1000
-                                             &product_profile=c"
-                                    );
-      $headers = array();
-      $headers[] = 'Content-Type: application/x-www-form-urlencoded';
-      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-      $result = curl_exec($ch);
-      if (curl_errno($ch)) {
-         echo 'Error:' . curl_error($ch);
-      }
-      curl_close($ch);
-      $sql="INSERT INTO `online_payment`(`tran_id`,`user_id`, `val_id`, `amount`, `card_type`, `tran_date`, `card_issuer`, `card_no`, `error`, `status`) VALUES 
-                                            ('$tran_id','$user_id','$val_id','$amount','$card_type','$tran_date','$card_issuer','$card_no','$error','$status')";
-      mysqli_query($con,$sql);
-      $result=json_decode($result,TRUE);
-      // pr($result);
-      if(isset($result['status']) && $result['status']=="SUCCESS"){
-         redirect($result['GatewayPageURL']);
-      } 
-      die;
+   
+      $_SESSION['INSERT'] = 1;
+   
    }
    ?>
 <div class="dashboard-content-one">
@@ -158,132 +124,152 @@ include("header.php");
                      </div>
                   </div>
                   <hr>
-                  <table class="table table-hover" style="width: 100%;">
-                     <thead class="thead-dark">
-                        <tr>
-                           <th scope="col">#</th>
-                           <th scope="col">Month</th>
-                           <th scope="col">Due</th>
-                           <th scope="col">Other Fees</th>
-                           <th scope="col">Status</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                        <?php 
-                           $sqll="select monthly_bill.* from monthly_bill where monthly_bill.user_id='$id' and monthly_bill.paid_status='0'";
-                           $ress=mysqli_query($con,$sqll);
-                           if(mysqli_num_rows($ress)>0){
-                              $i=1;
-                              while($roww=mysqli_fetch_assoc($ress)){
-                           ?>
-                        <tr>
-                           <td>
-                              <input class="form-control" type="checkbox" value="<?php echo $i?>"  id="checkbox_<?php echo $i?>"  onchange="get_total(this.value)">
-                           </td>
-                           <td><?php echo  date("F - y",strtotime($roww['year']."-".$roww['month_id']))  ?></td>
-                           <td >
-                              <input disabled type="hidden" id="month_<?php echo $i?>" name="month_id[]" value="<?php echo  $roww['month_id']?>" class="amount"> 
-                              <?php echo  $roww['amount']?>
-                           </td>
-                           <td>
-                              <?php
-                                    
-                                 $swl="select fees.* from fees where fees.every_month='1'";
-                                 $fee_res=mysqli_query($con,$swl);
-                                 if(mysqli_num_rows($fee_res)>0){
-                                    $total_fee_amount=0;
-                                    while($rowws=mysqli_fetch_assoc($fee_res)){
-                                       echo  $rowws['name']." : ".$rowws['amount']."<br>";
-                                       $total_fee_amount=$total_fee_amount+$rowws['amount'];
-                                    }
-                                 }
-                              ?>
-                           </td>
-                           <td>
-                              <input disabled type="hidden" name="monthly_amount[]" value="<?php echo $total_fee_amount+$roww['amount']?>" class="amount" id="amount_<?php echo $i?>"> 
-                              <?php echo $total_fee_amount+$roww['amount']?>
-                           </td>
-                        </tr>
-                        <?php 
-                           $i++;
-                           } } else { ?>
-                        <tr colspan="5">
-                           <td  class="d-flex justify-content-center">No due found</td>
-                        </tr>
-                        <?php } ?>
-                     </tbody>
-                  </table>
-                  <hr>
-                  <div class="row">
-                     <div class="col-xl-4 col-lg-8 col-4 form-group">
-                     </div>
-                     <div class="col-xl-4 col-lg-4 col-4 form-group">
-                        <label>Total amount</label>
-                        <input id="grant_total" style="background-color: #64ed4b;text-align:center;font-size:20px;" value="0" class="form-control" readonly name="total_amount">
-                     </div>
-                  </div>
-                  <hr>
-                  <div class="modal-box">
-                     <!-- Button trigger modal -->
-                     <div class="row">
-                        <div class="col-xl-5 col-lg-5 col-5 form-group"></div>
-                        <div class="col-xl-2 col-lg-2 col-12 form-group">
-                           <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal"
-                              data-target="#standard-modal" name="submit">
-                           Payment online
-                           </button>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+
+            <table class="table table-hover"  style="width: 100%;">
+               <thead class="thead-dark">
+                  <tr>
+                     <th>#</th>
+                     <th>Month</th>
+                     <th>Due (৳)</th>
+                     <th>Hall Fee (৳)</th>
+                     <th>Electricity (৳)</th>
+                     <th>Contingency (৳)</th>
+                     <th><strong>Total (৳)</strong></th>
+                     <th>Status</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php 
+                     $sql = "SELECT * FROM monthly_bill WHERE user_id='$id' AND paid_status='0'";
+                     $res = mysqli_query($con, $sql);
+                     $contingency_fee_per_month = CONTINGENCY_FEE;
+                     $hall_fee = HALL_FEE;
+                     $electricity_fee = ELECTRICITY_FEE;
+                     
+                     if (mysqli_num_rows($res) > 0) {
+                        $i = 1;
+                        while ($roww = mysqli_fetch_assoc($res)) { 
+                           $total_amount = $roww['amount'] + $contingency_fee_per_month + $hall_fee + $electricity_fee;
+                     ?>
+                  <tr>
+                     <td><?php echo $i ?></td>
+                     <td><?php echo date("F - y", strtotime($roww['year'] . "-" . $roww['month_id'])) ?></td>
+                     <td><input disabled type="hidden" id="month_<?php echo $i ?>" name="month_id[]" value="<?php echo $roww['month_id'] ?>"> 
+                        <input disabled type="hidden" name="monthly_amount[]" value="<?php echo $roww['amount'] ?>" id="amount_<?php echo $i ?>" class="amount"> 
+                        <?php echo number_format($roww['amount'], 2) ?>
+                     </td>
+                     <td><?php echo number_format($hall_fee, 2) ?></td>
+                     <td><?php echo number_format($electricity_fee, 2) ?></td>
+                     <td><?php echo number_format($contingency_fee_per_month, 2) ?></td>
+                     <td><strong><?php echo number_format($total_amount, 2) ?></strong></td>
+                     <td>
+                        <a class="modal-trigger mt-2 text-white" href="confirm_payment.php?month_id=<?php echo $roww['month_id']?>">
+                           Pay online
+                        </a>
+                     </td>
+                  </tr>
+                  <?php 
+                     $i++; 
+                     } 
+                     } else { ?>
+                  <tr>
+                     <td colspan="8" class="text-center">No due found</td>
+                  </tr>
+                  <?php } ?>
+               </tbody>
+            </table>
             </div>
+         </div>
       </form>
+      </div>
+   </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal fade" id="standard-modal" tabindex="-1" role="dialog" aria-hidden="true">
+   <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title">Are You sure?</h5>
+         </div>
+         <div class="modal-body">Do you want to Pay?</div>
+         <div class="modal-footer">
+            <button type="button" class="footer-btn bg-dark-low" data-dismiss="modal">Cancel</button>
+            <button type="submit" id="submit" disabled class="modal-trigger" data-toggle="modal" data-target="#standard-modal" name="submit">Payment</button>
+         </div>
       </div>
    </div>
 </div>
 <!-- Student Table Area End Here -->
 <?php include("footer.php")?>
+
 <script>
    function get_total(id) {
-      if(document.getElementById("checkbox_"+id).checked==true){
-         jQuery('#amount_'+id).addClass('active_amount');
-         jQuery( '#amount_'+id ).prop( "disabled", false );
-         jQuery( '#submit' ).prop( "disabled", false );
-         jQuery( '#month_'+id ).prop( "disabled", false );
-      }else if(document.getElementById("checkbox_"+id).checked==false){
-         jQuery('#amount_'+id).removeClass('active_amount');
-         jQuery( '#amount_'+id ).prop( "disabled", true );
-         jQuery( '#month_'+id ).prop( "disabled", true );
+      let contingencyFee = <?php echo CONTINGENCY_FEE?>;
+      let hallFee = <?php echo HALL_FEE?>;
+      let electricityFee = <?php echo ELECTRICITY_FEE?>;
+      let total = 0;
+      let selectedCount = 0;
+   
+      if (document.getElementById("checkbox_" + id).checked == true) {
+         jQuery('#amount_' + id).addClass('active_amount');
+         jQuery('#amount_' + id).prop("disabled", false);
+         jQuery('#month_' + id).prop("disabled", false);
+         jQuery('#submit').prop("disabled", false);
+      } else {
+         jQuery('#amount_' + id).removeClass('active_amount');
+         jQuery('#amount_' + id).prop("disabled", true);
+         jQuery('#month_' + id).prop("disabled", true);
       }
-   	var total = 0;
-   	var amount = document.getElementsByClassName("active_amount");
-   	for (let i = 0; i < amount.length; i++) {
-   		var total = total + parseFloat(amount[i].value);
-   	}
-      console.log(total);
-      var grant_total=total;
-      document.getElementById("grant_total").value = grant_total;
-   }
-   function get_fee_total(id){
-      if(document.getElementById("fee_checkbox_"+id).checked==true){
-         jQuery('#fee_amount_'+id).addClass('active_amount');
-         jQuery( '#fee_amount_'+id ).prop( "disabled", false );
-         jQuery( '#fee_id_'+id ).prop( "disabled", false );
-         jQuery( '#submit' ).prop( "disabled", false );
-         jQuery( '#month_'+id ).prop( "disabled", false );
-      }else if(document.getElementById("fee_checkbox_"+id).checked==false){
-         jQuery('#fee_amount_'+id).removeClass('active_amount');
-         jQuery( '#fee_amount_'+id ).prop( "disabled", true );
-         jQuery( '#fee_id_'+id ).prop( "disabled", true );
-         jQuery( '#month_'+id ).prop( "disabled", true );
+   
+      var amount = document.getElementsByClassName("active_amount");
+      for (let i = 0; i < amount.length; i++) {
+         total += parseFloat(amount[i].value);
+         selectedCount++;
       }
-   	var total = 0;
-   	var amount = document.getElementsByClassName("active_amount");
-   	for (let i = 0; i < amount.length; i++) {
-   		var total = total + parseFloat(amount[i].value);
-   	}
-      console.log(total);
-      var grant_total=total;
-      document.getElementById("grant_total").value = grant_total.toFixed(2);
+   
+      let grandTotal = total + selectedCount * (contingencyFee + hallFee + electricityFee);
+      document.getElementById("grant_total").value = grandTotal.toFixed(2);
    }
+</script>
+<!-- Include SweetAlert2 (CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  // Parse query params
+  const params = new URLSearchParams(window.location.search);
+  const bkashPaymentId = params.get('bkash_payment_id');
+  const status = params.get('status');
+  const paymentID = params.get('paymentID');
+
+  // Helper to show alert with SweetAlert2
+  function showPaymentAlert() {
+    if (!status) return; // nothing to show if no status [web:14]
+
+    // Build a readable message
+    let title = 'Payment Status';
+    let text = `Status: ${status}`;
+    if (bkashPaymentId) text += `\nBkash Payment ID: ${bkashPaymentId}`;
+    if (paymentID && paymentID !== bkashPaymentId) text += `\nPayment ID: ${paymentID}`;
+
+    // Choose icon based on status
+    let icon = 'info';
+    if (status === 'success') icon = 'success';
+    else if (status === 'cancel' || status === 'canceled' || status === 'failed') icon = 'error';
+
+    // Show SweetAlert2
+    Swal.fire({
+      icon,
+      title,
+      text,
+      confirmButtonText: 'OK'
+    });
+  }
+
+  // Run after DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', showPaymentAlert);
+  } else {
+    showPaymentAlert();
+  }
 </script>

@@ -56,9 +56,27 @@
                     </div>
                     <div class="col-6">
                         <div class="item-content">
-                            <div class="item-title">Total Meal On</div>
+                            <div class="item-title">Total Unpaid Amount</div>
                             <div class="item-number"><span class="counter" data-num="<?php 
-                                $getTotalMeal=getTotalMeal(date("m"),$_SESSION['USER_ROLL']); echo $getTotalMeal."\">". $getTotalMeal?></span></div>
+                                $getTotalAmount=getTotalAmount($_SESSION['USER_ID'],0); echo $getTotalAmount."\">". $getTotalAmount?></span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="dashboard-summery-one">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="item-icon bg-light-blue">
+                            <i class="flaticon-calendar text-blue"></i>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="item-content">
+                            <div class="item-title">Total Paid Amount</div>
+                            <div class="item-number"><span class="counter" data-num="<?php 
+                                $getTotalAmount=getTotalAmount($_SESSION['USER_ID'],1); echo $getTotalAmount."\">". $getTotalAmount?></span></div>
                         </div>
                     </div>
                 </div>
@@ -86,6 +104,27 @@
         <?php }?>
 
    <div class="col-lg-12 col-xl-12 col-12-xxxl">
+
+<!-- Dashboard Content Start Here -->
+<div class="row gutters-20">
+   <div class="col-12 col-xl-12 col-12-xxxl">
+      <div class="card dashboard-card-two pd-b-20">
+         <div class="card-body">
+            <div class="heading-layout1">
+               <div class="item-title">
+                  <h3>Expenses</h3>
+               </div>
+            </div>
+            <div class="expense-report">
+            </div>
+            <div class="expense-chart-wrap">
+               <canvas id="monthly_payment_chart" width="100" height="300"></canvas>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+<!-- Dashboard Content End Here -->
       <div class="card dashboard-card-six pd-b-20">
          <div class="card-body">
             <div class="heading-layout1 mg-b-17">
@@ -122,5 +161,106 @@
          </div>
       </div>
    </div>
-    </div>
+</div>
+
     <?php include('footer.php');?>
+<?php
+$monthlyDue = [];
+$monthLabels = [];
+
+for ($i = 11; $i >= 0; $i--) {
+    // Find month & year of each past month
+    $timestamp = strtotime("-$i months");
+    $month = date('m', $timestamp);
+    $year  = date('Y', $timestamp);
+
+    // Label for chart (e.g., Feb 2025 → "Feb")
+    $monthLabels[] = date('M', $timestamp);
+
+    $sql = "SELECT SUM(amount) AS base_total, COUNT(*) AS month_count 
+            FROM monthly_bill 
+            WHERE user_id = ".$_SESSION['USER_ID']."
+            AND month_id = '$month'
+            AND year = '$year'";
+
+    $res = mysqli_query($con, $sql);
+    $row = mysqli_fetch_assoc($res);
+
+    $base_total  = $row['base_total'] ?? 0;
+    $month_count = $row['month_count'] ?? 0;
+
+    // Fixed fees
+    $conti = CONTINGENCY_FEE;
+    $hall  = HALL_FEE;
+    $elec  = ELECTRICITY_FEE;
+
+    // Full total for this month
+    $total_due = $base_total + ($month_count * ($conti + $hall + $elec));
+
+    $monthlyDue[] = $total_due;
+}
+?>
+
+<script>
+(function ($) {
+
+if ($("#monthly_payment_chart").length) {
+
+    var barChartData = {
+        labels: [<?php echo '"' . implode('","', $monthLabels) . '"'; ?>],
+
+        datasets: [
+            {
+                label: "Total Monthly Due",
+                backgroundColor: [
+                    "#40dfcd", "#417dfc", "#ffaa01",
+                    "#40dfcd", "#417dfc", "#ffaa01",
+                    "#40dfcd", "#417dfc", "#ffaa01",
+                    "#40dfcd", "#417dfc", "#ffaa01"
+                ],
+                data: [
+                    <?php echo implode(",", array_map('floatval', $monthlyDue)); ?>
+                ]
+            }
+        ]
+    };
+
+    var barChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        animation: { duration: 2000 },
+
+        scales: {
+            xAxes: [{
+                display: true,
+                gridLines: { display: false }
+            }],
+            yAxes: [{
+                display: true,
+                ticks: {
+                    beginAtZero: true,
+                    stepSize: 5000,
+                    callback: function (value) {
+                        if (value >= 1000000) return value / 1000000 + "M";
+                        if (value >= 1000) return value / 1000 + "k";
+                        return value;
+                    }
+                },
+                gridLines: { display: true }
+            }]
+        },
+
+        legend: { display: true },
+        tooltips: { enabled: true }
+    };
+
+    var ctx = $("#monthly_payment_chart").get(0).getContext("2d");
+    new Chart(ctx, {
+        type: 'bar',
+        data: barChartData,
+        options: barChartOptions
+    });
+}
+
+})(jQuery);
+</script>

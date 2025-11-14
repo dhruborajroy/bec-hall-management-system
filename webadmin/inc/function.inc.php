@@ -53,10 +53,26 @@ function send_email($email,$html,$subject,$attachment=""){
 		return "error";
 	}
 }
+function check_sms($token){
+    $url = "https://api.bdbulksms.net/g_api.php?token=$token&balance&expiry&rate&tokensms&totalsms&monthlysms&tokenmonthlysms&json";
+    $ch = curl_init(); 
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+    curl_setopt($ch, CURLOPT_ENCODING, '');
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $smsresult = curl_exec($ch);
+    //Result
+    $smsresult=json_decode($smsresult,1);
+    // print_r($smsresult=json_decode($smsresult,1));
+    return $smsresult[0]['response'];
+    //Error Display
+    curl_error($ch);
+}
 
 function send_sms($to, string $message): array{
-    //$token="513900504017582214400b569e316a2c126d7990b1a24eecc435"; //real
-    $token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; //sandbox
+    $token="513900504017582214400b569e316a2c126d7990b1a24eecc435"; //real
+    //$token="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"; //sandbox
     // Normalize recipients
     if (is_array($to)) {
         $to = implode(',', array_map('trim', $to));
@@ -110,6 +126,33 @@ function send_sms($to, string $message): array{
     ];
 }
 
+
+
+function getTotalAmount($user_id,$type='0'){
+    global $con;
+    $sql = "
+        SELECT 
+            SUM(amount) AS base_total,
+            COUNT(*) AS month_count
+        FROM monthly_bill 
+        WHERE user_id='$user_id' AND paid_status='$type'
+    ";
+
+    $res = mysqli_query($con, $sql);
+    $data = mysqli_fetch_assoc($res);
+    $base_total = $data['base_total'];      // sum of amount column
+    $month_count = $data['month_count'];    // total unpaid months
+    // fixed fees
+    $contingency = CONTINGENCY_FEE;
+    $hall = HALL_FEE;
+    $electricity = ELECTRICITY_FEE;
+    // calculate total fees
+    $total_fees = ($contingency + $hall + $electricity) * $month_count;
+    // final total due
+    $total_due = $base_total + $total_fees;
+    // show in dashboard
+    return $total_due;
+}
 
 
 function sendLoginEmail($email){

@@ -194,7 +194,7 @@
                 <div class="sidebar-menu-content">
                     <ul class="nav nav-sidebar-menu sidebar-toggle-view">
                         <li class="nav-item">
-                            <a href="index.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
+                            <a href="index.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Dashboard</span></a>
                         </li>
                         <?php 
                         $sql="select `role` from `users` where id='$uid'";
@@ -202,41 +202,44 @@
                         $row=mysqli_fetch_assoc($res);
                         if($row['role']==2){?>
                             <li class="nav-item">
-                                <a href="mealCheck.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Maintance</span></a>
+                                <a href="mealCheck.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Meal Maintance</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="mealStatus.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
+                                <a href="mealStatus.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Meal Status</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="mealOnOffRequests.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>meal On Off Requests</span></a>
+                                <a href="mealOnOffRequests.php" class="nav-link "><i class="flaticon-dashboard"></i><span>meal On Off Requests</span></a>
                             </li>
                         <?php }?>
                         <?php
                         if($row['role']==3){?>
                             <li class="nav-item">
-                                <a href="mealAudit.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Audit</span></a>
+                                <a href="mealAudit.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Audit</span></a>
                             </li>
                         <?php }?>
                         <?php
                         if($row['role']==4){?>
                             <li class="nav-item">
-                                <a href="expense.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Expense</span></a>
+                                <a href="expense.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Expense</span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="manageExpense.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Add new expense</span></a>
+                                <a href="manageExpense.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Add new expense</span></a>
                             </li>
                         <?php }?>
                         <li class="nav-item">
-                            <a href="managePayment.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Pay online</span></a>
+                            <a href="managePayment.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Pay online</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="mealOnOffReq2.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
+                            <a href="payments.php" class="nav-link "><i class="flaticon-dashboard"></i><span>My payments</span></a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a href="mealOnOffReq2.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Meal On Off Request</span></a>
                         </li>
                         <li class="nav-item">
-                            <a href="mealOnOffReq.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Guest Meal On Off Request</span></a>
-                        </li>
+                            <a href="mealOnOffReq.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Guest Meal On Off Request</span></a>
+                        </li> -->
                         <li class="nav-item">
-                            <a href="complaint_box.php" class="nav-link <?php // echo  $index_active?>"><i class="flaticon-dashboard"></i><span>Complaint Box</span></a>
+                            <a href="complaint_box.php" class="nav-link "><i class="flaticon-dashboard"></i><span>Complaint Box</span></a>
                         </li>
                     </ul>
                 </div>
