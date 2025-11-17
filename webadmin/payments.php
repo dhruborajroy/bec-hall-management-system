@@ -1,113 +1,91 @@
 <?php 
-include('header.php');
-if(isset($_GET['type']) && $_GET['type']!=='' && isset($_GET['id']) && $_GET['id']>0){
-	$type=get_safe_value($_GET['type']);
-	$id=get_safe_value($_GET['id']);
-	// if($type=='delete'){
-	// 	mysqli_query($con,"delete from applicants where id='$id'");
-	// 	redirect('bus.php');
-	// }
-	if($type=='active' || $type=='deactive'){
-		$status=1;
-		if($type=='deactive'){
-			$status=0;
-		}
-		mysqli_query($con,"update payments set status='$status' where id='$id'");
-        $_SESSION['UPDATE']=1;
-        redirect('./payments.php');
-	}
+include("header.php");
 
-}
-$sql="select payments.*,users.id,users.name from payments,users where payments.user_id=users.id";
-$res=mysqli_query($con,$sql);
+$user_id = $_SESSION['USER_ID'];
+
+
+
 ?>
-<!-- Page Area Start Here -->
 <div class="dashboard-content-one">
-    <!-- Breadcubs Area Start Here -->
-    <div class="breadcrumbs-area">
-        <!-- <h3>Parents</h3>
-            <ul>
-                <li>
-                    <a href="index.php">Home</a>
-                </li>
-                <li>All Buses</li>
-            </ul> -->
-    </div>
-    <!-- Breadcubs Area End Here -->
-    <!-- Teacher Table Area Start Here -->
-    <div class="card height-auto">
-        <div class="card-body">
-            <div class="heading-layout1">
-                <div class="item-title">
-                    <h3>All Students Data</h3>
-                </div>
-                <div class="dropdown show">
-                    <a class="dropdown-toggle" href="../pdf/list.php" aria-expanded="true">Generate PDF</a>
-                </div>
-            </div>
-            <form class="mg-b-20">
-                <div class="row gutters-8">
-                    <div class="col-3-xxxl col-xl-3 col-lg-3 col-12 form-group">
-                        <input type="text" placeholder="Search by ID/ Name/ Number ..." class="form-control"
-                            id="myInput">
-                    </div>
-                </div>
-            </form>
-            <div class="table-responsive">
-                <table class="table display data-table text-nowrap">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Amount</th>
-                            <th>Status</th>
-                            <th>Created At</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody id="myTable">
-                    <?php if(mysqli_num_rows($res)>0){
-                        $i=1;
-                        while($row=mysqli_fetch_assoc($res)){
-                        ?>
-                        <tr role="row" class="odd">
-                            <td class="sorting_1 dtr-control"><?php echo $i?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['name']?></td>
-                            <td class="sorting_1 dtr-control"><?php echo $row['total_amount']?></td>
-                            <td class="badge badge-pill badge-<?php if($row['status']=='1'){
-                                $status='success';
-                                echo $status;
-                                $status="Paid";
-                            }elseif($row['status']=='0'){
-                                $status='warning';
-                                echo $status;
-                                $status="Pending";
-                            }else{
-                                $status='danger';
-                                echo $status;
-                                $status="Failed";
-                            }?> d-block mg-t-8"><?php echo $status?></td>
-                            <td class="sorting_1 dtr-control"><?php echo date("d M Y h:i",$row['created_at'])?></td>
-                            <td>
-                                <div class="ui-btn-wrap">
-                                    <ul>
-                                        <li><a href="paymentDetails.php?id=<?php echo $row['id']?>"><button type="button"
-                                                class="btn-fill-lmd  text-light shadow-dark-pastel-green bg-dark-pastel-green">Make Payment</button></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php 
-                           $i++;
-                           } } else { ?>
-                        <tr>
-                            <td colspan="5">No data found</td>
-                        </tr>
+<div class="breadcrumbs-area">
+   <h3>Payment</h3>
+   <ul>
+      <li><a href="index.php">Home</a></li>
+      <li>Payment Details</li>
+   </ul>
+</div>
+<div class="card height-auto" >
+<div class="card-body">
+<form method="POST">
+   <div class="single-info-details">
+      <div class="item-content">
+         <div class="info-table ">
+            <table class="table table-hover"  style="width: 100%;">
+               <thead class="thead-dark">
+                  <tr>
+                     <th>Name</th>
+                     <th>Roll</th>
+                     <th>Month</th>
+                     <th>Due (৳)</th>
+                     <th>Hall Fee (৳)</th>
+                     <th>Electricity (৳)</th>
+                     <th>Contingency (৳)</th>
+                     <th><strong>Total (৳)</strong></th>
+                     <th>Status</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <?php 
+                     $sql = "SELECT monthly_bill.*,users.name,users.roll FROM monthly_bill,users where monthly_bill.user_id=users.id";
+                     $res = mysqli_query($con, $sql);
+                     $contingency_fee_per_month = CONTINGENCY_FEE;
+                     $hall_fee = HALL_FEE;
+                     $electricity_fee = ELECTRICITY_FEE;
+                     
+                     if (mysqli_num_rows($res) > 0) {
+                        $i = 1;
+                        while ($roww = mysqli_fetch_assoc($res)) { 
+                           $total_amount = $roww['amount'] + $contingency_fee_per_month + $hall_fee + $electricity_fee;
+                     ?>
+                  <tr>
+                     <td><?php echo $roww['name'] ?></td>
+                     <td><?php echo $roww['roll'] ?></td>
+                     <td><?php echo date("F - y", strtotime($roww['year'] . "-" . $roww['month_id'])) ?></td>
+                     <td><?php echo number_format($roww['amount'], 2) ?>
+                     </td>
+                     <td><?php echo number_format($hall_fee, 2) ?></td>
+                     <td><?php echo number_format($electricity_fee, 2) ?></td>
+                     <td><?php echo number_format($contingency_fee_per_month, 2) ?></td>
+                     <td><strong><?php echo number_format($total_amount, 2) ?></strong></td>
+                        <td>
+                        <?php if ($roww['paid_status'] == '1') { ?>
+                            <button type="button" 
+                                class="btn-fill-lmd text-light shadow-dodger-blue" 
+                                style="padding: 3px 5px; background:green;">
+                                Paid
+                            </button>
+                        <?php } else { ?>
+                            <button type="button" 
+                                class="btn-fill-lmd text-light shadow-dodger-blue" 
+                                style="padding: 3px 5px; background:red;">
+                                Unpaid
+                            </button>
                         <?php } ?>
-                </table>
-            </div>
-        </div>
-    </div>
-    <!-- Teacher Table Area End Here -->
-    <?php include('footer.php');?>
+                    </td>
+
+                    </tr>
+                  <?php 
+                     $i++; 
+                     } 
+                     } else { ?>
+                  <tr>
+                     <td colspan="8" class="text-center">No due found</td>
+                  </tr>
+                  <?php } ?>
+               </tbody>
+            </table>
+         </div>
+      </div>
+</form>
+</div>
+<?php include("footer.php")?>

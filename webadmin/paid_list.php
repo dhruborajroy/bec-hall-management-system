@@ -3,17 +3,19 @@
 // Lists all students with unpaid dues and paid dues, shows fee breakdowns, per-user subtotals,
 // and per-category totals (Due, Hall, Electricity, Contingency) for both sections, with print view.
 
-session_start();
-include("./inc/constant.inc.php");
-include("./inc/connection.inc.php");
 include("./inc/function.inc.php");
+session_start();
+require('./inc/constant.inc.php');
+require('./inc/connection.inc.php');
+require_once("./inc/smtp/class.phpmailer.php");
+isAdmin();
 
 // ------------------------------
 // Configuration for UNPAID rows (paid rows are actuals from detail tables)
 // ------------------------------
-$HALL_FEE        = 10;      // Taka
-$ELECTRICITY_FEE = 100;     // Taka
-$CONTINGENCY_FEE = 300;     // Taka
+$HALL_FEE        = HALL_FEE;      // Taka
+$ELECTRICITY_FEE = ELECTRICITY_FEE;     // Taka
+$CONTINGENCY_FEE = CONTINGENCY_FEE;     // Taka
 
 // Optional filter (e.g., by batch)
 $batch_filter = isset($_GET['batch']) ? get_safe_value($_GET['batch']) : '';

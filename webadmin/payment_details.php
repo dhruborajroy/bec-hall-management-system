@@ -2,11 +2,10 @@
 
 include("./inc/function.inc.php");
 session_start();
-include("./inc/constant.inc.php");
-include("./inc/connection.inc.php");
+require('./inc/constant.inc.php');
+require('./inc/connection.inc.php');
 require_once("./inc/smtp/class.phpmailer.php");
-require_once("./inc/phpqrcode/qrlib.php");
-require('vendor/autoload.php');
+isAdmin();
 
 // Build default values for the inputs
 $startInput = isset($_GET['start']) ? $_GET['start'] : date('Y-m-01');

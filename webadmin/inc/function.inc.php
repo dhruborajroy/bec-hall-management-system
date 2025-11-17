@@ -128,14 +128,18 @@ function send_sms($to, string $message): array{
 
 
 
-function getTotalAmount($user_id,$type='0'){
+function getTotalAmount($user_id="",$type='0'){
     global $con;
+    $add_sql="";
+    if($user_id!==""){
+        $add_sql=" user_id='$user_id' AND ";
+    }
     $sql = "
         SELECT 
             SUM(amount) AS base_total,
             COUNT(*) AS month_count
-        FROM monthly_bill 
-        WHERE user_id='$user_id' AND paid_status='$type'
+        FROM monthly_bill  WHERE $add_sql
+         paid_status='$type'
     ";
 
     $res = mysqli_query($con, $sql);
